@@ -24,7 +24,7 @@ const countFavorites = computed<number>(
         </router-link>
       </li>
       <li>
-        <router-link class="header__link" to="">
+        <router-link class="header__link" :to="{ name: 'cart' }">
           <i class="header__link-icon fa-solid fa-cart-shopping"></i>
           <span class="header__link-text">
             <span> Cart </span>
