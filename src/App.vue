@@ -44,6 +44,14 @@ body {
     "header header header header header header header"
     "nav nav nav nav nav nav nav"
     "aside main main main main main main";
+
+  @media screen and (max-width: 768px) {
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-areas:
+      "header"
+      "nav"
+      "main";
+  }
 }
 
 main {
