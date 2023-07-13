@@ -4,8 +4,10 @@ import { useProductsStore } from "@/stores/productsStore";
 import Header from "@/components/Header.vue";
 import Navigation from "@/components/Navigation.vue";
 import Aside from "@/components/Aside.vue";
+import { useRoute } from "vue-router";
 
 const store = useProductsStore();
+const route = useRoute();
 
 onMounted(() => {
   store.setProducts();
@@ -13,12 +15,14 @@ onMounted(() => {
 </script>
 
 <template>
-  <Header />
-  <Navigation />
-  <Aside />
-  <main>
-    <RouterView />
-  </main>
+  <div :class="{ grid: true, 'grid--aside': route.params?.category }">
+    <Header />
+    <Navigation />
+    <Aside />
+    <main>
+      <RouterView />
+    </main>
+  </div>
 </template>
 
 <style lang="scss">
@@ -36,14 +40,21 @@ body {
   background-color: #fff;
 }
 
-#app {
+.grid {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   grid-template-rows: auto;
   grid-template-areas:
-    "header header header header header header header"
-    "nav nav nav nav nav nav nav"
-    "aside main main main main main main";
+    "header"
+    "nav"
+    "main";
+  &--aside {
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-areas:
+      "header header header header header header header"
+      "nav nav nav nav nav nav nav"
+      "aside main main main main main main";
+  }
 
   @media screen and (max-width: 768px) {
     grid-template-columns: repeat(1, 1fr);
