@@ -4,7 +4,7 @@
   </section>
   <section class="cart">
     <div class="cart__container cart-products">
-      <ul class="cart-items">
+      <ul class="cart__items">
         <li class="cart-items__item">
           <div class="cart-card">
             <img class="cart-card__image" src="tshirt2.jpg" alt="" />
@@ -88,7 +88,7 @@
   &-products {
     flex: 3;
   }
-  &-items {
+  &__items {
     &__item {
       display: flex;
       width: 100%;
