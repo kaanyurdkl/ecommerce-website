@@ -14,7 +14,7 @@ const favoriteProducts = computed<FavoriteProduct[]>(
 );
 
 const isFavorite = computed<FavoriteProduct | undefined>(() =>
-  favoriteProducts.value.find((p) => p.productId === props.product.productId)
+  favoriteProducts.value.find((p) => p._id === props.product._id)
 );
 
 const favoritesHandler = () => {
@@ -47,12 +47,10 @@ const addToCart = () => {
 <template>
   <div class="card">
     <div class="card__top">
-      <router-link
-        :to="{ name: 'productDetail', params: { id: product.productId } }"
-      >
+      <router-link :to="{ name: 'productDetail', params: { id: product._id } }">
         <img
           class="card__image"
-          :src="product.productImg"
+          :src="product.image"
           alt="Clothe image"
           title="Tshirt"
         />
@@ -67,13 +65,11 @@ const addToCart = () => {
     <div class="card__bottom">
       <div class="card__price-title">
         <router-link
-          :to="{ name: 'productDetail', params: { id: product.productId } }"
+          :to="{ name: 'productDetail', params: { id: product._id } }"
         >
-          <h3 class="card__title">{{ product.productTitle }}</h3></router-link
+          <h3 class="card__title">{{ product.name }}</h3></router-link
         >
-        <span class="card__price">{{
-          getFormattedPrice(product.productPrice)
-        }}</span>
+        <span class="card__price">{{ getFormattedPrice(product.price) }}</span>
       </div>
       <button @click="addToCart" class="card__button">Add To Cart</button>
     </div>

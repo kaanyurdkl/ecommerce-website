@@ -16,20 +16,20 @@ export const useProductsStore = defineStore("products", {
     },
     getAllProductsByCategory: (state) => {
       return (category: string): Product[] =>
-        state.products.filter((p) => p.productGender === category);
+        state.products.filter((p) => p.category === category);
     },
     getProductById(state) {
       return (id: number): Product | undefined => {
-        return state.products.find((p) => p.productId === Number(id));
+        return state.products.find((p) => p._id === Number(id));
       };
     },
     getProductsListProducts: (state) => {
       return (category: string, type: string): Product[] => {
         const productsByCategory: Product[] = state.products.filter(
-          (p) => p.productGender === category
+          (p) => p.category === category
         );
         const productsByType: Product[] = productsByCategory.filter(
-          (p) => p.productType === type
+          (p) => p.type === type
         );
         return productsByType;
       };
@@ -46,11 +46,11 @@ export const useProductsStore = defineStore("products", {
     getProductTypes: (state) => {
       return (category) => {
         const productsByCategory: Product[] = state.products.filter(
-          (p) => p.productGender === category
+          (p) => p.category === category
         );
         const productsTypes = [
           "all",
-          ...new Set(productsByCategory.map((p) => p.productType)),
+          ...new Set(productsByCategory.map((p) => p.type)),
         ];
         return productsTypes;
       };
@@ -65,7 +65,7 @@ export const useProductsStore = defineStore("products", {
     },
     deleteFavoriteProduct(productToBeRemoved: Product) {
       const index = this.favoriteProducts.findIndex(
-        (p) => p.productId === productToBeRemoved.productId
+        (p) => p._id === productToBeRemoved._id
       );
       this.favoriteProducts.splice(index, 1);
     },

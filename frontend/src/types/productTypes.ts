@@ -1,14 +1,15 @@
 interface Product {
-  productId: number;
-  productImg: string;
-  productTitle: string;
-  productType: string;
-  productPrice: number;
-  productGender: string;
+  _id: number;
+  name: string;
+  image: string;
+  description: string;
+  type: string;
+  price: number;
+  category: string;
 }
 
 interface FavoriteProduct {
-  productId: number;
+  _id: number;
 }
 
 export type { Product, FavoriteProduct };
