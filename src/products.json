@@ -1,0 +1,66 @@
+[
+  {
+    "productId": 0,
+    "productImg": "/man-sweatshirt1.jpg",
+    "productTitle": "Sweatshirt",
+    "productType": "sweatshirts",
+    "productPrice": 14.9,
+    "productGender": "men"
+  },
+  {
+    "productId": 1,
+    "productImg": "/woman-shirt.jpg",
+    "productTitle": "Shirt",
+    "productType": "shirts",
+    "productPrice": 14.9,
+    "productGender": "women"
+  },
+  {
+    "productId": 2,
+    "productImg": "/tshirt2.jpg",
+    "productTitle": "Fit T-shirt",
+    "productType": "t-shirts",
+    "productPrice": 14.9,
+    "productGender": "men"
+  },
+  {
+    "productId": 3,
+    "productImg": "/woman-jacket.jpg",
+    "productTitle": "Jacket",
+    "productType": "jackets",
+    "productPrice": 14.9,
+    "productGender": "women"
+  },
+  {
+    "productId": 4,
+    "productImg": "/tshirt3.jpg",
+    "productTitle": "Fit T-shirt",
+    "productType": "t-shirts",
+    "productPrice": 14.9,
+    "productGender": "men"
+  },
+  {
+    "productId": 5,
+    "productImg": "/tshirt4.jpg",
+    "productTitle": "Fit T-shirt",
+    "productType": "t-shirts",
+    "productPrice": 14.9,
+    "productGender": "men"
+  },
+  {
+    "productId": 6,
+    "productImg": "/tshirt5.jpg",
+    "productTitle": "Fit T-shirt",
+    "productType": "t-shirts",
+    "productPrice": 14.9,
+    "productGender": "men"
+  },
+  {
+    "productId": 7,
+    "productImg": "/woman-tshirt.jpg",
+    "productTitle": "T-shirt",
+    "productType": "t-shirts",
+    "productPrice": 14.9,
+    "productGender": "women"
+  }
+]
