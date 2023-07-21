@@ -1,6 +1,6 @@
 [
   {
-    "_id": 0,
+    "_id": "0",
     "name": "Sweatshirt",
     "image": "/images/man-sweatshirt1.jpg",
     "description": "Some description",
@@ -9,7 +9,7 @@
     "category": "men"
   },
   {
-    "_id": 1,
+    "_id": "1",
     "name": "Shirt",
     "image": "/images/woman-shirt.jpg",
     "description": "Some description",
@@ -18,7 +18,7 @@
     "category": "women"
   },
   {
-    "_id": 2,
+    "_id": "2",
     "name": "Fit T-shirt",
     "image": "/images/tshirt2.jpg",
     "description": "Some description",
@@ -27,7 +27,7 @@
     "category": "men"
   },
   {
-    "_id": 3,
+    "_id": "3",
     "name": "Jacket",
     "image": "/images/woman-jacket.jpg",
     "description": "Some description",
@@ -36,7 +36,7 @@
     "category": "women"
   },
   {
-    "_id": 4,
+    "_id": "4",
     "name": "Fit T-shirt",
     "image": "/images/tshirt3.jpg",
     "description": "Some description",
@@ -45,7 +45,7 @@
     "category": "men"
   },
   {
-    "_id": 5,
+    "_id": "5",
     "name": "Fit T-shirt",
     "image": "/images/tshirt4.jpg",
     "description": "Some description",
@@ -54,7 +54,7 @@
     "category": "men"
   },
   {
-    "_id": 6,
+    "_id": "6",
     "name": "Fit T-shirt",
     "image": "/images/tshirt5.jpg",
     "description": "Some description",
@@ -63,7 +63,7 @@
     "category": "men"
   },
   {
-    "_id": 7,
+    "_id": "7",
     "name": "T-shirt",
     "image": "/images/woman-tshirt.jpg",
     "description": "Some description",

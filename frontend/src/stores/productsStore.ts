@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import type { Product, FavoriteProduct } from "@/types/productTypes";
 import productsJson from "@/products.json";
+import axios from "axios";
 
 export const useProductsStore = defineStore("products", {
   state: () => {
@@ -19,8 +20,8 @@ export const useProductsStore = defineStore("products", {
         state.products.filter((p) => p.category === category);
     },
     getProductById(state) {
-      return (id: number): Product | undefined => {
-        return state.products.find((p) => p._id === Number(id));
+      return (id: string): Product | undefined => {
+        return state.products.find((p) => p._id === id);
       };
     },
     getProductsListProducts: (state) => {
@@ -57,8 +58,13 @@ export const useProductsStore = defineStore("products", {
     },
   },
   actions: {
-    setProducts() {
-      this.products = productsJson;
+    async setProducts() {
+      try {
+        const { data } = await axios.get("/api/products");
+        this.products = data;
+      } catch (error) {
+        return error;
+      }
     },
     addNewFavoriteProduct(newProduct: Product) {
       this.favoriteProducts.push(newProduct);

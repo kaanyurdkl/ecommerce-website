@@ -10,7 +10,7 @@ const store = useProductsStore();
 
 const { getProductById } = storeToRefs(store);
 
-const product: Product | undefined = getProductById.value(Number(props.id));
+const product: Product | undefined = getProductById.value(props.id);
 
 const favoriteProducts = computed<FavoriteProduct[]>(
   () => store.getAllFavoriteProducts

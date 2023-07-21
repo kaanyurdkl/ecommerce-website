@@ -9,8 +9,8 @@ import { useRoute } from "vue-router";
 const store = useProductsStore();
 const route = useRoute();
 
-onMounted(() => {
-  store.setProducts();
+onMounted(async () => {
+  await store.setProducts();
 });
 </script>
 

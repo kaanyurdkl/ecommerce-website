@@ -1,5 +1,5 @@
 interface Product {
-  _id: number;
+  _id: string;
   name: string;
   image: string;
   description: string;
@@ -9,7 +9,7 @@ interface Product {
 }
 
 interface FavoriteProduct {
-  _id: number;
+  _id: string;
 }
 
 export type { Product, FavoriteProduct };
