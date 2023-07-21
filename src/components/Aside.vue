@@ -54,5 +54,8 @@ const getTypeLabel = (type: string): string => {
       }
     }
   }
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 }
 </style>

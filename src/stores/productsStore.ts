@@ -7,7 +7,7 @@ export const useProductsStore = defineStore("products", {
     return {
       products: [] as Product[],
       favoriteProducts: [] as FavoriteProduct[],
-      bag: [] as Product[],
+      cart: [] as Product[],
     };
   },
   getters: {
@@ -40,8 +40,8 @@ export const useProductsStore = defineStore("products", {
     getAllFavoriteProductsReversed(state): Product[] {
       return state.favoriteProducts.toReversed();
     },
-    getAllProductsInBag(state): Product[] {
-      return state.bag;
+    getAllProductsInCart(state): Product[] {
+      return state.cart;
     },
     getProductTypes: (state) => {
       return (category) => {
@@ -69,8 +69,8 @@ export const useProductsStore = defineStore("products", {
       );
       this.favoriteProducts.splice(index, 1);
     },
-    addNewProductToBag(newProduct: Product) {
-      this.bag.push(newProduct);
+    addNewProductToCart(newProduct: Product) {
+      this.cart.push(newProduct);
     },
   },
 });

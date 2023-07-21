@@ -38,6 +38,10 @@ const getFormattedPrice = (number: number): string => {
     return formattedPrice;
   }
 };
+
+const addToCart = () => {
+  productStore.addNewProductToCart(props.product);
+};
 </script>
 
 <template>
@@ -71,7 +75,7 @@ const getFormattedPrice = (number: number): string => {
           getFormattedPrice(product.productPrice)
         }}</span>
       </div>
-      <button class="card__button">Add To Cart</button>
+      <button @click="addToCart" class="card__button">Add To Cart</button>
     </div>
   </div>
 </template>
