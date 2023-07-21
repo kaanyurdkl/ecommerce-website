@@ -14,14 +14,12 @@ const favoriteProducts = computed<FavoriteProduct[]>(
 );
 
 const isFavorite = computed<FavoriteProduct | undefined>(() =>
-  favoriteProducts.value.find((p) => p.productId === props.product.productId)
+  favoriteProducts.value.find((p) => p._id === props.product._id)
 );
 
 const itemNumber = ref(1);
 
-const itemTotalPrice = computed(
-  () => props.product.productPrice * itemNumber.value
-);
+const itemTotalPrice = computed(() => props.product.price * itemNumber.value);
 
 const favoritesHandler = () => {
   if (!isFavorite.value) {
@@ -48,15 +46,15 @@ const getFormattedPrice = (number: number): string => {
 
 <template>
   <div class="cart-card">
-    <img class="cart-card__image" :src="product.productImg" alt="" />
+    <img class="cart-card__image" :src="product.image" alt="" />
     <div class="cart-card__info">
-      <h4 class="cart-cart__header">{{ product.productTitle }}</h4>
+      <h4 class="cart-cart__header">{{ product.name }}</h4>
       <p class="cart-cart__price">
-        {{ getFormattedPrice(product.productPrice) }}
+        {{ getFormattedPrice(product.price) }}
       </p>
       <ul class="cart-card__details">
         <li class="cart-card__detail">
-          <span>Product no:</span><span>{{ product.productId }}</span>
+          <span>Product no:</span><span>{{ product._id }}</span>
         </li>
         <li class="cart-card__detail">
           <span>Total:</span

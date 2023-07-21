@@ -1,66 +1,74 @@
 [
   {
-    "productId": 0,
-    "productImg": "/man-sweatshirt1.jpg",
-    "productTitle": "Sweatshirt",
-    "productType": "sweatshirts",
-    "productPrice": 14.9,
-    "productGender": "men"
+    "_id": 0,
+    "name": "Sweatshirt",
+    "image": "/images/man-sweatshirt1.jpg",
+    "description": "Some description",
+    "type": "sweatshirts",
+    "price": 14.9,
+    "category": "men"
   },
   {
-    "productId": 1,
-    "productImg": "/woman-shirt.jpg",
-    "productTitle": "Shirt",
-    "productType": "shirts",
-    "productPrice": 14.9,
-    "productGender": "women"
+    "_id": 1,
+    "name": "Shirt",
+    "image": "/images/woman-shirt.jpg",
+    "description": "Some description",
+    "type": "shirts",
+    "price": 14.9,
+    "category": "women"
   },
   {
-    "productId": 2,
-    "productImg": "/tshirt2.jpg",
-    "productTitle": "Fit T-shirt",
-    "productType": "t-shirts",
-    "productPrice": 14.9,
-    "productGender": "men"
+    "_id": 2,
+    "name": "Fit T-shirt",
+    "image": "/images/tshirt2.jpg",
+    "description": "Some description",
+    "type": "t-shirts",
+    "price": 14.9,
+    "category": "men"
   },
   {
-    "productId": 3,
-    "productImg": "/woman-jacket.jpg",
-    "productTitle": "Jacket",
-    "productType": "jackets",
-    "productPrice": 14.9,
-    "productGender": "women"
+    "_id": 3,
+    "name": "Jacket",
+    "image": "/images/woman-jacket.jpg",
+    "description": "Some description",
+    "type": "jackets",
+    "price": 14.9,
+    "category": "women"
   },
   {
-    "productId": 4,
-    "productImg": "/tshirt3.jpg",
-    "productTitle": "Fit T-shirt",
-    "productType": "t-shirts",
-    "productPrice": 14.9,
-    "productGender": "men"
+    "_id": 4,
+    "name": "Fit T-shirt",
+    "image": "/images/tshirt3.jpg",
+    "description": "Some description",
+    "type": "t-shirts",
+    "price": 14.9,
+    "category": "men"
   },
   {
-    "productId": 5,
-    "productImg": "/tshirt4.jpg",
-    "productTitle": "Fit T-shirt",
-    "productType": "t-shirts",
-    "productPrice": 14.9,
-    "productGender": "men"
+    "_id": 5,
+    "name": "Fit T-shirt",
+    "image": "/images/tshirt4.jpg",
+    "description": "Some description",
+    "type": "t-shirts",
+    "price": 14.9,
+    "category": "men"
   },
   {
-    "productId": 6,
-    "productImg": "/tshirt5.jpg",
-    "productTitle": "Fit T-shirt",
-    "productType": "t-shirts",
-    "productPrice": 14.9,
-    "productGender": "men"
+    "_id": 6,
+    "name": "Fit T-shirt",
+    "image": "/images/tshirt5.jpg",
+    "description": "Some description",
+    "type": "t-shirts",
+    "price": 14.9,
+    "category": "men"
   },
   {
-    "productId": 7,
-    "productImg": "/woman-tshirt.jpg",
-    "productTitle": "T-shirt",
-    "productType": "t-shirts",
-    "productPrice": 14.9,
-    "productGender": "women"
+    "_id": 7,
+    "name": "T-shirt",
+    "image": "/images/woman-tshirt.jpg",
+    "description": "Some description",
+    "type": "t-shirts",
+    "price": 14.9,
+    "category": "women"
   }
 ]

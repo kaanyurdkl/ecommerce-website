@@ -17,7 +17,7 @@ const favoriteProducts = computed<FavoriteProduct[]>(
 );
 
 const isFavorite = computed<FavoriteProduct | undefined>(() =>
-  favoriteProducts.value.find((p) => p.productId === product?.productId)
+  favoriteProducts.value.find((p) => p._id === product?._id)
 );
 
 const favoriteHandler = () => {
@@ -52,12 +52,12 @@ const addToCart = () => {
 <template>
   <section v-if="product" class="product">
     <div class="product__column product__column--left">
-      <img class="product__image" :src="product.productImg" alt="" />
+      <img class="product__image" :src="product.image" alt="" />
     </div>
     <div class="product__column product__column--right">
       <div class="product__info">
         <div class="product__header">
-          <h1 class="product__title">{{ product.productTitle }}</h1>
+          <h1 class="product__title">{{ product.name }}</h1>
           <img
             v-if="isFavorite"
             class="product__like"
@@ -74,7 +74,7 @@ const addToCart = () => {
           />
         </div>
         <div class="product__price">
-          {{ getFormattedPrice(product.productPrice) }}
+          {{ getFormattedPrice(product.price) }}
         </div>
         <button @click="addToCart" class="product__button">Add to bag</button>
       </div>
