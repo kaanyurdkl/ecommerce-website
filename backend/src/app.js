@@ -1,12 +1,14 @@
 const express = require("express");
-const products = require("../data/products.json");
+const path = require("path");
+
+const api = require("./routes/api");
 
 const app = express();
 
 app.use(express.json());
 
-app.get("/api/products", (req, res) => {
-  res.status(200).json(products);
-});
+app.use(express.static(path.join(__dirname, "/uploads")));
+
+app.use("/api", api);
 
 module.exports = app;
