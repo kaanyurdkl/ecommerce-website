@@ -1,6 +1,5 @@
 import { defineStore } from "pinia";
 import type { Product, FavoriteProduct } from "@/types/productTypes";
-import productsJson from "@/products.json";
 import axios from "axios";
 
 export const useProductsStore = defineStore("products", {
