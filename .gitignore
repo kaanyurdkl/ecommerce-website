@@ -1,13 +1,13 @@
 # dependencies
-/node_modules
-/.php
+node_modules
+/.pnp
 .pnp.js
 
 # testing
 /coverage
 
 # production
-/build
+build
 
 # misc
 .DS_Store
@@ -16,4 +16,7 @@
 .env.development.local
 .env.test.local
 .env.production.local
-.eslintcache
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
