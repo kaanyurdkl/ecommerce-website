@@ -7,7 +7,7 @@
     "install-backend": "npm install --prefix backend",
     "install-frontend": "npm install --prefix frontend",
     "install": "npm run install-backend && npm run install-frontend",
-    "backend": "npm run watch --prefix backend",
+    "backend": "nodemon backend/src/server.js",
     "frontend": "npm run dev --prefix frontend",
     "watch": "npm run backend & npm run frontend",
     "data:import": "node backend/seeder.js",

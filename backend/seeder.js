@@ -1,5 +1,3 @@
-require("dotenv").config();
-
 const { mongoConnect } = require("./src/services/mongo");
 
 const { deleteAllOrders } = require("./src/models/order.model");
