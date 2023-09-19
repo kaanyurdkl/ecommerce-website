@@ -1,15 +1,12 @@
 const express = require("express");
 
-const uploadRouter = require("./upload.router");
-
-const products = require("../../data/products.json");
+const uploadsRouter = require("./uploads/upload.router");
+const productsRouter = require("./products/products.router");
 
 const api = express.Router();
 
-api.use("/upload", uploadRouter);
+api.use("/uploads", uploadsRouter);
 
-api.get("/products", (req, res) => {
-  res.status(200).json(products);
-});
+api.use("/products", productsRouter);
 
 module.exports = api;
