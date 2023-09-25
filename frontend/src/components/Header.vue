@@ -7,8 +7,8 @@ const store = useProductsStore();
 const countFavorites = computed<number>(
   () => store.getAllFavoriteProducts.length
 );
-const countCartItems = computed<number>(
-  () => store.getAllProductsInCart.length
+const countCartItems = computed<number>(() =>
+  store.getAllProductsInCart.reduce((acc, item) => acc + item.quantity, 0)
 );
 </script>
 <template>

@@ -49,7 +49,7 @@ export const useProductsStore = defineStore("products", {
     getAllFavoriteProductsReversed(state): Product[] {
       return state.favoriteProducts.toReversed();
     },
-    getAllProductsInCart(state): Product[] {
+    getAllProductsInCart(state): CartItem[] {
       return state.cart.cartItems;
     },
     getProductTypes: (state) => {
