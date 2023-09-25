@@ -1,8 +1,10 @@
-const addDecimals = (num) => {
+import type { Cart } from "@/types/productTypes";
+
+const addDecimals = (num: number): number => {
   return Number((Math.round(num * 100) / 100).toFixed(2));
 };
 
-export const updateCart = (cart) => {
+export const updateCart = (cart: Cart): void => {
   const itemsPrice = cart.cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
