@@ -91,7 +91,10 @@ export const useProductsStore = defineStore("products", {
       if (existProduct) {
         this.cart.cartItems = this.cart.cartItems.map((p) =>
           p._id === existProduct._id
-            ? { ...newProduct, quantity: p.quantity + 1 }
+            ? {
+                ...newProduct,
+                quantity: p.quantity < 10 ? p.quantity + 1 : p.quantity,
+              }
             : p
         );
       } else {

@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
 import { useProductsStore } from "@/stores/productsStore";
-import type { Product, FavoriteProduct } from "@/types/productTypes";
+import type { CartItem, FavoriteProduct } from "@/types/productTypes";
 
 const props = defineProps<{
-  product: Product;
+  product: CartItem;
 }>();
 
 const productStore = useProductsStore();
@@ -17,7 +17,7 @@ const isFavorite = computed<FavoriteProduct | undefined>(() =>
   favoriteProducts.value.find((p) => p._id === props.product._id)
 );
 
-const itemNumber = ref(1);
+const itemNumber = ref(props.product.quantity);
 
 const itemTotalPrice = computed(() => props.product.price * itemNumber.value);
 
@@ -76,6 +76,11 @@ const getFormattedPrice = (number: number): string => {
           <option value="3">3</option>
           <option value="4">4</option>
           <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
         </select>
         <i class="fa-solid fa-chevron-down"></i>
       </div>
