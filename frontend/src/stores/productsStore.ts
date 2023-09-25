@@ -1,13 +1,22 @@
 import { defineStore } from "pinia";
-import type { Product, FavoriteProduct } from "@/types/productTypes";
+import type {
+  Product,
+  FavoriteProduct,
+  Cart,
+  CartItem,
+} from "@/types/productTypes";
 import axios from "axios";
+
+import { updateCart } from "../utils/cartUtils";
 
 export const useProductsStore = defineStore("products", {
   state: () => {
     return {
       products: [] as Product[],
       favoriteProducts: [] as FavoriteProduct[],
-      cart: [] as Product[],
+      cart: (localStorage.getItem("cart")
+        ? JSON.parse(localStorage.getItem("cart"))
+        : { cartItems: [] }) as Cart,
     };
   },
   getters: {
@@ -41,10 +50,10 @@ export const useProductsStore = defineStore("products", {
       return state.favoriteProducts.toReversed();
     },
     getAllProductsInCart(state): Product[] {
-      return state.cart;
+      return state.cart.cartItems;
     },
     getProductTypes: (state) => {
-      return (category) => {
+      return (category: string) => {
         const productsByCategory: Product[] = state.products.filter(
           (p) => p.category === category
         );
@@ -74,8 +83,22 @@ export const useProductsStore = defineStore("products", {
       );
       this.favoriteProducts.splice(index, 1);
     },
-    addNewProductToCart(newProduct: Product) {
-      this.cart.push(newProduct);
+    addNewProductToCart(newProduct: CartItem) {
+      const existProduct = this.cart.cartItems.find(
+        (p) => p._id === newProduct._id
+      );
+
+      if (existProduct) {
+        this.cart.cartItems = this.cart.cartItems.map((p) =>
+          p._id === existProduct._id
+            ? { ...newProduct, quantity: p.quantity + 1 }
+            : p
+        );
+      } else {
+        this.cart.cartItems.push(newProduct);
+      }
+
+      updateCart(this.cart);
     },
   },
 });

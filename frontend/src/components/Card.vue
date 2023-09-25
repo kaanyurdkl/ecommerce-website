@@ -40,7 +40,7 @@ const getFormattedPrice = (number: number): string => {
 };
 
 const addToCart = () => {
-  productStore.addNewProductToCart(props.product);
+  productStore.addNewProductToCart({ ...props.product, quantity: 1 });
 };
 </script>
 

@@ -45,7 +45,7 @@ const getFormattedPrice = (number: number): string => {
 };
 
 const addToCart = () => {
-  if (product) store.addNewProductToCart(product);
+  if (product) store.addNewProductToCart({ ...product, quantity: 1 });
 };
 </script>
 

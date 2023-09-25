@@ -12,4 +12,16 @@ interface FavoriteProduct {
   _id: string;
 }
 
-export type { Product, FavoriteProduct };
+interface CartItem extends Product {
+  quantity: number;
+}
+
+interface Cart {
+  cartItems: CartItem[];
+  itemsPrice: number;
+  shippingPrice: number;
+  taxPrice: number;
+  totalPrice: number;
+}
+
+export type { Product, FavoriteProduct, Cart, CartItem };
