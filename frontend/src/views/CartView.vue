@@ -21,13 +21,18 @@ const store = useProductsStore();
       <h2 class="cart-summary__title">Order Summary</h2>
       <ul class="cart-summary__fees">
         <li class="cart-summary__fee cart-summary__subtotal">
-          <span>Subtotal</span><span>$40.0</span>
+          <span>Subtotal</span><span>${{ store.cart.itemsPrice }}</span>
         </li>
         <li class="cart-summary__fee cart-summary__shipping">
-          <span>Shipping</span><span>$10.0</span>
+          <span>Shipping</span><span>${{ store.cart.shippingPrice }}</span>
+        </li>
+        <li class="cart-summary__fee cart-summary__tax">
+          <span>Tax</span><span>${{ store.cart.taxPrice }}</span>
         </li>
       </ul>
-      <p class="cart-summary__total"><span>Total</span><span>$50.0</span></p>
+      <p class="cart-summary__total">
+        <span>Total</span><span>${{ store.cart.totalPrice }}</span>
+      </p>
       <button class="cart-summary__checkout">Checkout</button>
     </div>
   </section>

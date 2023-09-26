@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
 import { useProductsStore } from "@/stores/productsStore";
 import type { CartItem, FavoriteProduct } from "@/types/productTypes";
 
@@ -18,6 +18,13 @@ const isFavorite = computed<FavoriteProduct | undefined>(() =>
 );
 
 const itemNumber = ref(props.product.quantity);
+
+watch(itemNumber, (newVal) => {
+  productStore.updateProductInCart({
+    ...props.product,
+    quantity: Number(newVal),
+  });
+});
 
 const itemTotalPrice = computed(() => props.product.price * itemNumber.value);
 

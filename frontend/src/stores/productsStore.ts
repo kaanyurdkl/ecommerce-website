@@ -103,5 +103,12 @@ export const useProductsStore = defineStore("products", {
 
       updateCart(this.cart);
     },
+    updateProductInCart(product: CartItem) {
+      const item = this.cart.cartItems.find((item) => item._id === product._id);
+
+      if (item) item.quantity = product.quantity;
+
+      updateCart(this.cart);
+    },
   },
 });
