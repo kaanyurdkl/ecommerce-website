@@ -110,5 +110,11 @@ export const useProductsStore = defineStore("products", {
 
       updateCart(this.cart);
     },
+    removeProductFromCart(product: CartItem) {
+      this.cart.cartItems = this.cart.cartItems.filter(
+        (item) => item._id !== product._id
+      );
+      updateCart(this.cart);
+    },
   },
 });

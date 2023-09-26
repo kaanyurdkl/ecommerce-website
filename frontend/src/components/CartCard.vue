@@ -55,6 +55,12 @@ const getFormattedPrice = (number: number): string => {
   <div class="cart-card">
     <img class="cart-card__image" :src="product.image" alt="" />
     <div class="cart-card__info">
+      <button
+        class="cart-card__remove"
+        @click="productStore.removeProductFromCart(product)"
+      >
+        Remove
+      </button>
       <h4 class="cart-cart__header">{{ product.name }}</h4>
       <p class="cart-cart__price">
         {{ getFormattedPrice(product.price) }}
@@ -105,6 +111,11 @@ const getFormattedPrice = (number: number): string => {
     "image actions actions actions ";
   gap: 1rem;
   width: 100%;
+  &__remove {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
   @media screen and (max-width: 425px) {
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-areas:
@@ -122,6 +133,7 @@ const getFormattedPrice = (number: number): string => {
     object-fit: cover;
   }
   &__info {
+    position: relative;
     grid-area: details;
   }
   &__header {
