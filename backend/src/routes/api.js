@@ -1,12 +1,13 @@
 const express = require("express");
 
-const uploadsRouter = require("./uploads/upload.router");
+const usersRouter = require("./users/users.router");
 const productsRouter = require("./products/products.router");
+const uploadsRouter = require("./uploads/upload.router");
 
 const api = express.Router();
 
-api.use("/uploads", uploadsRouter);
-
+api.use("/users", usersRouter);
 api.use("/products", productsRouter);
+api.use("/uploads", uploadsRouter);
 
 module.exports = api;

@@ -7,4 +7,4 @@ import "@fortawesome/fontawesome-free/css/all.css";
 
 const pinia = createPinia();
 
-createApp(App).use(router).use(pinia).use(vuetify).mount("#app");
+createApp(App).use(pinia).use(router).use(vuetify).mount("#app");

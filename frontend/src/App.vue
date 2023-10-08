@@ -5,17 +5,24 @@ import Header from "@/components/Header.vue";
 import Navigation from "@/components/Navigation.vue";
 import Aside from "@/components/Aside.vue";
 import { useRoute } from "vue-router";
+import { computed } from "vue";
 
 const store = useProductsStore();
 const route = useRoute();
 
+const appState = computed(() => store.getAppState);
+
 onMounted(async () => {
+  await store.setUser();
   await store.setProducts();
 });
 </script>
 
 <template>
-  <div :class="{ grid: true, 'grid--aside': route.params?.category }">
+  <div
+    v-if="appState"
+    :class="{ grid: true, 'grid--aside': route.params?.category }"
+  >
     <Header />
     <Navigation />
     <Aside />

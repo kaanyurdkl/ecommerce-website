@@ -5,6 +5,9 @@ import ProductsView from "@/views/ProductsView.vue";
 import ProductView from "@/views/ProductView.vue";
 import FavoritesView from "@/views/FavoritesView.vue";
 import CartView from "@/views/CartView.vue";
+import UserView from "@/views/UserView.vue";
+
+import { useProductsStore } from "@/stores/productsStore";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -40,6 +43,16 @@ const router = createRouter({
           component: CartView,
         },
         {
+          path: "user",
+          name: "user",
+          component: UserView,
+        },
+        {
+          path: "logout",
+          name: "logout",
+          component: UserView,
+        },
+        {
           path: "product-detail/:id",
           name: "productDetail",
           component: ProductView,
@@ -56,6 +69,21 @@ const router = createRouter({
   scrollBehavior(to, from, savedPosition) {
     return { top: 0 };
   },
+});
+
+router.beforeEach(async (to, from, next) => {
+  const store = useProductsStore();
+  if (to.name === "user") {
+    if (store.user) {
+      next();
+    } else {
+      window.open("http://localhost:8000/auth/google", "_self");
+    }
+  } else if (to.name === "logout") {
+    window.open("http://localhost:8000/auth/logout", "_self");
+  } else {
+    next();
+  }
 });
 
 export default router;
