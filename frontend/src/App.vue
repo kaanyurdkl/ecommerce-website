@@ -10,17 +10,16 @@ import { computed } from "vue";
 const store = useProductsStore();
 const route = useRoute();
 
-const appState = computed(() => store.getAppState);
+const isAppReady = computed(() => store.getAppState);
 
 onMounted(async () => {
-  await store.setUser();
-  await store.setProducts();
+  await store.setApp();
 });
 </script>
 
 <template>
   <div
-    v-if="appState"
+    v-if="isAppReady"
     :class="{ grid: true, 'grid--aside': route.params?.category }"
   >
     <Header />

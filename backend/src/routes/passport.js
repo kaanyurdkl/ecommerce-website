@@ -14,7 +14,7 @@ passportRouter.get(
   "/google/callback",
   passport.authenticate("google", {
     failureRedirect: "/failure",
-    successRedirect: "/",
+    successRedirect: "http://localhost:5173",
     session: true,
   }),
   (req, res) => {}
@@ -22,7 +22,7 @@ passportRouter.get(
 
 passportRouter.get("/logout", (req, res) => {
   req.logout();
-  return res.redirect("/");
+  return res.redirect("http://localhost:5173");
 });
 
 passportRouter.get("/failure", (req, res) => {

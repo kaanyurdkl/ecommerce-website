@@ -76,13 +76,22 @@ export const useProductsStore = defineStore("products", {
     },
   },
   actions: {
-    setAppState(newState) {
+    async setApp() {
+      this.setAppState(false);
+      try {
+        await this.setUser();
+        await this.setProducts();
+        this.setAppState(true);
+      } catch (error) {
+        this.setAppState(false);
+        return error;
+      }
+    },
+    setAppState(newState: boolean) {
       this.appState = newState;
     },
     async setUser() {
       try {
-        this.setAppState(false);
-
         const { data } = await axios.get("/api/users/auth");
 
         this.user = data.user;
@@ -94,8 +103,6 @@ export const useProductsStore = defineStore("products", {
             localStorage.removeItem("user");
           }
         }
-
-        this.setAppState(true);
       } catch (error) {
         return error;
       }
