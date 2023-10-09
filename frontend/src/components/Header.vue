@@ -2,9 +2,11 @@
 import { computed } from "vue";
 import { useUsersStore } from "@/stores/usersStore";
 import { useProductsStore } from "@/stores/productsStore";
+import { useCartStore } from "@/stores/cartStore";
 
 const usersStore = useUsersStore();
 const productsStore = useProductsStore();
+const cartStore = useCartStore();
 
 const authUser = computed(() => usersStore.getAuthUser);
 
@@ -13,10 +15,7 @@ const countFavorites = computed<number>(
 );
 
 const countCartItems = computed<number>(() =>
-  productsStore.getAllProductsInCart.reduce(
-    (acc, item) => acc + item.quantity,
-    0
-  )
+  cartStore.getAllProductsInCart.reduce((acc, item) => acc + item.quantity, 0)
 );
 </script>
 <template>

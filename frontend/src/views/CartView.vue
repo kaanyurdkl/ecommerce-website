@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import CartCard from "@/components/CartCard.vue";
-import { useProductsStore } from "@/stores/productsStore";
+import { useCartStore } from "@/stores/cartStore";
 
-const store = useProductsStore();
+const cartStore = useCartStore();
 </script>
 
 <template>
@@ -12,7 +12,10 @@ const store = useProductsStore();
   <section class="cart">
     <div class="cart__container cart-products">
       <ul class="cart__items">
-        <li v-for="product in store.getAllProductsInCart" class="cart__item">
+        <li
+          v-for="product in cartStore.getAllProductsInCart"
+          class="cart__item"
+        >
           <CartCard :product="product" />
         </li>
       </ul>
@@ -21,17 +24,17 @@ const store = useProductsStore();
       <h2 class="cart-summary__title">Order Summary</h2>
       <ul class="cart-summary__fees">
         <li class="cart-summary__fee cart-summary__subtotal">
-          <span>Subtotal</span><span>${{ store.cart.itemsPrice }}</span>
+          <span>Subtotal</span><span>${{ cartStore.cart.itemsPrice }}</span>
         </li>
         <li class="cart-summary__fee cart-summary__shipping">
-          <span>Shipping</span><span>${{ store.cart.shippingPrice }}</span>
+          <span>Shipping</span><span>${{ cartStore.cart.shippingPrice }}</span>
         </li>
         <li class="cart-summary__fee cart-summary__tax">
-          <span>Tax</span><span>${{ store.cart.taxPrice }}</span>
+          <span>Tax</span><span>${{ cartStore.cart.taxPrice }}</span>
         </li>
       </ul>
       <p class="cart-summary__total">
-        <span>Total</span><span>${{ store.cart.totalPrice }}</span>
+        <span>Total</span><span>${{ cartStore.cart.totalPrice }}</span>
       </p>
       <button class="cart-summary__checkout">Checkout</button>
     </div>

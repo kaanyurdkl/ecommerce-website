@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, watch } from "vue";
 import { useProductsStore } from "@/stores/productsStore";
+import { useCartStore } from "@/stores/cartStore";
 import type { CartItem, FavoriteProduct } from "@/types/productTypes";
 
 const props = defineProps<{
@@ -8,6 +9,7 @@ const props = defineProps<{
 }>();
 
 const productStore = useProductsStore();
+const cartStore = useCartStore();
 
 const favoriteProducts = computed<FavoriteProduct[]>(
   () => productStore.getAllFavoriteProducts
@@ -20,7 +22,7 @@ const isFavorite = computed<FavoriteProduct | undefined>(() =>
 const itemNumber = ref(props.product.quantity);
 
 watch(itemNumber, (newVal) => {
-  productStore.updateProductInCart({
+  cartStore.updateProductInCart({
     ...props.product,
     quantity: Number(newVal),
   });
@@ -57,7 +59,7 @@ const getFormattedPrice = (number: number): string => {
     <div class="cart-card__info">
       <button
         class="cart-card__remove"
-        @click="productStore.removeProductFromCart(product)"
+        @click="cartStore.removeProductFromCart(product)"
       >
         Remove
       </button>

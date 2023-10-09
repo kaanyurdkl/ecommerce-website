@@ -2,18 +2,20 @@
 import { computed } from "vue";
 import { storeToRefs } from "pinia";
 import { useProductsStore } from "@/stores/productsStore";
+import { useCartStore } from "@/stores/cartStore";
 import type { Product, FavoriteProduct } from "@/types/productTypes";
 
 const props = defineProps<{ id: string }>();
 
-const store = useProductsStore();
+const productsStore = useProductsStore();
+const cartStore = useCartStore();
 
-const { getProductById } = storeToRefs(store);
+const { getProductById } = storeToRefs(productsStore);
 
 const product: Product | undefined = getProductById.value(props.id);
 
 const favoriteProducts = computed<FavoriteProduct[]>(
-  () => store.getAllFavoriteProducts
+  () => productsStore.getAllFavoriteProducts
 );
 
 const isFavorite = computed<FavoriteProduct | undefined>(() =>
@@ -24,9 +26,9 @@ const favoriteHandler = () => {
   if (!product) return;
 
   if (!isFavorite.value) {
-    store.addNewFavoriteProduct(product);
+    productsStore.addNewFavoriteProduct(product);
   } else {
-    store.deleteFavoriteProduct(product);
+    productsStore.deleteFavoriteProduct(product);
   }
 };
 
@@ -45,7 +47,7 @@ const getFormattedPrice = (number: number): string => {
 };
 
 const addToCart = () => {
-  if (product) store.addNewProductToCart({ ...product, quantity: 1 });
+  if (product) cartStore.addNewProductToCart({ ...product, quantity: 1 });
 };
 </script>
 

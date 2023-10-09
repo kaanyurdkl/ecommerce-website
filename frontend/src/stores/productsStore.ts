@@ -1,22 +1,13 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 
-import type {
-  Product,
-  FavoriteProduct,
-  Cart,
-  CartItem,
-} from "@/types/productTypes";
-import { updateCart } from "../utils/cartUtils";
+import type { Product, FavoriteProduct } from "@/types/productTypes";
 
 export const useProductsStore = defineStore("products", {
   state: () => {
     return {
       products: [] as Product[],
       favoriteProducts: [] as FavoriteProduct[],
-      cart: (localStorage.getItem("cart")
-        ? JSON.parse(localStorage.getItem("cart"))
-        : { cartItems: [] }) as Cart,
     };
   },
   getters: {
@@ -49,9 +40,6 @@ export const useProductsStore = defineStore("products", {
     getAllFavoriteProductsReversed(state): Product[] {
       return state.favoriteProducts.toReversed();
     },
-    getAllProductsInCart(state): CartItem[] {
-      return state.cart.cartItems;
-    },
     getProductTypes: (state) => {
       return (category: string) => {
         const productsByCategory: Product[] = state.products.filter(
@@ -82,39 +70,6 @@ export const useProductsStore = defineStore("products", {
         (p) => p._id === productToBeRemoved._id
       );
       this.favoriteProducts.splice(index, 1);
-    },
-    addNewProductToCart(newProduct: CartItem) {
-      const existProduct = this.cart.cartItems.find(
-        (p) => p._id === newProduct._id
-      );
-
-      if (existProduct) {
-        this.cart.cartItems = this.cart.cartItems.map((p) =>
-          p._id === existProduct._id
-            ? {
-                ...newProduct,
-                quantity: p.quantity < 10 ? p.quantity + 1 : p.quantity,
-              }
-            : p
-        );
-      } else {
-        this.cart.cartItems.push(newProduct);
-      }
-
-      updateCart(this.cart);
-    },
-    updateProductInCart(product: CartItem) {
-      const item = this.cart.cartItems.find((item) => item._id === product._id);
-
-      if (item) item.quantity = product.quantity;
-
-      updateCart(this.cart);
-    },
-    removeProductFromCart(product: CartItem) {
-      this.cart.cartItems = this.cart.cartItems.filter(
-        (item) => item._id !== product._id
-      );
-      updateCart(this.cart);
     },
   },
 });

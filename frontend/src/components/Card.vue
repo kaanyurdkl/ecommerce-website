@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { useProductsStore } from "@/stores/productsStore";
+import { useCartStore } from "@/stores/cartStore";
 import type { Product, FavoriteProduct } from "@/types/productTypes";
 
 const props = defineProps<{
@@ -8,6 +9,7 @@ const props = defineProps<{
 }>();
 
 const productStore = useProductsStore();
+const cartStore = useCartStore();
 
 const favoriteProducts = computed<FavoriteProduct[]>(
   () => productStore.getAllFavoriteProducts
@@ -40,7 +42,7 @@ const getFormattedPrice = (number: number): string => {
 };
 
 const addToCart = () => {
-  productStore.addNewProductToCart({ ...props.product, quantity: 1 });
+  cartStore.addNewProductToCart({ ...props.product, quantity: 1 });
 };
 </script>
 
