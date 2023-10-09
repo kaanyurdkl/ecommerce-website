@@ -8,7 +8,11 @@ export const useCartStore = defineStore("cart", {
     return {
       cart: (localStorage.getItem("cart")
         ? JSON.parse(localStorage.getItem("cart"))
-        : { cartItems: [] }) as Cart,
+        : {
+            cartItems: [],
+            shippingAddress: {},
+            paymentMethod: "PayPal",
+          }) as Cart,
     };
   },
   getters: {
@@ -17,6 +21,10 @@ export const useCartStore = defineStore("cart", {
     },
   },
   actions: {
+    saveShippingAddress(address) {
+      this.cart.shippingAddress = address;
+      updateCart(this.cart);
+    },
     addNewProductToCart(newProduct: CartItem) {
       const existProduct = this.cart.cartItems.find(
         (p) => p._id === newProduct._id

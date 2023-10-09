@@ -18,6 +18,8 @@ interface CartItem extends Product {
 
 interface Cart {
   cartItems: CartItem[];
+  shippingAddress: object;
+  paymentMethod: string;
   itemsPrice: number;
   shippingPrice: number;
   taxPrice: number;
