@@ -3,6 +3,7 @@ const express = require("express");
 const passport = require("passport");
 const { Strategy } = require("passport-google-oauth20");
 const cookieSession = require("cookie-session");
+const User = require("./models/user.mongo");
 
 require("dotenv").config();
 
@@ -16,7 +17,20 @@ const config = {
   COOKIE_KEY_2: process.env.COOKIE_KEY_2,
 };
 
-function verifyCallback(accessToken, refreshToken, profile, done) {
+async function verifyCallback(accessToken, refreshToken, profile, done) {
+  const userExist = await User.findOne({ googleId: profile.id });
+
+  if (!userExist) {
+    const { sub, name, email } = profile._json;
+
+    await User.create({
+      googleId: sub,
+      name,
+      email,
+      isAdmin: true,
+    });
+  }
+
   done(null, profile);
 }
 

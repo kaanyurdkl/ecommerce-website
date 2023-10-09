@@ -6,7 +6,7 @@ const passportRouter = express.Router();
 passportRouter.get(
   "/google",
   passport.authenticate("google", {
-    scope: ["profile"],
+    scope: ["profile", "email"],
     prompt: "select_account",
   })
 );

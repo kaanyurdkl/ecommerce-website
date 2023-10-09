@@ -4,7 +4,7 @@ const { deleteAllOrders } = require("./src/models/order.model");
 const {
   createSampleProducts,
   deleteAllProducts,
-} = require("./src/models/product.model");
+} = require("./src/models/products.model");
 const {
   deleteAllUsers,
   createSampleUsers,
@@ -47,12 +47,12 @@ const destroyData = async () => {
 
 const seedDatabase = async () => {
   await mongoConnect();
+
+  if (process.argv[2] === "-d") {
+    destroyData();
+  } else {
+    importData();
+  }
 };
 
 seedDatabase();
-
-if (process.argv[2] === "-d") {
-  destroyData();
-} else {
-  importData();
-}
