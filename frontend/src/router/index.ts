@@ -46,6 +46,7 @@ const router = createRouter({
           path: "user",
           name: "user",
           component: UserView,
+          meta: { requiresAuth: true },
         },
         {
           path: "logout",
@@ -73,7 +74,7 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   const store = useUsersStore();
-  if (to.name === "user") {
+  if (to.meta.requiresAuth) {
     if (store.authUser) {
       next();
     } else {
