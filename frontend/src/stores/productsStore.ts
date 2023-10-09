@@ -1,21 +1,19 @@
 import { defineStore } from "pinia";
+import axios from "axios";
+
+import { useUsersStore } from "./usersStore";
 import type {
   Product,
   FavoriteProduct,
   Cart,
   CartItem,
 } from "@/types/productTypes";
-import axios from "axios";
-
 import { updateCart } from "../utils/cartUtils";
 
 export const useProductsStore = defineStore("products", {
   state: () => {
     return {
       appState: false,
-      user: localStorage.getItem("user")
-        ? JSON.parse(localStorage.getItem("user"))
-        : null,
       products: [] as Product[],
       favoriteProducts: [] as FavoriteProduct[],
       cart: (localStorage.getItem("cart")
@@ -26,9 +24,6 @@ export const useProductsStore = defineStore("products", {
   getters: {
     getAppState(state) {
       return state.appState;
-    },
-    getUser(state) {
-      return state.user;
     },
     getAllProducts(state): Product[] {
       return state.products;
@@ -77,9 +72,10 @@ export const useProductsStore = defineStore("products", {
   },
   actions: {
     async setApp() {
+      const usersStore = useUsersStore();
       this.setAppState(false);
       try {
-        await this.setUser();
+        await usersStore.setAuthUser();
         await this.setProducts();
         this.setAppState(true);
       } catch (error) {
@@ -89,23 +85,6 @@ export const useProductsStore = defineStore("products", {
     },
     setAppState(newState: boolean) {
       this.appState = newState;
-    },
-    async setUser() {
-      try {
-        const { data } = await axios.get("/api/users/auth");
-
-        this.user = data.user;
-
-        if (data.user) {
-          localStorage.setItem("user", JSON.stringify(data.user));
-        } else {
-          if (localStorage.getItem("user")) {
-            localStorage.removeItem("user");
-          }
-        }
-      } catch (error) {
-        return error;
-      }
     },
     async setProducts() {
       try {

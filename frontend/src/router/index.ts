@@ -7,7 +7,7 @@ import FavoritesView from "@/views/FavoritesView.vue";
 import CartView from "@/views/CartView.vue";
 import UserView from "@/views/UserView.vue";
 
-import { useProductsStore } from "@/stores/productsStore";
+import { useUsersStore } from "@/stores/usersStore";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -72,9 +72,9 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-  const store = useProductsStore();
+  const store = useUsersStore();
   if (to.name === "user") {
-    if (store.user) {
+    if (store.authUser) {
       next();
     } else {
       window.open("http://localhost:8000/auth/google", "_self");

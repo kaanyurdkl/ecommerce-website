@@ -1,16 +1,22 @@
 <script setup lang="ts">
 import { computed } from "vue";
+import { useUsersStore } from "@/stores/usersStore";
 import { useProductsStore } from "@/stores/productsStore";
 
-const store = useProductsStore();
+const usersStore = useUsersStore();
+const productsStore = useProductsStore();
+
+const authUser = computed(() => usersStore.getAuthUser);
 
 const countFavorites = computed<number>(
-  () => store.getAllFavoriteProducts.length
+  () => productsStore.getAllFavoriteProducts.length
 );
-const user = computed(() => store.getUser);
 
 const countCartItems = computed<number>(() =>
-  store.getAllProductsInCart.reduce((acc, item) => acc + item.quantity, 0)
+  productsStore.getAllProductsInCart.reduce(
+    (acc, item) => acc + item.quantity,
+    0
+  )
 );
 </script>
 <template>
@@ -41,11 +47,11 @@ const countCartItems = computed<number>(() =>
         <router-link class="header__link" :to="{ name: 'user' }">
           <i class="header__link-icon fa-solid fa-user"></i>
           <span class="header__link-text">
-            <span> {{ user ? "My Account" : "Sign In" }} </span>
+            <span> {{ authUser ? "My Account" : "Sign In" }} </span>
           </span>
         </router-link>
       </li>
-      <li v-if="user">
+      <li v-if="authUser">
         <router-link class="header__link" :to="{ name: 'logout' }">
           <i class="header__link-icon fa-solid fa-user"></i>
           <span class="header__link-text">

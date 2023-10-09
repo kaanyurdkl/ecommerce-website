@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { useProductsStore } from "@/stores/productsStore";
-const store = useProductsStore();
+import { useUsersStore } from "@/stores/usersStore";
+const store = useUsersStore();
 </script>
 
 <template>
   <section class="heading">
     <h2>Profile</h2>
-    <p>User is {{ store.user }}</p>
+    <p>User is {{ store.authUser }}</p>
   </section>
 </template>
 
