@@ -1,7 +1,6 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 
-import { useUsersStore } from "./usersStore";
 import type {
   Product,
   FavoriteProduct,
@@ -13,7 +12,6 @@ import { updateCart } from "../utils/cartUtils";
 export const useProductsStore = defineStore("products", {
   state: () => {
     return {
-      appState: false,
       products: [] as Product[],
       favoriteProducts: [] as FavoriteProduct[],
       cart: (localStorage.getItem("cart")
@@ -22,9 +20,6 @@ export const useProductsStore = defineStore("products", {
     };
   },
   getters: {
-    getAppState(state) {
-      return state.appState;
-    },
     getAllProducts(state): Product[] {
       return state.products;
     },
@@ -71,21 +66,6 @@ export const useProductsStore = defineStore("products", {
     },
   },
   actions: {
-    async setApp() {
-      const usersStore = useUsersStore();
-      this.setAppState(false);
-      try {
-        await usersStore.setAuthUser();
-        await this.setProducts();
-        this.setAppState(true);
-      } catch (error) {
-        this.setAppState(false);
-        return error;
-      }
-    },
-    setAppState(newState: boolean) {
-      this.appState = newState;
-    },
     async setProducts() {
       try {
         const { data } = await axios.get("/api/products");

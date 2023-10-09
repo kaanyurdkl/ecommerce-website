@@ -1,19 +1,20 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
-import { useProductsStore } from "@/stores/productsStore";
+import { onMounted, computed } from "vue";
+import { useRoute } from "vue-router";
+
+import { useAppStore } from "@/stores/appStore";
+
 import Header from "@/components/Header.vue";
 import Navigation from "@/components/Navigation.vue";
 import Aside from "@/components/Aside.vue";
-import { useRoute } from "vue-router";
-import { computed } from "vue";
 
-const store = useProductsStore();
+const appStore = useAppStore();
 const route = useRoute();
 
-const isAppReady = computed(() => store.getAppState);
+const isAppReady = computed(() => appStore.getAppState);
 
 onMounted(async () => {
-  await store.setApp();
+  await appStore.setApp();
 });
 </script>
 
