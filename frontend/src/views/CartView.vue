@@ -1,8 +1,14 @@
 <script setup lang="ts">
+import { useRouter } from "vue-router";
 import CartCard from "@/components/CartCard.vue";
 import { useCartStore } from "@/stores/cartStore";
 
 const cartStore = useCartStore();
+const router = useRouter();
+
+const submitHandler = () => {
+  router.push("/shipping");
+};
 </script>
 
 <template>
@@ -36,7 +42,9 @@ const cartStore = useCartStore();
       <p class="cart-summary__total">
         <span>Total</span><span>${{ cartStore.cart.totalPrice }}</span>
       </p>
-      <button class="cart-summary__checkout">Checkout</button>
+      <button @click="submitHandler" class="cart-summary__checkout">
+        Checkout
+      </button>
     </div>
   </section>
 </template>

@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 
 import { useCartStore } from "@/stores/cartStore";
 
 const cartStore = useCartStore();
+const router = useRouter();
 
 const address = ref(cartStore.cart.shippingAddress?.address || "");
 const city = ref(cartStore.cart.shippingAddress?.city || "");
@@ -18,6 +20,7 @@ const submitHandler = (e) => {
     postalCode: postalCode.value,
     country: country.value,
   });
+  router.push("/payment");
 };
 </script>
 

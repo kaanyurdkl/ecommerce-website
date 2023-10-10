@@ -7,6 +7,7 @@ import FavoritesView from "@/views/FavoritesView.vue";
 import CartView from "@/views/CartView.vue";
 import UserView from "@/views/UserView.vue";
 import ShippingView from "@/views/ShippingView.vue";
+import PaymentView from "@/views/PaymentView.vue";
 
 import { useUsersStore } from "@/stores/usersStore";
 
@@ -47,6 +48,12 @@ const router = createRouter({
           path: "shipping",
           name: "shipping",
           component: ShippingView,
+          meta: { requiresAuth: true },
+        },
+        {
+          path: "payment",
+          name: "payment",
+          component: PaymentView,
           meta: { requiresAuth: true },
         },
         {
