@@ -6,32 +6,34 @@ import { updateCart } from "../utils/cartUtils";
 export const useCartStore = defineStore("cart", {
   state: () => {
     return {
-      cart: (localStorage.getItem("cart")
+      ...((localStorage.getItem("cart")
         ? JSON.parse(localStorage.getItem("cart"))
         : {
             cartItems: [],
             shippingAddress: {},
             paymentMethod: "PayPal",
-          }) as Cart,
+          }) as Cart),
     };
   },
   getters: {
-    getAllProductsInCart(state): CartItem[] {
-      return state.cart.cartItems;
+    getCartItems(state): CartItem[] {
+      return state.cartItems;
     },
   },
   actions: {
+    savePayment(paymentMethod) {
+      this.paymentMethod = paymentMethod;
+      updateCart(this);
+    },
     saveShippingAddress(address) {
-      this.cart.shippingAddress = address;
-      updateCart(this.cart);
+      this.shippingAddress = address;
+      updateCart(this);
     },
     addNewProductToCart(newProduct: CartItem) {
-      const existProduct = this.cart.cartItems.find(
-        (p) => p._id === newProduct._id
-      );
+      const existProduct = this.cartItems.find((p) => p._id === newProduct._id);
 
       if (existProduct) {
-        this.cart.cartItems = this.cart.cartItems.map((p) =>
+        this.cartItems = this.cartItems.map((p) =>
           p._id === existProduct._id
             ? {
                 ...newProduct,
@@ -40,23 +42,23 @@ export const useCartStore = defineStore("cart", {
             : p
         );
       } else {
-        this.cart.cartItems.push(newProduct);
+        this.cartItems.push(newProduct);
       }
 
-      updateCart(this.cart);
+      updateCart(this);
     },
     updateProductInCart(product: CartItem) {
-      const item = this.cart.cartItems.find((item) => item._id === product._id);
+      const item = this.cartItems.find((item) => item._id === product._id);
 
       if (item) item.quantity = product.quantity;
 
-      updateCart(this.cart);
+      updateCart(this);
     },
     removeProductFromCart(product: CartItem) {
-      this.cart.cartItems = this.cart.cartItems.filter(
+      this.cartItems = this.cartItems.filter(
         (item) => item._id !== product._id
       );
-      updateCart(this.cart);
+      updateCart(this);
     },
   },
 });

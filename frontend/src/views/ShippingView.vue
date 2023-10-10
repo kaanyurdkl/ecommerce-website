@@ -7,10 +7,10 @@ import { useCartStore } from "@/stores/cartStore";
 const cartStore = useCartStore();
 const router = useRouter();
 
-const address = ref(cartStore.cart.shippingAddress?.address || "");
-const city = ref(cartStore.cart.shippingAddress?.city || "");
-const postalCode = ref(cartStore.cart.shippingAddress?.postalCode || "");
-const country = ref(cartStore.cart.shippingAddress?.country || "");
+const address = ref(cartStore.shippingAddress?.address || "");
+const city = ref(cartStore.shippingAddress?.city || "");
+const postalCode = ref(cartStore.shippingAddress?.postalCode || "");
+const country = ref(cartStore.shippingAddress?.country || "");
 
 const submitHandler = (e) => {
   e.preventDefault();

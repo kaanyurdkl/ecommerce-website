@@ -1,12 +1,41 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import { useCartStore } from "@/stores/cartStore";
+import { onMounted } from "vue";
+import { useRouter } from "vue-router";
 
 const cartStore = useCartStore();
+const router = useRouter();
+
+const paymentMethod = ref("PayPal");
+
+const submitHandler = (e) => {
+  e.preventDefault();
+};
+
+onMounted(() => {
+  if (Object.keys(cartStore.shippingAddress).length === 0) {
+    router.push("/shipping");
+  }
+});
 </script>
 
 <template>
   <section class="heading">
     <h2>Payment</h2>
+    <form @submit="submitHandler">
+      <div>
+        <label for="paypal">PayPal</label>
+        <input
+          type="radio"
+          name="paymentMethod"
+          v-model="paymentMethod"
+          value="PayPal"
+          id="paypal"
+        />
+      </div>
+      <input type="submit" value="Continue" />
+    </form>
   </section>
   <section class="payment"></section>
 </template>

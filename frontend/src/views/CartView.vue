@@ -18,10 +18,7 @@ const submitHandler = () => {
   <section class="cart">
     <div class="cart__container cart-products">
       <ul class="cart__items">
-        <li
-          v-for="product in cartStore.getAllProductsInCart"
-          class="cart__item"
-        >
+        <li v-for="product in cartStore.getCartItems" class="cart__item">
           <CartCard :product="product" />
         </li>
       </ul>
@@ -30,17 +27,17 @@ const submitHandler = () => {
       <h2 class="cart-summary__title">Order Summary</h2>
       <ul class="cart-summary__fees">
         <li class="cart-summary__fee cart-summary__subtotal">
-          <span>Subtotal</span><span>${{ cartStore.cart.itemsPrice }}</span>
+          <span>Subtotal</span><span>${{ cartStore.itemsPrice }}</span>
         </li>
         <li class="cart-summary__fee cart-summary__shipping">
-          <span>Shipping</span><span>${{ cartStore.cart.shippingPrice }}</span>
+          <span>Shipping</span><span>${{ cartStore.shippingPrice }}</span>
         </li>
         <li class="cart-summary__fee cart-summary__tax">
-          <span>Tax</span><span>${{ cartStore.cart.taxPrice }}</span>
+          <span>Tax</span><span>${{ cartStore.taxPrice }}</span>
         </li>
       </ul>
       <p class="cart-summary__total">
-        <span>Total</span><span>${{ cartStore.cart.totalPrice }}</span>
+        <span>Total</span><span>${{ cartStore.totalPrice }}</span>
       </p>
       <button @click="submitHandler" class="cart-summary__checkout">
         Checkout
