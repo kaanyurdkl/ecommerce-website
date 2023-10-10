@@ -47,6 +47,7 @@ const router = createRouter({
           path: "shipping",
           name: "shipping",
           component: ShippingView,
+          meta: { requiresAuth: true },
         },
         {
           path: "user",
