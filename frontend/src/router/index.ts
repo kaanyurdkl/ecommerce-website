@@ -8,6 +8,8 @@ import CartView from "@/views/CartView.vue";
 import UserView from "@/views/UserView.vue";
 import ShippingView from "@/views/ShippingView.vue";
 import PaymentView from "@/views/PaymentView.vue";
+import PlaceOrderView from "@/views/PlaceOrderView.vue";
+import OrderView from "@/views/OrderView.vue";
 
 import { useUsersStore } from "@/stores/usersStore";
 
@@ -54,6 +56,24 @@ const router = createRouter({
           path: "payment",
           name: "payment",
           component: PaymentView,
+          meta: { requiresAuth: true },
+        },
+        {
+          path: "placeorder",
+          name: "placeorder",
+          component: PlaceOrderView,
+          meta: { requiresAuth: true },
+        },
+        {
+          path: "order",
+          children: [
+            {
+              path: ":id",
+              name: "order",
+              component: OrderView,
+              props: true,
+            },
+          ],
           meta: { requiresAuth: true },
         },
         {

@@ -15,7 +15,7 @@ const countFavorites = computed<number>(
 );
 
 const countCartItems = computed<number>(() =>
-  cartStore.getCartItems.reduce((acc, item) => acc + item.quantity, 0)
+  cartStore.getAllCartItems.reduce((acc, item) => acc + item.quantity, 0)
 );
 </script>
 <template>

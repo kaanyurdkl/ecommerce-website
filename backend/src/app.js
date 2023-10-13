@@ -23,15 +23,16 @@ async function verifyCallback(accessToken, refreshToken, profile, done) {
   if (!userExist) {
     const { sub, name, email } = profile._json;
 
-    await User.create({
+    const createdUser = await User.create({
       googleId: sub,
       name,
       email,
       isAdmin: true,
     });
+    done(null, { ...profile, _id: createdUser._id });
   }
 
-  done(null, profile);
+  done(null, { ...profile, _id: userExist._id });
 }
 
 passport.use(

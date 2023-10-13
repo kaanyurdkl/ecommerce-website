@@ -1,16 +1,17 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { useCartStore } from "@/stores/cartStore";
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 
-const cartStore = useCartStore();
+import { useCartStore } from "@/stores/cartStore";
+
 const router = useRouter();
+const cartStore = useCartStore();
 
 const paymentMethod = ref("PayPal");
 
 const submitHandler = (e) => {
   e.preventDefault();
+  router.push("/placeorder");
 };
 
 onMounted(() => {

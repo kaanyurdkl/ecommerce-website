@@ -16,7 +16,7 @@ export const useCartStore = defineStore("cart", {
     };
   },
   getters: {
-    getCartItems(state): CartItem[] {
+    getAllCartItems(state): CartItem[] {
       return state.cartItems;
     },
   },
@@ -58,6 +58,10 @@ export const useCartStore = defineStore("cart", {
       this.cartItems = this.cartItems.filter(
         (item) => item._id !== product._id
       );
+      updateCart(this);
+    },
+    clearCartItems() {
+      this.cartItems = [];
       updateCart(this);
     },
   },

@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { useRouter } from "vue-router";
-import CartCard from "@/components/CartCard.vue";
+
 import { useCartStore } from "@/stores/cartStore";
 
-const cartStore = useCartStore();
+import CartCard from "@/components/CartCard.vue";
+
 const router = useRouter();
+const cartStore = useCartStore();
 
 const submitHandler = () => {
   router.push("/shipping");
@@ -18,7 +20,7 @@ const submitHandler = () => {
   <section class="cart">
     <div class="cart__container cart-products">
       <ul class="cart__items">
-        <li v-for="product in cartStore.getCartItems" class="cart__item">
+        <li v-for="product in cartStore.getAllCartItems" class="cart__item">
           <CartCard :product="product" />
         </li>
       </ul>
