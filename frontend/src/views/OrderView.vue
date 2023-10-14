@@ -3,6 +3,7 @@ import { onMounted, ref } from "vue";
 import { loadScript } from "@paypal/paypal-js";
 
 import { useOrdersStore } from "@/stores/ordersStore";
+import axios from "axios";
 
 const props = defineProps<{
   id: String;
@@ -22,8 +23,36 @@ onMounted(async () => {
   if (paypal.value) {
     await paypal.value
       .Buttons({
-        createOrder() {
-          console.log("Create order");
+        createOrder(data, actions) {
+          return actions.order
+            .create({
+              purchase_units: [
+                {
+                  amount: { value: orderDetails.value.totalPrice },
+                },
+              ],
+            })
+            .then((orderID) => {
+              return orderID;
+            });
+        },
+        async onApprove(data, actions) {
+          return actions.order.capture().then(async function (details) {
+            try {
+              await axios.put(
+                `http://localhost:8000/api/orders/${props.id}/pay`,
+                {
+                  ...details,
+                }
+              );
+              orderDetails.value = await ordersStore.getOrderDetails(props.id);
+            } catch (err) {
+              console.log(err);
+            }
+          });
+        },
+        onError(err) {
+          console.log(err.message);
         },
       })
       .render(".paypal-buttons-container");

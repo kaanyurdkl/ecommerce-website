@@ -4,6 +4,7 @@ const passport = require("passport");
 const { Strategy } = require("passport-google-oauth20");
 const cookieSession = require("cookie-session");
 const User = require("./models/user.mongo");
+const cors = require("cors");
 
 require("dotenv").config();
 
@@ -55,6 +56,8 @@ passport.deserializeUser((user, done) => {
 });
 
 const app = express();
+
+app.use(cors({ origin: "http://localhost:5173" }));
 
 app.use(express.json());
 
