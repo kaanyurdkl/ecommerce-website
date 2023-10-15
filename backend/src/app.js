@@ -30,10 +30,14 @@ async function verifyCallback(accessToken, refreshToken, profile, done) {
       email,
       isAdmin: true,
     });
-    done(null, { ...profile, _id: createdUser._id });
+    done(null, {
+      ...profile,
+      _id: createdUser._id,
+      isAdmin: createdUser.isAdmin,
+    });
   }
 
-  done(null, { ...profile, _id: userExist._id });
+  done(null, { ...profile, _id: userExist._id, isAdmin: userExist.isAdmin });
 }
 
 passport.use(

@@ -1,12 +1,26 @@
 <script setup lang="ts">
+import { ref, onMounted } from "vue";
+
 import { useUsersStore } from "@/stores/usersStore";
-const store = useUsersStore();
+import { useOrdersStore } from "@/stores/ordersStore";
+
+const usersStore = useUsersStore();
+const ordersStore = useOrdersStore();
+
+const myOrders = ref(null);
+
+onMounted(async () => {
+  myOrders.value = await ordersStore.getMyOrders();
+});
 </script>
 
 <template>
   <section class="heading">
     <h2>Profile</h2>
-    <p>User is {{ store.authUser }}</p>
+  </section>
+  <section class="user">
+    <p>User is {{ usersStore.authUser }}</p>
+    <p v-if="myOrders">User orders are {{ myOrders }}</p>
   </section>
 </template>
 

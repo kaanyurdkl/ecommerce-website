@@ -7,6 +7,14 @@ export const useOrdersStore = defineStore("orders", {
   },
   getters: {},
   actions: {
+    async getMyOrders() {
+      try {
+        const { data } = await axios.get("/api/orders/myorders");
+        return data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async createOrder(order) {
       try {
         const { data } = await axios.post("/api/orders", { ...order });

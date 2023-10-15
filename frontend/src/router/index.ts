@@ -108,9 +108,14 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   const store = useUsersStore();
-  if (to.meta.requiresAuth) {
+  if (to.meta.requiresAuth || to.meta.requiresAdmin) {
     if (store.authUser) {
-      next();
+      if (to.meta.requiresAdmin) {
+        if (store.authUser.isAdmin) next();
+        else next({ name: "home" });
+      } else {
+        next();
+      }
     } else {
       window.open("http://localhost:8000/auth/google", "_self");
     }
