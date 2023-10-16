@@ -7,11 +7,24 @@ const productsStore = useProductsStore();
 const ordersStore = useOrdersStore();
 
 const orders = ref(null);
+const newProduct = ref(null);
+
 const products = computed(() => productsStore.getAllProducts);
 
 const deliverOrderHandler = async (id) => {
   await ordersStore.deliverOrder(id);
   orders.value = await ordersStore.getAllOrders();
+};
+
+const createProductHandler = async () => {
+  newProduct.value = await productsStore.createProduct();
+};
+
+const updateProductHandler = async () => {
+  newProduct.value = await productsStore.updateProduct(newProduct.value._id, {
+    ...newProduct.value,
+    name: "New sample name",
+  });
 };
 
 const deleteProductHandler = async (id) => {
@@ -40,6 +53,20 @@ onMounted(async () => {
       {{ products }}
     </p>
     <button @click="deleteProductHandler(products[0]._id)">Delete</button>
+  </section>
+  <section>
+    <h3>Created Products</h3>
+    <p>
+      {{ newProduct }}
+    </p>
+    <button @click="createProductHandler()">Create</button>
+  </section>
+  <section>
+    <h3>Update Product</h3>
+    <p>
+      {{ newProduct }}
+    </p>
+    <button @click="updateProductHandler()">Update</button>
   </section>
 </template>
 

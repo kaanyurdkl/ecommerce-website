@@ -54,6 +54,24 @@ export const useProductsStore = defineStore("products", {
     },
   },
   actions: {
+    async updateProduct(id, productDetails) {
+      try {
+        const { data } = await axios.put(`/api/products/${id}`, {
+          ...productDetails,
+        });
+        return data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async createProduct() {
+      try {
+        const { data } = await axios.post("/api/products");
+        return data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async setProducts() {
       try {
         const { data } = await axios.get("/api/products");
