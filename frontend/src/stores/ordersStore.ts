@@ -7,6 +7,14 @@ export const useOrdersStore = defineStore("orders", {
   },
   getters: {},
   actions: {
+    async getAllOrders() {
+      try {
+        const { data } = await axios.get("/api/orders");
+        return data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async getMyOrders() {
       try {
         const { data } = await axios.get("/api/orders/myorders");
@@ -27,6 +35,14 @@ export const useOrdersStore = defineStore("orders", {
       try {
         const { data } = await axios.get(`/api/orders/${orderId}`);
         return data;
+      } catch (error) {
+        return error;
+      }
+    },
+    async deliverOrder(orderId) {
+      try {
+        const res = await axios.put(`/api/orders/${orderId}/deliver`);
+        console.log("Res: ", res);
       } catch (error) {
         return error;
       }

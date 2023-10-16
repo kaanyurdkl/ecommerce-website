@@ -1,5 +1,8 @@
 const Order = require("../../models/order.mongo");
-async function httpGetAllOrders(req, res) {}
+async function httpGetAllOrders(req, res) {
+  const orders = await Order.find({}).populate("user", "id name");
+  res.status(200).json(orders);
+}
 async function httpAddNewOrders(req, res) {
   const {
     orderItems,
@@ -70,7 +73,20 @@ async function httpUpdateOrderToPaid(req, res) {
     res.status(404).json({ message: "Order not found" });
   }
 }
-async function httpUpdateOrderToDelivered(req, res) {}
+async function httpUpdateOrderToDelivered(req, res) {
+  const order = await Order.findById(req.params.id);
+
+  if (order) {
+    order.isDelivered = true;
+    order.deliveredAt = Date.now();
+
+    const updatedOrder = await order.save();
+
+    res.status(200).json(updatedOrder);
+  } else {
+    res.status(404).json({ message: "Order not found" });
+  }
+}
 
 module.exports = {
   httpGetAllOrders,

@@ -10,6 +10,7 @@ import ShippingView from "@/views/ShippingView.vue";
 import PaymentView from "@/views/PaymentView.vue";
 import PlaceOrderView from "@/views/PlaceOrderView.vue";
 import OrderView from "@/views/OrderView.vue";
+import AdminView from "@/views/AdminView.vue";
 
 import { useUsersStore } from "@/stores/usersStore";
 
@@ -81,6 +82,12 @@ const router = createRouter({
           name: "user",
           component: UserView,
           meta: { requiresAuth: true },
+        },
+        {
+          path: "admin",
+          name: "admin",
+          component: AdminView,
+          meta: { requiresAdmin: true },
         },
         {
           path: "logout",
