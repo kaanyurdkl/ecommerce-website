@@ -8,6 +8,8 @@ const ordersStore = useOrdersStore();
 
 const orders = ref(null);
 const newProduct = ref(null);
+const image = ref(null);
+const fileUrl = ref(null);
 
 const products = computed(() => productsStore.getAllProducts);
 
@@ -16,14 +18,11 @@ const deliverOrderHandler = async (id) => {
   orders.value = await ordersStore.getAllOrders();
 };
 
-const createProductHandler = async () => {
-  newProduct.value = await productsStore.createProduct();
-};
-
 const updateProductHandler = async () => {
   newProduct.value = await productsStore.updateProduct(newProduct.value._id, {
     ...newProduct.value,
     name: "New sample name",
+    image: image.value,
   });
 };
 
@@ -31,8 +30,27 @@ const deleteProductHandler = async (id) => {
   console.log(id);
 };
 
+const onFilePicked = async (e) => {
+  const formData = new FormData();
+  formData.append("image", e.target.files[0]);
+  try {
+    const res = await productsStore.uploadProductImage(formData);
+    fileUrl.value = res.image;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const createProductHandler = async () => {
+  newProduct.value = await productsStore.createProduct({
+    image: fileUrl.value,
+  });
+  await productsStore.setProducts();
+};
+
 onMounted(async () => {
   orders.value = await ordersStore.getAllOrders();
+  fileUrl.value = products.value[0].image;
 });
 </script>
 
@@ -59,6 +77,8 @@ onMounted(async () => {
     <p>
       {{ newProduct }}
     </p>
+    <input type="text" placeholder="Image url" v-model="fileUrl" />
+    <input type="file" :ref="image" @change="onFilePicked" />
     <button @click="createProductHandler()">Create</button>
   </section>
   <section>

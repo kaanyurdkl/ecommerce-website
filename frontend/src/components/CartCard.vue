@@ -55,7 +55,11 @@ const getFormattedPrice = (number: number): string => {
 
 <template>
   <div class="cart-card">
-    <img class="cart-card__image" :src="product.image" alt="" />
+    <img
+      class="cart-card__image"
+      :src="`http://localhost:8000${product.image}`"
+      alt=""
+    />
     <div class="cart-card__info">
       <button
         class="cart-card__remove"

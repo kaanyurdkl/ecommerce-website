@@ -52,7 +52,7 @@ const addToCart = () => {
       <router-link :to="{ name: 'productDetail', params: { id: product._id } }">
         <img
           class="card__image"
-          :src="product.image"
+          :src="`http://localhost:8000${product.image}`"
           alt="Clothe image"
           title="Tshirt"
         />

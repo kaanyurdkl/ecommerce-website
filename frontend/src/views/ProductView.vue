@@ -54,7 +54,11 @@ const addToCart = () => {
 <template>
   <section v-if="product" class="product">
     <div class="product__column product__column--left">
-      <img class="product__image" :src="product.image" alt="" />
+      <img
+        class="product__image"
+        :src="`http://localhost:8000${product.image}`"
+        alt=""
+      />
     </div>
     <div class="product__column product__column--right">
       <div class="product__info">

@@ -77,8 +77,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(express.static(path.join(__dirname, "..", "build")));
-app.use(express.static(path.join(__dirname, "/uploads")));
 
+app.use(
+  "/uploads",
+  express.static(path.join(__dirname, "..", "..", "/uploads"))
+);
 app.use("/api", api);
 app.use("/auth", passportRouter);
 

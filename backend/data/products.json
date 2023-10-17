@@ -1,7 +1,7 @@
 [
   {
     "name": "Sweatshirt",
-    "image": "/images/man-sweatshirt1.jpg",
+    "image": "/uploads/man-sweatshirt1.jpg",
     "description": "Some description",
     "type": "sweatshirts",
     "price": 14.9,
@@ -9,7 +9,7 @@
   },
   {
     "name": "Shirt",
-    "image": "/images/woman-shirt.jpg",
+    "image": "/uploads/woman-shirt.jpg",
     "description": "Some description",
     "type": "shirts",
     "price": 14.9,
@@ -17,7 +17,7 @@
   },
   {
     "name": "Fit T-shirt",
-    "image": "/images/tshirt2.jpg",
+    "image": "/uploads/tshirt2.jpg",
     "description": "Some description",
     "type": "t-shirts",
     "price": 14.9,
@@ -25,7 +25,7 @@
   },
   {
     "name": "Jacket",
-    "image": "/images/woman-jacket.jpg",
+    "image": "/uploads/woman-jacket.jpg",
     "description": "Some description",
     "type": "jackets",
     "price": 14.9,
@@ -33,7 +33,7 @@
   },
   {
     "name": "Fit T-shirt",
-    "image": "/images/tshirt3.jpg",
+    "image": "/uploads/tshirt3.jpg",
     "description": "Some description",
     "type": "t-shirts",
     "price": 14.9,
@@ -41,7 +41,7 @@
   },
   {
     "name": "Fit T-shirt",
-    "image": "/images/tshirt4.jpg",
+    "image": "/uploads/tshirt4.jpg",
     "description": "Some description",
     "type": "t-shirts",
     "price": 14.9,
@@ -49,7 +49,7 @@
   },
   {
     "name": "Fit T-shirt",
-    "image": "/images/tshirt5.jpg",
+    "image": "/uploads/tshirt5.jpg",
     "description": "Some description",
     "type": "t-shirts",
     "price": 14.9,
@@ -57,7 +57,7 @@
   },
   {
     "name": "T-shirt",
-    "image": "/images/woman-tshirt.jpg",
+    "image": "/uploads/woman-tshirt.jpg",
     "description": "Some description",
     "type": "t-shirts",
     "price": 14.9,

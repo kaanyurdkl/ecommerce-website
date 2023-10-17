@@ -8,10 +8,11 @@ const productsRouter = express.Router();
 
 productsRouter.get("/", httpGetAllLProducts);
 productsRouter.post("/", async (req, res) => {
+  const { image } = req.body;
   const product = new Products({
     user: req.user._id,
     name: "Sample name",
-    image: "/images/tshirt5.jpg",
+    image,
     category: "men",
     type: "t-shirts",
     description: "Some description",
