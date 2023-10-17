@@ -6,6 +6,16 @@ const Products = require("../../models/products.mongo");
 
 const productsRouter = express.Router();
 
+productsRouter.delete("/:id", async (req, res) => {
+  const product = await Products.findById(req.params.id);
+
+  if (product) {
+    await Products.deleteOne({ _id: product._id });
+    res.status(200).json({ message: "Product deleted" });
+  } else {
+    res.status(404).json({ message: "Product not found" });
+  }
+});
 productsRouter.get("/", httpGetAllLProducts);
 productsRouter.post("/", async (req, res) => {
   const { image } = req.body;

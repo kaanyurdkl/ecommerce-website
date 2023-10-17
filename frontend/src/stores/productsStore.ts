@@ -54,6 +54,13 @@ export const useProductsStore = defineStore("products", {
     },
   },
   actions: {
+    async deleteProduct(id) {
+      try {
+        await axios.delete(`/api/products/${id}`);
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async uploadProductImage(uploadData) {
       try {
         const { data } = await axios.post("/api/uploads", uploadData);

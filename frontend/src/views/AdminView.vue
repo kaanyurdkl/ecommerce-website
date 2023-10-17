@@ -26,10 +26,6 @@ const updateProductHandler = async () => {
   });
 };
 
-const deleteProductHandler = async (id) => {
-  console.log(id);
-};
-
 const onFilePicked = async (e) => {
   const formData = new FormData();
   formData.append("image", e.target.files[0]);
@@ -45,6 +41,11 @@ const createProductHandler = async () => {
   newProduct.value = await productsStore.createProduct({
     image: fileUrl.value,
   });
+  await productsStore.setProducts();
+};
+
+const deleteProductHandler = async () => {
+  await productsStore.deleteProduct(newProduct.value._id);
   await productsStore.setProducts();
 };
 
@@ -87,6 +88,10 @@ onMounted(async () => {
       {{ newProduct }}
     </p>
     <button @click="updateProductHandler()">Update</button>
+  </section>
+  <section>
+    <h3>Delete Product</h3>
+    <button @click="deleteProductHandler()">Delete</button>
   </section>
 </template>
 
