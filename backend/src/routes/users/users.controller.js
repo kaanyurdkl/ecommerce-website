@@ -1,3 +1,5 @@
+const Users = require("../../models/user.mongo");
+
 function getAuthUser(req, res) {
   if (req.isAuthenticated() && req.user) {
     res.json({ user: req.user });
@@ -5,5 +7,10 @@ function getAuthUser(req, res) {
     res.json({ user: null });
   }
 }
+async function getAllUsers(req, res) {
+  const users = await Users.find({});
 
-module.exports = { getAuthUser };
+  res.status(200).json(users);
+}
+
+module.exports = { getAuthUser, getAllUsers };

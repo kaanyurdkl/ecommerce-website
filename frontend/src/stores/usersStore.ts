@@ -15,6 +15,14 @@ export const useUsersStore = defineStore("users", {
     },
   },
   actions: {
+    async getAllUsers() {
+      try {
+        const { data } = await axios.get("/api/users");
+        return data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async setAuthUser() {
       try {
         const { data } = await axios.get("/api/users/auth");
