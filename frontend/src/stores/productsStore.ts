@@ -54,6 +54,30 @@ export const useProductsStore = defineStore("products", {
     },
   },
   actions: {
+    async getProducts() {
+      try {
+        const { data } = await axios.get("/api/products");
+        this.products = data;
+      } catch (error) {
+        return error;
+      }
+    },
+    async createProduct(productDetails) {
+      try {
+        const { data } = await axios.post("/api/products", productDetails);
+        return data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async updateProduct(id, productDetails) {
+      try {
+        const { data } = await axios.put(`/api/products/${id}`, productDetails);
+        return data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async deleteProduct(id) {
       try {
         await axios.delete(`/api/products/${id}`);
@@ -67,32 +91,6 @@ export const useProductsStore = defineStore("products", {
         return data;
       } catch (error) {
         console.log(error);
-      }
-    },
-    async updateProduct(id, productDetails) {
-      try {
-        const { data } = await axios.put(`/api/products/${id}`, {
-          ...productDetails,
-        });
-        return data;
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    async createProduct(productDetails) {
-      try {
-        const { data } = await axios.post("/api/products", productDetails);
-        return data;
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    async setProducts() {
-      try {
-        const { data } = await axios.get("/api/products");
-        this.products = data;
-      } catch (error) {
-        return error;
       }
     },
     addNewFavoriteProduct(newProduct: Product) {

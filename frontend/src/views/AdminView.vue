@@ -20,7 +20,7 @@ const createProductHandler = async () => {
   newProduct.value = await productsStore.createProduct({
     image: newProductImagePath.value,
   });
-  await productsStore.setProducts();
+  await productsStore.getProducts();
 };
 
 const updateProductHandler = async (id) => {
@@ -29,11 +29,12 @@ const updateProductHandler = async (id) => {
     name: "New sample name",
     image: newProductImagePath.value,
   });
+  await productsStore.getProducts();
 };
 
 const deleteProductHandler = async (id) => {
   await productsStore.deleteProduct(id);
-  await productsStore.setProducts();
+  await productsStore.getProducts();
 };
 
 const onFilePicked = async (e) => {

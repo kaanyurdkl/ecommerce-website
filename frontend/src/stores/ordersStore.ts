@@ -41,8 +41,7 @@ export const useOrdersStore = defineStore("orders", {
     },
     async deliverOrder(orderId) {
       try {
-        const res = await axios.put(`/api/orders/${orderId}/deliver`);
-        console.log("Res: ", res);
+        await axios.put(`/api/orders/${orderId}/deliver`);
       } catch (error) {
         return error;
       }

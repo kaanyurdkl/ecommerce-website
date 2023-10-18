@@ -21,7 +21,7 @@ export const useAppStore = defineStore("app", {
       this.setAppState(false);
       try {
         await usersStore.setAuthUser();
-        await productsStore.setProducts();
+        await productsStore.getProducts();
         this.setAppState(true);
       } catch (error) {
         this.setAppState(false);
