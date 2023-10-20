@@ -148,11 +148,16 @@ onMounted(async () => {
                 {{ new Date(order.createdAt).toLocaleDateString() }}
               </li>
               <li class="orders__detail">{{ order.totalPrice }}</li>
-              <li class="orders__detail">{{ order.isPaid }}</li>
+              <li v-if="order.isPaid" class="orders__detail">
+                {{ new Date(order.paidAt).toLocaleDateString() }}
+              </li>
+              <li v-else class="orders__detail orders__detail--not">
+                Not Paid
+              </li>
               <li v-if="order.isDelivered" class="orders__detail">
                 {{ new Date(order.deliveredAt).toLocaleDateString() }}
               </li>
-              <li v-else class="orders__detail orders__detail--not-delivered">
+              <li v-else class="orders__detail orders__detail--not">
                 Not Delivered
               </li>
               <li class="orders__detail">
@@ -272,7 +277,7 @@ onMounted(async () => {
         background-color: #555;
       }
     }
-    &--not-delivered {
+    &--not {
       color: red;
       background-color: #ffe4e4;
       font-size: 14px;
