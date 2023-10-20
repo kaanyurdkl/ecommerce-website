@@ -139,19 +139,29 @@ onMounted(async () => {
       </section>
       <section v-if="activeTab === 'orders'">
         <h3>Orders</h3>
-        <ul>
-          <li v-for="order in orders">
-            <p>{{ order._id }}</p>
-            <p>{{ order.user.name }}</p>
-            <p>{{ order.createdAt }}</p>
-            <p>{{ order.totalPrice }}</p>
-            <p>{{ order.isPaid }}</p>
-            <p>
-              Is order delivered: {{ order.isDelivered }}. Delivered at:
-              {{ order.deliveredAt }}
-            </p>
-            <button @click="">Show details</button>
-            <button @click="deliverOrderHandler(order._id)">Deliver</button>
+        <ul class="orders">
+          <li v-for="order in orders" class="orders__item">
+            <ul class="orders__details">
+              <li class="orders__detail">{{ order._id }}</li>
+              <li class="orders__detail">{{ order.user.name }}</li>
+              <li class="orders__detail">
+                {{ new Date(order.createdAt).toLocaleDateString() }}
+              </li>
+              <li class="orders__detail">{{ order.totalPrice }}</li>
+              <li class="orders__detail">{{ order.isPaid }}</li>
+              <li v-if="order.isDelivered" class="orders__detail">
+                {{ new Date(order.deliveredAt).toLocaleDateString() }}
+              </li>
+              <li v-else class="orders__detail orders__detail--not-delivered">
+                Not Delivered
+              </li>
+              <li class="orders__detail">
+                <button @click="">Details</button>
+              </li>
+              <!-- <li class="orders__detail">
+                <button @click="deliverOrderHandler(order._id)">Deliver</button>
+              </li> -->
+            </ul>
           </li>
         </ul>
       </section>
@@ -180,6 +190,8 @@ onMounted(async () => {
   justify-content: space-between;
   padding: 0 2rem;
   gap: 2rem;
+  max-width: 75rem;
+  margin: auto;
 
   &__right {
     flex-grow: 1;
@@ -194,7 +206,7 @@ onMounted(async () => {
     list-style-type: none;
   }
   &__tab {
-    width: 20rem;
+    width: 14rem;
     input {
       display: none;
       &:checked + label {
@@ -215,12 +227,52 @@ onMounted(async () => {
       font-weight: 600;
       cursor: pointer;
       transition: all 0.1s ease-in-out;
+      text-overflow: ellipsis;
+      overflow: hidden;
       &:hover {
         background-color: #ddd;
       }
       i {
         margin-right: 20px;
       }
+    }
+  }
+}
+
+.orders {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  list-style-type: none;
+  font-size: 14px;
+  &__item {
+    background-color: #fff;
+    padding: 2rem;
+    white-space: nowrap;
+  }
+  &__details {
+    display: flex;
+    list-style-type: none;
+    align-items: center;
+  }
+  &__detail {
+    flex: 1 1 0px;
+    text-align: center;
+    button {
+      color: #fff;
+      background-color: #3f3f3f;
+      padding: 0.4rem 1.5rem;
+      transition: all 0.1s ease-in-out;
+      &:hover {
+        background-color: #555;
+      }
+    }
+    &--not-delivered {
+      color: red;
+      background-color: #ffe4e4;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 0.4rem 0.8rem;
     }
   }
 }
