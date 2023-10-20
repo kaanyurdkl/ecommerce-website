@@ -197,6 +197,11 @@ onMounted(async () => {
     flex-grow: 1;
     background-color: #eee;
     padding: 2rem;
+    h3 {
+      padding-bottom: 2rem;
+      margin-bottom: 4rem;
+      border-bottom: 1px solid #ccc;
+    }
   }
 
   &__tabs {
