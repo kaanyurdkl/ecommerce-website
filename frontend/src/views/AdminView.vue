@@ -16,6 +16,8 @@ const orders = ref(null);
 const newProduct = ref(null);
 const newProductImagePath = ref(null);
 
+const activeTab = ref("products");
+
 const createProductHandler = async () => {
   newProduct.value = await productsStore.createProduct({
     image: newProductImagePath.value,
@@ -64,7 +66,13 @@ onMounted(async () => {
   <section class="heading">
     <h2>Admin</h2>
   </section>
-  <section>
+  <label for="products">Products</label>
+  <input type="radio" id="products" value="products" v-model="activeTab" />
+  <label for="users">Users</label>
+  <input type="radio" id="users" value="users" v-model="activeTab" />
+  <label for="orders">Orders</label>
+  <input type="radio" id="orders" value="orders" v-model="activeTab" />
+  <section v-if="activeTab === 'products'">
     <h3>Products</h3>
     <ul>
       <li v-for="product in products">
@@ -87,7 +95,7 @@ onMounted(async () => {
       <button @click="createProductHandler()">Create</button>
     </p>
   </section>
-  <section>
+  <section v-if="activeTab === 'users'">
     <h3>Users</h3>
     <ul>
       <li v-for="user in users">
@@ -97,7 +105,7 @@ onMounted(async () => {
       </li>
     </ul>
   </section>
-  <section>
+  <section v-if="activeTab === 'orders'">
     <h3>Orders</h3>
     <ul>
       <li v-for="order in orders">
