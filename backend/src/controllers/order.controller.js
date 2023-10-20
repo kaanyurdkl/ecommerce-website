@@ -1,9 +1,30 @@
-const Order = require("../../models/order.mongo");
+const Order = require("../models/order.model");
+
 async function httpGetAllOrders(req, res) {
   const orders = await Order.find({}).populate("user", "id name");
   res.status(200).json(orders);
 }
-async function httpAddNewOrders(req, res) {
+
+async function httpGetUserOrders(req, res) {
+  const orders = await Order.find({ user: req.user._id });
+
+  res.status(200).json(orders);
+}
+
+async function httpGetOrderById(req, res) {
+  const order = await Order.findById(req.params.id).populate(
+    "user",
+    "name email"
+  );
+
+  if (order) {
+    res.status(200).json(order);
+  } else {
+    res.status(404).json({ message: "Order not found!" });
+  }
+}
+
+async function httpCreateOrder(req, res) {
   const {
     orderItems,
     shippingAddress,
@@ -36,23 +57,7 @@ async function httpAddNewOrders(req, res) {
     res.status(201).json(createdOrder);
   }
 }
-async function httpGetUserOrders(req, res) {
-  const orders = await Order.find({ user: req.user._id });
 
-  res.status(200).json(orders);
-}
-async function httpGetOrderById(req, res) {
-  const order = await Order.findById(req.params.id).populate(
-    "user",
-    "name email"
-  );
-
-  if (order) {
-    res.status(200).json(order);
-  } else {
-    res.status(404).json({ message: "Order not found!" });
-  }
-}
 async function httpUpdateOrderToPaid(req, res) {
   const order = await Order.findById(req.params.id);
 
@@ -73,6 +78,7 @@ async function httpUpdateOrderToPaid(req, res) {
     res.status(404).json({ message: "Order not found" });
   }
 }
+
 async function httpUpdateOrderToDelivered(req, res) {
   const order = await Order.findById(req.params.id);
 
@@ -88,11 +94,21 @@ async function httpUpdateOrderToDelivered(req, res) {
   }
 }
 
+async function httpDeleteAllOrders() {
+  try {
+    await Order.deleteMany();
+  } catch (err) {
+    console.log(err);
+    process.exit(1);
+  }
+}
+
 module.exports = {
   httpGetAllOrders,
-  httpAddNewOrders,
   httpGetUserOrders,
   httpGetOrderById,
+  httpCreateOrder,
   httpUpdateOrderToPaid,
   httpUpdateOrderToDelivered,
+  httpDeleteAllOrders,
 };

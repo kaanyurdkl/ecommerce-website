@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("path");
 const multer = require("multer");
 
-const uploadsRouter = express.Router();
+const uploadRouter = express.Router();
 
 const storage = multer.diskStorage({
   // Describes where we want to save the file
@@ -36,8 +36,8 @@ const checkFileType = (file, cb) => {
 
 const upload = multer({ storage });
 
-uploadsRouter.post("/", upload.single("image"), (req, res) => {
+uploadRouter.post("/", upload.single("image"), (req, res) => {
   res.send({ message: "Image Uploaded", image: `/${req.file.path}` });
 });
 
-module.exports = uploadsRouter;
+module.exports = uploadRouter;

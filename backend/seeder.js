@@ -1,18 +1,18 @@
 const { mongoConnect } = require("./src/services/mongo");
 
-const { deleteAllOrders } = require("./src/models/order.model");
+const { httpDeleteAllOrders } = require("./src/controllers/order.controller");
 const {
-  createSampleProducts,
-  deleteAllProducts,
-} = require("./src/models/products.model");
+  httpCreateSampleProducts,
+  httpDeleteAllProducts,
+} = require("./src/controllers/product.controller");
 const {
   deleteAllUsers,
   createSampleUsers,
-} = require("./src/models/user.model");
+} = require("./src/controllers/user.controller");
 
 const deleteAllData = async () => {
-  await deleteAllOrders();
-  await deleteAllProducts();
+  await httpDeleteAllOrders();
+  await httpDeleteAllProducts();
   await deleteAllUsers();
 };
 
@@ -24,7 +24,7 @@ const importData = async () => {
 
     const adminUser = createdUsers[0]._id;
 
-    await createSampleProducts(adminUser);
+    await httpCreateSampleProducts(adminUser);
 
     console.log("Data imported!");
     process.exit();

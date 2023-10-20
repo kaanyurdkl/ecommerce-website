@@ -3,13 +3,14 @@ const express = require("express");
 const passport = require("passport");
 const { Strategy } = require("passport-google-oauth20");
 const cookieSession = require("cookie-session");
-const User = require("./models/user.mongo");
 const cors = require("cors");
+
+const User = require("./models/user.model");
 
 require("dotenv").config();
 
 const api = require("./routes/api");
-const passportRouter = require("./routes/passport");
+const passportRouter = require("./passport");
 
 const config = {
   CLIENT_ID: process.env.CLIENT_ID,

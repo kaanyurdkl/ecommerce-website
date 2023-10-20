@@ -1,24 +1,27 @@
-const user = require("./user.mongo");
+const mongoose = require("mongoose");
 
-const sampleUsers = require("../../data/users.json");
+const userSchema = mongoose.Schema(
+  {
+    googleId: {
+      type: String,
+      required: true,
+    },
+    name: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    isAdmin: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+  },
+  { timestamps: true }
+);
 
-async function deleteAllUsers() {
-  try {
-    await user.deleteMany();
-  } catch (err) {
-    console.log(err);
-    process.exit(1);
-  }
-}
-
-async function createSampleUsers() {
-  try {
-    const createdUsers = await user.insertMany(sampleUsers);
-    return createdUsers;
-  } catch (err) {
-    console.log(err);
-    process.exit(1);
-  }
-}
-
-module.exports = { deleteAllUsers, createSampleUsers };
+module.exports = mongoose.model("User", userSchema);
