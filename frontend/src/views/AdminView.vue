@@ -129,11 +129,24 @@ onMounted(async () => {
       </section>
       <section v-if="activeTab === 'users'">
         <h3>Users</h3>
-        <ul>
-          <li v-for="user in users">
-            <p>User id: {{ user._id }}</p>
-            <p>User name: {{ user.name }}</p>
-            <p>Is user admin: {{ user.isAdmin }}</p>
+        <ul class="users">
+          <li v-for="user in users" class="users__item">
+            <ul class="users__details">
+              <li class="users__detail">{{ user._id }}</li>
+              <li class="users__detail">{{ user.name }}</li>
+              <li class="users__detail">{{ user.email }}</li>
+              <li
+                v-if="user.isAdmin"
+                class="users__detail users__detail--admin"
+              >
+                <i class="fa-solid fa-crown"></i>
+                <span>Admin</span>
+              </li>
+              <li v-else class="users__detail users__detail--regular">
+                <i class="fa-solid fa-user"></i>
+                <span>Regular</span>
+              </li>
+            </ul>
           </li>
         </ul>
       </section>
@@ -245,6 +258,55 @@ onMounted(async () => {
       i {
         margin-right: 20px;
       }
+    }
+  }
+}
+
+.users {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  list-style-type: none;
+  font-size: 14px;
+  &__item {
+    background-color: #fff;
+    padding: 2rem;
+  }
+  &__details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style-type: none;
+  }
+  &__detail {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    &:first-child {
+      width: 30%;
+    }
+    &:nth-child(2) {
+      width: 25%;
+    }
+    &:nth-child(3) {
+      width: 30%;
+    }
+    &:last-child {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      padding: 0.4rem;
+      font-weight: 600;
+      width: 15%;
+    }
+    &--admin {
+      color: #c02fd8;
+      background-color: #f9d7ff;
+    }
+    &--regular {
+      color: #00b3ff;
+      background-color: #d7f3ff;
     }
   }
 }
