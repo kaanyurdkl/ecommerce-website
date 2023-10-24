@@ -69,6 +69,7 @@ onMounted(async () => {
   <section class="admin">
     <section class="admin__left">
       <ul class="admin__tabs">
+        <div class="admin__separator"></div>
         <li class="admin__tab">
           <input
             type="radio"
@@ -76,30 +77,15 @@ onMounted(async () => {
             value="products"
             v-model="activeTab"
           />
-          <label for="products">
-            <span>
-              <i class="fa-solid fa-boxes-stacked"></i>
-            </span>
-            <span>Products</span>
-          </label>
+          <label for="products">Products</label>
         </li>
         <li class="admin__tab">
           <input type="radio" id="users" value="users" v-model="activeTab" />
-          <label for="users">
-            <span>
-              <i class="fa-solid fa-user"></i>
-            </span>
-            <span>Users</span>
-          </label>
+          <label for="users">Users</label>
         </li>
         <li class="admin__tab">
           <input type="radio" id="orders" value="orders" v-model="activeTab" />
-          <label for="orders">
-            <span>
-              <i class="fa-solid fa-file-lines"></i>
-            </span>
-            <span> Orders </span>
-          </label>
+          <label for="orders">Orders</label>
         </li>
       </ul>
     </section>
@@ -130,8 +116,6 @@ onMounted(async () => {
                   class="fa-solid fa-pen products__detail--update"
                   @click="updateProductHandler(product._id)"
                 ></i>
-              </li>
-              <li class="products__detail">
                 <i
                   class="fa-solid fa-trash products__detail--delete"
                   @click="deleteProductHandler(product._id)"
@@ -223,6 +207,7 @@ onMounted(async () => {
 
 .admin {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   padding: 0 2rem;
   gap: 2rem;
@@ -254,38 +239,40 @@ onMounted(async () => {
   }
 
   &__tabs {
+    position: relative;
     display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    gap: 2rem;
     list-style-type: none;
   }
+  &__separator {
+    position: absolute;
+    bottom: 0;
+    height: 2px;
+    width: 100%;
+    background-color: #ccc;
+    z-index: -1;
+  }
   &__tab {
-    width: 14rem;
+    width: 6rem;
     input {
       display: none;
       &:checked + label {
-        color: #fff;
-        background-color: #3f3f3f;
-        &:hover {
-          background-color: #555;
-        }
+        border-bottom: 2px solid #3f3f3f;
       }
     }
     label {
       display: inline-block;
       width: 100%;
-      padding: 1rem 2rem;
+      height: 100%;
+      padding: 0.4rem 0;
       color: #3f3f3f;
-      background-color: #eee;
       font-size: 1rem;
       font-weight: 600;
+      border-bottom: 2px solid transparent;
       cursor: pointer;
-      transition: all 0.1s ease-in-out;
       text-overflow: ellipsis;
       overflow: hidden;
-      &:hover {
-        background-color: #ddd;
-      }
+      transition: all 0.2s ease-in-out;
       i {
         margin-right: 20px;
       }
@@ -314,13 +301,9 @@ onMounted(async () => {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    &--update {
-      color: #ffd600;
-      background-color: #fffbe5;
-    }
-    &--delete {
-      color: #ff0000;
-      background-color: #ffe4e4;
+    &:last-child {
+      display: flex;
+      gap: 4px;
     }
     img {
       width: 80px;
@@ -330,6 +313,10 @@ onMounted(async () => {
     i {
       padding: 0.8rem;
       cursor: pointer;
+      transition: all 0.2s ease-in-out;
+      &:hover {
+        background-color: #eee;
+      }
     }
   }
 }
