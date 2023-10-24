@@ -105,21 +105,39 @@ onMounted(async () => {
     </section>
     <section class="admin__right">
       <section v-if="activeTab === 'products'">
-        <h3>Products</h3>
-        <ul>
-          <li v-for="product in products">
-            <p>Product image: {{ product.image }}</p>
-            <p>Product id: {{ product._id }}</p>
-            <p>Product name: {{ product.name }}</p>
-            <p>Product category: {{ product.category }}</p>
-            <p>Product type: {{ product.type }}</p>
-            <p>Product price: {{ product.price }}</p>
-            <p>
-              <button @click="updateProductHandler(product._id)">Update</button>
-            </p>
-            <p>
-              <button @click="deleteProductHandler(product._id)">Delete</button>
-            </p>
+        <h3><span>Products</span><i class="fa-solid fa-plus"></i></h3>
+        <ul class="products">
+          <li v-for="product in products" class="products__item">
+            <ul class="products__details">
+              <li class="products__detail">
+                <img :src="`http://localhost:8000${product.image}`" />
+              </li>
+              <li class="products__detail">
+                {{ product._id }}
+              </li>
+              <li class="products__detail">
+                {{ product.name }}
+              </li>
+              <li class="products__detail">
+                {{ product.category }}
+              </li>
+              <li class="products__detail">
+                {{ product.type }}
+              </li>
+              <li class="products__detail">${{ product.price }}</li>
+              <li class="products__detail">
+                <i
+                  class="fa-solid fa-pen products__detail--update"
+                  @click="updateProductHandler(product._id)"
+                ></i>
+              </li>
+              <li class="products__detail">
+                <i
+                  class="fa-solid fa-trash products__detail--delete"
+                  @click="deleteProductHandler(product._id)"
+                ></i>
+              </li>
+            </ul>
           </li>
         </ul>
         <p>
@@ -187,7 +205,7 @@ onMounted(async () => {
   </section>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .heading {
   max-width: 75rem;
   padding: 2rem;
@@ -216,9 +234,22 @@ onMounted(async () => {
     background-color: #eee;
     padding: 2rem;
     h3 {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       padding-bottom: 2rem;
       margin-bottom: 4rem;
       border-bottom: 1px solid #ccc;
+      i {
+        padding: 8px;
+        color: #eee;
+        background-color: #3f3f3f;
+        font-size: 20px;
+        cursor: pointer;
+        &:hover {
+          background-color: #555;
+        }
+      }
     }
   }
 
@@ -258,6 +289,47 @@ onMounted(async () => {
       i {
         margin-right: 20px;
       }
+    }
+  }
+}
+
+.products {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0;
+  list-style-type: none;
+  font-size: 14px;
+  &__item {
+    background-color: #fff;
+    padding: 2rem;
+  }
+  &__details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style-type: none;
+  }
+  &__detail {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    &--update {
+      color: #ffd600;
+      background-color: #fffbe5;
+    }
+    &--delete {
+      color: #ff0000;
+      background-color: #ffe4e4;
+    }
+    img {
+      width: 80px;
+      height: 100px;
+      object-fit: cover;
+    }
+    i {
+      padding: 0.8rem;
+      cursor: pointer;
     }
   }
 }
