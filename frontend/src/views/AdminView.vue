@@ -147,7 +147,7 @@ onMounted(async () => {
               <li class="orders__detail">
                 {{ new Date(order.createdAt).toLocaleDateString() }}
               </li>
-              <li class="orders__detail">{{ order.totalPrice }}</li>
+              <li class="orders__detail">${{ order.totalPrice }}</li>
               <li v-if="order.isPaid" class="orders__detail">
                 {{ new Date(order.paidAt).toLocaleDateString() }}
               </li>
@@ -258,31 +258,60 @@ onMounted(async () => {
   &__item {
     background-color: #fff;
     padding: 2rem;
-    white-space: nowrap;
   }
   &__details {
     display: flex;
-    list-style-type: none;
+    justify-content: space-between;
     align-items: center;
+    list-style-type: none;
   }
   &__detail {
-    flex: 1 1 0px;
+    padding: 0.4rem 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     text-align: center;
+
+    &:first-child {
+      width: 195px;
+    }
+    &:nth-child(2) {
+      width: 70px;
+    }
+    &:nth-child(3) {
+      width: 75px;
+    }
+    &:nth-child(4) {
+      width: 60px;
+    }
+    &:nth-child(5) {
+      width: 90px;
+    }
+    &:nth-child(5) {
+      width: 90px;
+    }
+    &:nth-child(6) {
+      width: 120px;
+    }
+    &:nth-child(7) {
+      padding: 0;
+    }
+
     button {
+      display: block;
+      padding: 0.4rem 0.8rem;
       color: #fff;
       background-color: #3f3f3f;
-      padding: 0.4rem 1.5rem;
       transition: all 0.1s ease-in-out;
       &:hover {
         background-color: #555;
       }
     }
     &--not {
+      text-align: center;
       color: red;
       background-color: #ffe4e4;
-      font-size: 14px;
       font-weight: 600;
-      padding: 0.4rem 0.8rem;
     }
   }
 }
