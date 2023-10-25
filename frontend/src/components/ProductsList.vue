@@ -14,7 +14,7 @@ defineProps<{
     <Card v-for="product in products" :product="product" />
   </section>
 </template>
-<style lang="scss">
+<style lang="scss" scoped>
 .heading {
   padding: 2rem;
   font-size: 2rem;

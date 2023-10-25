@@ -63,9 +63,6 @@ onMounted(async () => {
 </script>
 
 <template>
-  <section class="heading">
-    <h2>Admin</h2>
-  </section>
   <section class="admin">
     <section class="admin__left">
       <ul class="admin__tabs">
@@ -90,9 +87,17 @@ onMounted(async () => {
       </ul>
     </section>
     <section class="admin__right">
-      <section v-if="activeTab === 'products'">
-        <h3><span>Products</span><i class="fa-solid fa-plus"></i></h3>
-        <ul class="products">
+      <section v-if="activeTab === 'products'" class="products">
+        <p class="products__attributes">
+          <span>Image</span>
+          <span>Id</span>
+          <span>Name</span>
+          <span>Category</span>
+          <span>Type</span>
+          <span>Price</span>
+          <span><i class="fa-solid fa-plus"></i></span>
+        </p>
+        <ul class="products__list">
           <li v-for="product in products" class="products__item">
             <ul class="products__details">
               <li class="products__detail">
@@ -124,14 +129,15 @@ onMounted(async () => {
             </ul>
           </li>
         </ul>
-        <p>
-          <input type="file" @change="onFilePicked" />
-          <button @click="createProductHandler()">Create</button>
-        </p>
       </section>
-      <section v-if="activeTab === 'users'">
-        <h3>Users</h3>
-        <ul class="users">
+      <section v-if="activeTab === 'users'" class="users">
+        <p class="users__attributes">
+          <span>Id</span>
+          <span>Name</span>
+          <span>Email</span>
+          <span>User Type</span>
+        </p>
+        <ul class="users__list">
           <li v-for="user in users" class="users__item">
             <ul class="users__details">
               <li class="users__detail">{{ user._id }}</li>
@@ -152,9 +158,17 @@ onMounted(async () => {
           </li>
         </ul>
       </section>
-      <section v-if="activeTab === 'orders'">
-        <h3>Orders</h3>
-        <ul class="orders">
+      <section v-if="activeTab === 'orders'" class="orders">
+        <p class="orders__attributes">
+          <span>Id</span>
+          <span>Name</span>
+          <span>Created At</span>
+          <span>Total</span>
+          <span>Payment</span>
+          <span>Delivery</span>
+          <span></span>
+        </p>
+        <ul class="orders__list">
           <li v-for="order in orders" class="orders__item">
             <ul class="orders__details">
               <li class="orders__detail">{{ order._id }}</li>
@@ -218,23 +232,13 @@ onMounted(async () => {
     flex-grow: 1;
     background-color: #eee;
     padding: 2rem;
-    h3 {
+    div {
       display: flex;
-      justify-content: space-between;
+      justify-content: end;
       align-items: center;
       padding-bottom: 2rem;
       margin-bottom: 4rem;
       border-bottom: 1px solid #ccc;
-      i {
-        padding: 8px;
-        color: #eee;
-        background-color: #3f3f3f;
-        font-size: 20px;
-        cursor: pointer;
-        &:hover {
-          background-color: #555;
-        }
-      }
     }
   }
 
@@ -257,6 +261,7 @@ onMounted(async () => {
     input {
       display: none;
       &:checked + label {
+        color: #3f3f3f;
         border-bottom: 2px solid #3f3f3f;
       }
     }
@@ -265,7 +270,7 @@ onMounted(async () => {
       width: 100%;
       height: 100%;
       padding: 0.4rem 0;
-      color: #3f3f3f;
+      color: #ccc;
       font-size: 1rem;
       font-weight: 600;
       border-bottom: 2px solid transparent;
@@ -281,12 +286,59 @@ onMounted(async () => {
 }
 
 .products {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 0;
-  list-style-type: none;
-  font-size: 14px;
+  &__attributes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px 32px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    border-bottom: 1px solid #ccc;
+    span {
+      &:first-child {
+        width: 8%;
+      }
+      &:nth-child(2) {
+        width: 22%;
+      }
+      &:nth-child(3) {
+        width: 10%;
+      }
+      &:nth-child(4) {
+        width: 10%;
+      }
+      &:nth-child(5) {
+        width: 10%;
+      }
+      &:nth-child(6) {
+        width: 8%;
+      }
+      &:last-child {
+        width: 10%;
+        text-align: right;
+
+        i {
+          padding: 8px;
+          color: #eee;
+          background-color: #3f3f3f;
+          font-size: 20px;
+          cursor: pointer;
+          &:hover {
+            background-color: #555;
+          }
+        }
+      }
+    }
+  }
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 0;
+    list-style-type: none;
+    font-size: 14px;
+  }
   &__item {
     background-color: #fff;
     padding: 2rem;
@@ -301,12 +353,31 @@ onMounted(async () => {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    &:first-child {
+      width: 8%;
+    }
+    &:nth-child(2) {
+      width: 22%;
+    }
+    &:nth-child(3) {
+      width: 10%;
+    }
+    &:nth-child(4) {
+      width: 10%;
+    }
+    &:nth-child(5) {
+      width: 10%;
+    }
+    &:nth-child(6) {
+      width: 8%;
+    }
     &:last-child {
       display: flex;
-      gap: 4px;
+      justify-content: space-between;
+      width: 10%;
     }
     img {
-      width: 80px;
+      width: 100%;
       height: 100px;
       object-fit: cover;
     }
@@ -322,11 +393,36 @@ onMounted(async () => {
 }
 
 .users {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  list-style-type: none;
-  font-size: 14px;
+  &__attributes {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 32px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    border-bottom: 1px solid #ccc;
+    span {
+      &:first-child {
+        width: 30%;
+      }
+      &:nth-child(2) {
+        width: 25%;
+      }
+      &:nth-child(3) {
+        width: 30%;
+      }
+      &:last-child {
+        width: 15%;
+      }
+    }
+  }
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    list-style-type: none;
+    font-size: 14px;
+  }
   &__item {
     background-color: #fff;
     padding: 2rem;
@@ -371,11 +467,48 @@ onMounted(async () => {
 }
 
 .orders {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  list-style-type: none;
-  font-size: 14px;
+  &__attributes {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 32px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    border-bottom: 1px solid #ccc;
+    span {
+      &:first-child {
+        width: 22%;
+      }
+      &:nth-child(2) {
+        width: 16%;
+      }
+      &:nth-child(3) {
+        width: 12%;
+      }
+      &:nth-child(4) {
+        width: 8%;
+      }
+      &:nth-child(5) {
+        width: 10%;
+      }
+      &:nth-child(5) {
+        width: 10%;
+      }
+      &:nth-child(6) {
+        width: 12%;
+      }
+      &:last-child {
+        width: 8%;
+      }
+    }
+  }
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    list-style-type: none;
+    font-size: 14px;
+  }
   &__item {
     background-color: #fff;
     padding: 2rem;
@@ -391,36 +524,37 @@ onMounted(async () => {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    text-align: center;
 
     &:first-child {
-      width: 195px;
+      width: 22%;
     }
     &:nth-child(2) {
-      width: 70px;
+      width: 16%;
     }
     &:nth-child(3) {
-      width: 75px;
+      width: 12%;
     }
     &:nth-child(4) {
-      width: 60px;
+      width: 8%;
     }
     &:nth-child(5) {
-      width: 90px;
+      width: 10%;
     }
     &:nth-child(5) {
-      width: 90px;
+      width: 10%;
     }
     &:nth-child(6) {
-      width: 120px;
+      width: 12%;
     }
-    &:nth-child(7) {
+    &:last-child {
+      width: 8%;
       padding: 0;
     }
 
     button {
       display: block;
-      padding: 0.4rem 0.8rem;
+      width: 100%;
+      padding: 0.4rem 0;
       color: #fff;
       background-color: #3f3f3f;
       transition: all 0.1s ease-in-out;
