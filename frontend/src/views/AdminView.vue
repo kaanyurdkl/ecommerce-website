@@ -42,6 +42,7 @@ const newProduct = ref(null);
 const newProductImagePath = ref(null);
 
 const activeTab = ref("products");
+const isCreating = ref(false);
 
 const createProductHandler = async () => {
   newProduct.value = await productsStore.createProduct({
@@ -103,13 +104,22 @@ onMounted(async () => {
     </ul>
     <section class="admin__content">
       <div v-if="activeTab === 'products'" class="table table--products">
-        <i class="fa-solid fa-plus products-button products-button--create"></i>
-        <ul class="table__headers">
+        <i
+          v-if="!isCreating"
+          @click="isCreating = !isCreating"
+          class="fa-solid fa-plus products-button products-button--create"
+        ></i>
+        <i
+          v-else
+          @click="isCreating = !isCreating"
+          class="fa-solid fa-minus products-button products-button--create"
+        ></i>
+        <ul v-if="!isCreating" class="table__headers">
           <li v-for="header in productsHeaders" class="table__header">
             {{ header }}
           </li>
         </ul>
-        <ul class="table__rows">
+        <ul v-if="!isCreating" class="table__rows">
           <li v-for="product in products" class="table__row">
             <ul class="table__columns">
               <li class="table__column">
@@ -141,6 +151,35 @@ onMounted(async () => {
             </ul>
           </li>
         </ul>
+        <form v-if="isCreating">
+          <div>
+            <label for="name">Name</label>
+            <input type="text" id="name" placeholder="Product name" />
+          </div>
+          <div>
+            <label for="image">Image</label>
+            <input type="file" id="image" />
+          </div>
+          <div>
+            <label for="category">Category</label>
+            <input type="text" id="category" placeholder="Product category" />
+          </div>
+          <div>
+            <label for="type">Type</label>
+            <input type="text" id="type" placeholder="Product type" />
+          </div>
+          <div>
+            <label for="description">Description</label>
+            <textarea
+              id="description"
+              placeholder="Product decription"
+            ></textarea>
+          </div>
+          <div>
+            <label for="price">Price</label>
+            <input type="text" id="price" placeholder="Product price" />
+          </div>
+        </form>
       </div>
       <div v-if="activeTab === 'users'" class="table table--users">
         <ul class="table__headers">
@@ -210,6 +249,35 @@ onMounted(async () => {
 </template>
 
 <style lang="scss" scoped>
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 30rem;
+  color: #3f3f3f;
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    label {
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    input:not([type="file"]),
+    textarea {
+      padding: 0.8rem;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      &::placeholder {
+        font-size: 0.8rem;
+      }
+      &:focus {
+        border-color: #3f3f3f;
+        outline: none;
+      }
+    }
+  }
+}
 .heading {
   max-width: 75rem;
   padding: 2rem;
@@ -375,7 +443,7 @@ onMounted(async () => {
         position: absolute;
         top: 6px;
         right: 0;
-        color: #ccc;
+        color: #fff;
         background-color: #3f3f3f;
         &:hover {
           background-color: #555;
