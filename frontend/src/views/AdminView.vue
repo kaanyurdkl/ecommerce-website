@@ -88,6 +88,7 @@ onMounted(async () => {
     </section>
     <section class="admin__right">
       <section v-if="activeTab === 'products'" class="products">
+        <i class="fa-solid fa-plus products__create"></i>
         <p class="products__attributes">
           <span>Image</span>
           <span>Id</span>
@@ -95,7 +96,7 @@ onMounted(async () => {
           <span>Category</span>
           <span>Type</span>
           <span>Price</span>
-          <span><i class="fa-solid fa-plus"></i></span>
+          <span></span>
         </p>
         <ul class="products__list">
           <li v-for="product in products" class="products__item">
@@ -286,6 +287,19 @@ onMounted(async () => {
 }
 
 .products {
+  position: relative;
+  &__create {
+    position: absolute;
+    top: 6px;
+    right: 0;
+    padding: 0.4rem;
+    color: #ccc;
+    background-color: #3f3f3f;
+    cursor: pointer;
+    &:hover {
+      background-color: #555;
+    }
+  }
   &__attributes {
     display: flex;
     justify-content: space-between;
@@ -316,18 +330,6 @@ onMounted(async () => {
       }
       &:last-child {
         width: 10%;
-        text-align: right;
-
-        i {
-          padding: 8px;
-          color: #eee;
-          background-color: #3f3f3f;
-          font-size: 20px;
-          cursor: pointer;
-          &:hover {
-            background-color: #555;
-          }
-        }
       }
     }
   }
