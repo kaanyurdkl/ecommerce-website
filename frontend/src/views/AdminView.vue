@@ -9,6 +9,31 @@ const productsStore = useProductsStore();
 const usersStore = useUsersStore();
 const ordersStore = useOrdersStore();
 
+const tabs = [
+  { value: "products", label: "Products" },
+  { value: "users", label: "Users" },
+  { value: "orders", label: "Orders" },
+];
+const productsHeaders = [
+  "Image",
+  "Id",
+  "Name",
+  "Category",
+  "Type",
+  "Price",
+  "",
+];
+const usersHeaders = ["Id", "Name", "Email", "User Type"];
+const ordersHeaders = [
+  "Id",
+  "Name",
+  "Created At",
+  "Total",
+  "Payment",
+  "Delivery",
+  "",
+];
+
 const products = computed(() => productsStore.getAllProducts);
 const users = ref(null);
 const orders = ref(null);
@@ -64,134 +89,114 @@ onMounted(async () => {
 
 <template>
   <section class="admin">
-    <section class="admin__left">
-      <ul class="admin__tabs">
-        <div class="admin__separator"></div>
-        <li class="admin__tab">
-          <input
-            type="radio"
-            id="products"
-            value="products"
-            v-model="activeTab"
-          />
-          <label for="products">Products</label>
-        </li>
-        <li class="admin__tab">
-          <input type="radio" id="users" value="users" v-model="activeTab" />
-          <label for="users">Users</label>
-        </li>
-        <li class="admin__tab">
-          <input type="radio" id="orders" value="orders" v-model="activeTab" />
-          <label for="orders">Orders</label>
-        </li>
-      </ul>
-    </section>
-    <section class="admin__right">
-      <section v-if="activeTab === 'products'" class="products">
-        <i class="fa-solid fa-plus products__create"></i>
-        <p class="products__attributes">
-          <span>Image</span>
-          <span>Id</span>
-          <span>Name</span>
-          <span>Category</span>
-          <span>Type</span>
-          <span>Price</span>
-          <span></span>
-        </p>
-        <ul class="products__list">
-          <li v-for="product in products" class="products__item">
-            <ul class="products__details">
-              <li class="products__detail">
+    <ul class="admin__tabs">
+      <div class="admin__tabs--line"></div>
+      <li v-for="tab in tabs" class="admin__tab">
+        <input
+          type="radio"
+          :id="tab.value"
+          :value="tab.value"
+          v-model="activeTab"
+        />
+        <label :for="tab.value">{{ tab.label }}</label>
+      </li>
+    </ul>
+    <section class="admin__content">
+      <div v-if="activeTab === 'products'" class="table table--products">
+        <i class="fa-solid fa-plus products-button products-button--create"></i>
+        <ul class="table__headers">
+          <li v-for="header in productsHeaders" class="table__header">
+            {{ header }}
+          </li>
+        </ul>
+        <ul class="table__rows">
+          <li v-for="product in products" class="table__row">
+            <ul class="table__columns">
+              <li class="table__column">
                 <img :src="`http://localhost:8000${product.image}`" />
               </li>
-              <li class="products__detail">
+              <li class="table__column">
                 {{ product._id }}
               </li>
-              <li class="products__detail">
+              <li class="table__column">
                 {{ product.name }}
               </li>
-              <li class="products__detail">
+              <li class="table__column">
                 {{ product.category }}
               </li>
-              <li class="products__detail">
+              <li class="table__column">
                 {{ product.type }}
               </li>
-              <li class="products__detail">${{ product.price }}</li>
-              <li class="products__detail">
+              <li class="table__column">${{ product.price }}</li>
+              <li class="table__column">
                 <i
-                  class="fa-solid fa-pen products__detail--update"
+                  class="fa-solid fa-pen products-button products-button--update"
                   @click="updateProductHandler(product._id)"
                 ></i>
                 <i
-                  class="fa-solid fa-trash products__detail--delete"
+                  class="fa-solid fa-trash products-button products-button--delete"
                   @click="deleteProductHandler(product._id)"
                 ></i>
               </li>
             </ul>
           </li>
         </ul>
-      </section>
-      <section v-if="activeTab === 'users'" class="users">
-        <p class="users__attributes">
-          <span>Id</span>
-          <span>Name</span>
-          <span>Email</span>
-          <span>User Type</span>
-        </p>
-        <ul class="users__list">
-          <li v-for="user in users" class="users__item">
-            <ul class="users__details">
-              <li class="users__detail">{{ user._id }}</li>
-              <li class="users__detail">{{ user.name }}</li>
-              <li class="users__detail">{{ user.email }}</li>
-              <li
-                v-if="user.isAdmin"
-                class="users__detail users__detail--admin"
-              >
+      </div>
+      <div v-if="activeTab === 'users'" class="table table--users">
+        <ul class="table__headers">
+          <li v-for="header in usersHeaders" class="table__header">
+            {{ header }}
+          </li>
+        </ul>
+        <ul class="table__rows">
+          <li v-for="user in users" class="table__row">
+            <ul class="table__columns">
+              <li class="table__column">{{ user._id }}</li>
+              <li class="table__column">{{ user.name }}</li>
+              <li class="table__column">{{ user.email }}</li>
+              <li v-if="user.isAdmin" class="table__column admin-user">
                 <i class="fa-solid fa-crown"></i>
                 <span>Admin</span>
               </li>
-              <li v-else class="users__detail users__detail--regular">
+              <li v-else class="table__column regular-user">
                 <i class="fa-solid fa-user"></i>
                 <span>Regular</span>
               </li>
             </ul>
           </li>
         </ul>
-      </section>
-      <section v-if="activeTab === 'orders'" class="orders">
-        <p class="orders__attributes">
-          <span>Id</span>
-          <span>Name</span>
-          <span>Created At</span>
-          <span>Total</span>
-          <span>Payment</span>
-          <span>Delivery</span>
-          <span></span>
-        </p>
-        <ul class="orders__list">
-          <li v-for="order in orders" class="orders__item">
-            <ul class="orders__details">
-              <li class="orders__detail">{{ order._id }}</li>
-              <li class="orders__detail">{{ order.user.name }}</li>
-              <li class="orders__detail">
+      </div>
+      <div v-if="activeTab === 'orders'" class="table table--orders">
+        <ul class="table__headers">
+          <li v-for="header in ordersHeaders" class="table__header">
+            {{ header }}
+          </li>
+        </ul>
+        <ul class="table__rows">
+          <li v-for="order in orders" class="table__row">
+            <ul class="table__columns">
+              <li class="table__column">{{ order._id }}</li>
+              <li class="table__column">
+                {{ order.user.name }}
+              </li>
+              <li class="table__column">
                 {{ new Date(order.createdAt).toLocaleDateString() }}
               </li>
-              <li class="orders__detail">${{ order.totalPrice }}</li>
-              <li v-if="order.isPaid" class="orders__detail">
+              <li class="table__column">${{ order.totalPrice }}</li>
+              <li v-if="order.isPaid" class="table__column">
                 {{ new Date(order.paidAt).toLocaleDateString() }}
               </li>
-              <li v-else class="orders__detail orders__detail--not">
-                Not Paid
-              </li>
-              <li v-if="order.isDelivered" class="orders__detail">
+              <li v-else class="table__column status-negative">Not Paid</li>
+              <li v-if="order.isDelivered" class="table__column">
                 {{ new Date(order.deliveredAt).toLocaleDateString() }}
               </li>
-              <li v-else class="orders__detail orders__detail--not">
+              <li v-else class="table__column status-negative">
                 Not Delivered
               </li>
-              <li class="orders__detail">
-                <button @click="">Details</button>
+              <li class="table__column">
+                <button class="orders-button--details" @click="">
+                  Details
+                </button>
               </li>
               <!-- <li class="orders__detail">
                 <button @click="deliverOrderHandler(order._id)">Deliver</button>
@@ -199,7 +204,7 @@ onMounted(async () => {
             </ul>
           </li>
         </ul>
-      </section>
+      </div>
     </section>
   </section>
 </template>
@@ -228,34 +233,24 @@ onMounted(async () => {
   gap: 2rem;
   max-width: 75rem;
   margin: auto;
-
-  &__right {
+  &__content {
     flex-grow: 1;
     background-color: #eee;
     padding: 2rem;
-    div {
-      display: flex;
-      justify-content: end;
-      align-items: center;
-      padding-bottom: 2rem;
-      margin-bottom: 4rem;
-      border-bottom: 1px solid #ccc;
-    }
   }
-
   &__tabs {
     position: relative;
     display: flex;
     gap: 2rem;
     list-style-type: none;
-  }
-  &__separator {
-    position: absolute;
-    bottom: 0;
-    height: 2px;
-    width: 100%;
-    background-color: #ccc;
-    z-index: -1;
+    &--line {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 2px;
+      background-color: #ccc;
+      z-index: -1;
+    }
   }
   &__tab {
     width: 6rem;
@@ -279,37 +274,47 @@ onMounted(async () => {
       text-overflow: ellipsis;
       overflow: hidden;
       transition: all 0.2s ease-in-out;
-      i {
-        margin-right: 20px;
-      }
     }
   }
 }
 
-.products {
+.table {
   position: relative;
-  &__create {
-    position: absolute;
-    top: 6px;
-    right: 0;
-    padding: 0.4rem;
-    color: #ccc;
-    background-color: #3f3f3f;
-    cursor: pointer;
-    &:hover {
-      background-color: #555;
-    }
-  }
-  &__attributes {
+  &__headers {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     width: 100%;
     padding: 10px 32px;
     margin-bottom: 20px;
     font-weight: 600;
+    list-style-type: none;
     border-bottom: 1px solid #ccc;
-    span {
+  }
+  &__rows {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 0;
+    font-size: 14px;
+    list-style-type: none;
+  }
+  &__row {
+    background-color: #fff;
+    padding: 2rem;
+  }
+  &__columns {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style-type: none;
+  }
+  &__column {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  &--products {
+    .table__header {
       &:first-child {
         width: 8%;
       }
@@ -332,78 +337,61 @@ onMounted(async () => {
         width: 10%;
       }
     }
-  }
-  &__list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding: 0;
-    list-style-type: none;
-    font-size: 14px;
-  }
-  &__item {
-    background-color: #fff;
-    padding: 2rem;
-  }
-  &__details {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    list-style-type: none;
-  }
-  &__detail {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    &:first-child {
-      width: 8%;
+    .table__column {
+      &:first-child {
+        width: 8%;
+        img {
+          width: 100%;
+          height: 100px;
+          object-fit: cover;
+        }
+      }
+      &:nth-child(2) {
+        width: 22%;
+      }
+      &:nth-child(3) {
+        width: 10%;
+      }
+      &:nth-child(4) {
+        width: 10%;
+      }
+      &:nth-child(5) {
+        width: 10%;
+      }
+      &:nth-child(6) {
+        width: 8%;
+      }
+      &:last-child {
+        display: flex;
+        justify-content: space-between;
+        width: 10%;
+      }
     }
-    &:nth-child(2) {
-      width: 22%;
-    }
-    &:nth-child(3) {
-      width: 10%;
-    }
-    &:nth-child(4) {
-      width: 10%;
-    }
-    &:nth-child(5) {
-      width: 10%;
-    }
-    &:nth-child(6) {
-      width: 8%;
-    }
-    &:last-child {
-      display: flex;
-      justify-content: space-between;
-      width: 10%;
-    }
-    img {
-      width: 100%;
-      height: 100px;
-      object-fit: cover;
-    }
-    i {
-      padding: 0.8rem;
+    .products-button {
+      padding: 0.6rem;
+      font-size: 14px;
       cursor: pointer;
-      transition: all 0.2s ease-in-out;
-      &:hover {
-        background-color: #eee;
+      &--create {
+        position: absolute;
+        top: 6px;
+        right: 0;
+        color: #ccc;
+        background-color: #3f3f3f;
+        &:hover {
+          background-color: #555;
+        }
+      }
+      &--update,
+      &--delete {
+        transition: all 0.2s ease-in-out;
+        &:hover {
+          background-color: #eee;
+        }
       }
     }
   }
-}
-
-.users {
-  &__attributes {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    padding: 10px 32px;
-    margin-bottom: 20px;
-    font-weight: 600;
-    border-bottom: 1px solid #ccc;
-    span {
+  &--users {
+    .table__header {
       &:first-child {
         width: 30%;
       }
@@ -417,67 +405,37 @@ onMounted(async () => {
         width: 15%;
       }
     }
-  }
-  &__list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    list-style-type: none;
-    font-size: 14px;
-  }
-  &__item {
-    background-color: #fff;
-    padding: 2rem;
-  }
-  &__details {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    list-style-type: none;
-  }
-  &__detail {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    &:first-child {
-      width: 30%;
+    .table__column {
+      &:first-child {
+        width: 30%;
+      }
+      &:nth-child(2) {
+        width: 25%;
+      }
+      &:nth-child(3) {
+        width: 30%;
+      }
+      &:last-child {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        padding: 0.4rem;
+        font-weight: 600;
+        width: 15%;
+      }
     }
-    &:nth-child(2) {
-      width: 25%;
-    }
-    &:nth-child(3) {
-      width: 30%;
-    }
-    &:last-child {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
-      padding: 0.4rem;
-      font-weight: 600;
-      width: 15%;
-    }
-    &--admin {
+    .admin-user {
       color: #c02fd8;
       background-color: #f9d7ff;
     }
-    &--regular {
+    .regular-user {
       color: #00b3ff;
       background-color: #d7f3ff;
     }
   }
-}
-
-.orders {
-  &__attributes {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    padding: 10px 32px;
-    margin-bottom: 20px;
-    font-weight: 600;
-    border-bottom: 1px solid #ccc;
-    span {
+  &--orders {
+    .table__header {
       &:first-child {
         width: 22%;
       }
@@ -503,72 +461,52 @@ onMounted(async () => {
         width: 8%;
       }
     }
-  }
-  &__list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    list-style-type: none;
-    font-size: 14px;
-  }
-  &__item {
-    background-color: #fff;
-    padding: 2rem;
-  }
-  &__details {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    list-style-type: none;
-  }
-  &__detail {
-    padding: 0.4rem 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-
-    &:first-child {
-      width: 22%;
-    }
-    &:nth-child(2) {
-      width: 16%;
-    }
-    &:nth-child(3) {
-      width: 12%;
-    }
-    &:nth-child(4) {
-      width: 8%;
-    }
-    &:nth-child(5) {
-      width: 10%;
-    }
-    &:nth-child(5) {
-      width: 10%;
-    }
-    &:nth-child(6) {
-      width: 12%;
-    }
-    &:last-child {
-      width: 8%;
-      padding: 0;
-    }
-
-    button {
-      display: block;
-      width: 100%;
-      padding: 0.4rem 0;
-      color: #fff;
-      background-color: #3f3f3f;
-      transition: all 0.1s ease-in-out;
-      &:hover {
-        background-color: #555;
+    .table__column {
+      &:first-child {
+        width: 22%;
+      }
+      &:nth-child(2) {
+        width: 16%;
+      }
+      &:nth-child(3) {
+        width: 12%;
+      }
+      &:nth-child(4) {
+        width: 8%;
+      }
+      &:nth-child(5) {
+        width: 10%;
+      }
+      &:nth-child(5) {
+        width: 10%;
+      }
+      &:nth-child(6) {
+        width: 12%;
+      }
+      &:last-child {
+        width: 8%;
+        padding: 0;
       }
     }
-    &--not {
-      text-align: center;
+    .orders-button {
+      &--details {
+        display: block;
+        width: 100%;
+        padding: 0.4rem 0;
+        color: #fff;
+        background-color: #3f3f3f;
+        transition: all 0.1s ease-in-out;
+        &:hover {
+          background-color: #555;
+        }
+      }
+    }
+    .status-negative {
+      padding: 0.4rem 0;
       color: red;
       background-color: #ffe4e4;
       font-weight: 600;
+      text-align: center;
     }
   }
 }
