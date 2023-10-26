@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from "vue";
+import { ref, reactive, computed, onMounted } from "vue";
 
 import { useProductsStore } from "@/stores/productsStore";
 import { useUsersStore } from "@/stores/usersStore";
@@ -38,16 +38,25 @@ const products = computed(() => productsStore.getAllProducts);
 const users = ref(null);
 const orders = ref(null);
 
-const newProduct = ref(null);
+const newProduct = reactive({
+  name: "",
+  image: "",
+  category: "",
+  type: "",
+  description: "",
+  price: "",
+});
 const newProductImagePath = ref(null);
 
 const activeTab = ref("products");
 const isCreating = ref(false);
 
-const createProductHandler = async () => {
-  newProduct.value = await productsStore.createProduct({
-    image: newProductImagePath.value,
-  });
+const createProductHandler = async (e) => {
+  e.preventDefault();
+  const stringPrice = parseFloat(newProduct.price).toFixed(2);
+  const price = parseFloat(stringPrice);
+
+  await productsStore.createProduct({ ...newProduct, price });
   await productsStore.getProducts();
 };
 
@@ -70,7 +79,7 @@ const onFilePicked = async (e) => {
   formData.append("image", e.target.files[0]);
   try {
     const res = await productsStore.uploadProductImage(formData);
-    newProductImagePath.value = res.image;
+    newProduct.image = res.image;
   } catch (error) {
     console.log(error);
   }
@@ -151,33 +160,62 @@ onMounted(async () => {
             </ul>
           </li>
         </ul>
-        <form v-if="isCreating">
+        <form v-if="isCreating" @submit="createProductHandler">
           <div>
             <label for="name">Name</label>
-            <input type="text" id="name" placeholder="Product name" />
+            <input
+              type="text"
+              id="name"
+              placeholder="Product name"
+              v-model="newProduct.name"
+              required
+            />
           </div>
           <div>
             <label for="image">Image</label>
-            <input type="file" id="image" />
+            <input type="file" id="image" @change="onFilePicked" required />
           </div>
           <div>
             <label for="category">Category</label>
-            <input type="text" id="category" placeholder="Product category" />
+            <input
+              type="text"
+              id="category"
+              placeholder="Product category"
+              v-model="newProduct.category"
+              required
+            />
           </div>
           <div>
             <label for="type">Type</label>
-            <input type="text" id="type" placeholder="Product type" />
+            <input
+              type="text"
+              id="type"
+              placeholder="Product type"
+              v-model="newProduct.type"
+              required
+            />
           </div>
           <div>
             <label for="description">Description</label>
             <textarea
               id="description"
               placeholder="Product decription"
+              v-model="newProduct.description"
+              required
             ></textarea>
           </div>
           <div>
             <label for="price">Price</label>
-            <input type="text" id="price" placeholder="Product price" />
+            <input
+              type="text"
+              id="price"
+              placeholder="Product price"
+              v-model="newProduct.price"
+              required
+            />
+          </div>
+          <div>
+            <input type="submit" value="Create" />
           </div>
         </form>
       </div>
@@ -274,6 +312,18 @@ form {
       &:focus {
         border-color: #3f3f3f;
         outline: none;
+      }
+    }
+    input[type="file"] {
+    }
+    input[type="submit"] {
+      color: #fff;
+      background-color: #3f3f3f;
+      font-weight: 600;
+      transition: background-color 0.1s ease-in-out;
+      border: none;
+      &:hover {
+        background-color: #555;
       }
     }
   }

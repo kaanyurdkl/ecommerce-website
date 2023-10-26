@@ -8,15 +8,15 @@ async function httpGetAllLProducts(req, res) {
 }
 
 async function httpCreateProduct(req, res) {
-  const { image } = req.body;
+  const { name, image, category, type, description, price } = req.body;
   const product = new Product({
     user: req.user._id,
-    name: "Sample name",
+    name,
     image,
-    category: "men",
-    type: "t-shirts",
-    description: "Some description",
-    price: 0,
+    category,
+    type,
+    description,
+    price,
   });
 
   const createdProduct = await product.save();
