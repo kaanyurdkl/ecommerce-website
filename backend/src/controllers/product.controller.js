@@ -44,7 +44,7 @@ async function httpUpdateProduct(req, res) {
 
   if (product) {
     product.name = name;
-    product.image = image;
+    product.image = image ? image : product.image;
     product.category = category;
     product.type = type;
     product.description = description;

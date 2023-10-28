@@ -46,27 +46,33 @@ const newProduct = reactive({
   description: "",
   price: "",
 });
-const newProductImagePath = ref(null);
 
 const activeTab = ref("products");
 const isCreating = ref(false);
+const isUpdating = ref(false);
+const updatingProductId = ref(null);
 
 const createProductHandler = async (e) => {
   e.preventDefault();
+
   const stringPrice = parseFloat(newProduct.price).toFixed(2);
   const price = parseFloat(stringPrice);
 
   await productsStore.createProduct({ ...newProduct, price });
   await productsStore.getProducts();
+
+  isCreating.value = false;
+  resetNewProduct();
 };
 
-const updateProductHandler = async (id) => {
-  newProduct.value = await productsStore.updateProduct(id, {
-    ...newProduct.value,
-    name: "New sample name",
-    image: newProductImagePath.value,
-  });
+const updateProductHandler = async (e) => {
+  e.preventDefault();
+
+  await productsStore.updateProduct(updatingProductId.value, newProduct);
   await productsStore.getProducts();
+
+  isUpdating.value = false;
+  resetNewProduct();
 };
 
 const deleteProductHandler = async (id) => {
@@ -90,10 +96,41 @@ const deliverOrderHandler = async (id) => {
   orders.value = await ordersStore.getAllOrders();
 };
 
+const openCreateFormHandler = () => {
+  isCreating.value = true;
+};
+
+const openUpdateFormHandler = (product) => {
+  isUpdating.value = true;
+
+  updatingProductId.value = product._id;
+
+  newProduct.name = product.name;
+  newProduct.image = "";
+  newProduct.category = product.category;
+  newProduct.type = product.type;
+  newProduct.description = product.description;
+  newProduct.price = product.price;
+};
+
+const closeFormHandler = () => {
+  isCreating.value = false;
+  isUpdating.value = false;
+  resetNewProduct();
+};
+
+const resetNewProduct = () => {
+  newProduct.name = "";
+  newProduct.image = "";
+  newProduct.category = "";
+  newProduct.type = "";
+  newProduct.description = "";
+  newProduct.price = "";
+};
+
 onMounted(async () => {
   users.value = await usersStore.getAllUsers();
   orders.value = await ordersStore.getAllOrders();
-  newProductImagePath.value = products.value[0].image;
 });
 </script>
 
@@ -114,21 +151,21 @@ onMounted(async () => {
     <section class="admin__content">
       <div v-if="activeTab === 'products'" class="table table--products">
         <i
-          v-if="!isCreating"
-          @click="isCreating = !isCreating"
+          v-if="!isCreating && !isUpdating"
+          @click="openCreateFormHandler"
           class="fa-solid fa-plus products-button products-button--create"
         ></i>
         <i
           v-else
-          @click="isCreating = !isCreating"
+          @click="closeFormHandler"
           class="fa-solid fa-minus products-button products-button--create"
         ></i>
-        <ul v-if="!isCreating" class="table__headers">
+        <ul v-if="!isCreating && !isUpdating" class="table__headers">
           <li v-for="header in productsHeaders" class="table__header">
             {{ header }}
           </li>
         </ul>
-        <ul v-if="!isCreating" class="table__rows">
+        <ul v-if="!isCreating && !isUpdating" class="table__rows">
           <li v-for="product in products" class="table__row">
             <ul class="table__columns">
               <li class="table__column">
@@ -150,7 +187,7 @@ onMounted(async () => {
               <li class="table__column">
                 <i
                   class="fa-solid fa-pen products-button products-button--update"
-                  @click="updateProductHandler(product._id)"
+                  @click="openUpdateFormHandler(product)"
                 ></i>
                 <i
                   class="fa-solid fa-trash products-button products-button--delete"
@@ -216,6 +253,67 @@ onMounted(async () => {
           </div>
           <div>
             <input type="submit" value="Create" />
+          </div>
+        </form>
+        <form v-if="isUpdating" @submit="updateProductHandler">
+          <div>
+            <h4>{{ updatingProductId }}</h4>
+          </div>
+          <div>
+            <label for="name">Name</label>
+            <input
+              type="text"
+              id="name"
+              placeholder="Product name"
+              v-model="newProduct.name"
+              required
+            />
+          </div>
+          <div>
+            <label for="image">Image</label>
+            <input type="file" id="image" @change="onFilePicked" />
+          </div>
+          <div>
+            <label for="category">Category</label>
+            <input
+              type="text"
+              id="category"
+              placeholder="Product category"
+              v-model="newProduct.category"
+              required
+            />
+          </div>
+          <div>
+            <label for="type">Type</label>
+            <input
+              type="text"
+              id="type"
+              placeholder="Product type"
+              v-model="newProduct.type"
+              required
+            />
+          </div>
+          <div>
+            <label for="description">Description</label>
+            <textarea
+              id="description"
+              placeholder="Product decription"
+              v-model="newProduct.description"
+              required
+            ></textarea>
+          </div>
+          <div>
+            <label for="price">Price</label>
+            <input
+              type="text"
+              id="price"
+              placeholder="Product price"
+              v-model="newProduct.price"
+              required
+            />
+          </div>
+          <div>
+            <input type="submit" value="Update" />
           </div>
         </form>
       </div>
