@@ -50,7 +50,53 @@ const newProduct = reactive({
 const activeTab = ref("products");
 const isCreating = ref(false);
 const isUpdating = ref(false);
+const orderDetails = ref(null);
 const updatingProductId = ref(null);
+
+const orderDetailsGrouped = computed(() => {
+  return {
+    id: orderDetails.value._id,
+    content: {
+      Shipping: {
+        Name: orderDetails.value.user.name,
+        Email: orderDetails.value.user.email,
+        Address: `${orderDetails.value.shippingAddress.address}, ${orderDetails.value.shippingAddress.city}, ${orderDetails.value.shippingAddress.country}, ${orderDetails.value.shippingAddress.postalCode}`,
+        Status: orderDetails.value.isDelivered
+          ? `Delivered at ${new Date(
+              orderDetails.value.deliveredAt
+            ).toLocaleDateString()}`
+          : "Not Delivered",
+      },
+      "Order Summary": {
+        Items: orderDetails.value.itemsPrice.toLocaleString("en-CA", {
+          style: "currency",
+          currency: "CAD",
+        }),
+        Shipping: orderDetails.value.shippingPrice.toLocaleString("en-CA", {
+          style: "currency",
+          currency: "CAD",
+        }),
+        Tax: orderDetails.value.taxPrice.toLocaleString("en-CA", {
+          style: "currency",
+          currency: "CAD",
+        }),
+        Total: orderDetails.value.totalPrice.toLocaleString("en-CA", {
+          style: "currency",
+          currency: "CAD",
+        }),
+      },
+      Payment: {
+        Mathod: orderDetails.value.paymentMethod,
+        Status: orderDetails.value.isPaid
+          ? `Paid at ${new Date(
+              orderDetails.value.paidAt
+            ).toLocaleDateString()}`
+          : "Not paid",
+      },
+      "Order Items": orderDetails.value.orderItems,
+    },
+  };
+});
 
 const createProductHandler = async (e) => {
   e.preventDefault();
@@ -126,6 +172,11 @@ const resetNewProduct = () => {
   newProduct.type = "";
   newProduct.description = "";
   newProduct.price = "";
+};
+
+const orderDetailsHandler = (order) => {
+  orderDetails.value = order;
+  console.log(orderDetails.value);
 };
 
 onMounted(async () => {
@@ -342,12 +393,65 @@ onMounted(async () => {
         </ul>
       </div>
       <div v-if="activeTab === 'orders'" class="table table--orders">
-        <ul class="table__headers">
+        <div v-if="orderDetails" class="order-details">
+          <div class="order-details__header">
+            <span>Order #{{ orderDetailsGrouped.id }}</span>
+            <button>Mark As Delivered</button>
+          </div>
+          <div class="order-details__content">
+            <div
+              v-for="(
+                detailsValue, detailsKey, index
+              ) in orderDetailsGrouped.content"
+              class="order-details__container"
+            >
+              <h3 class="order-details__title">{{ detailsKey }}</h3>
+              <ul class="order-details__details">
+                <li
+                  v-if="detailsKey !== 'Order Items'"
+                  v-for="(detailValue, detailKey, index) in detailsValue"
+                  class="order-details__detail"
+                >
+                  <span class="order-details__label">{{ detailKey }}</span>
+                  <span class="order-details__value">{{ detailValue }}</span>
+                </li>
+                <li v-else>
+                  <ul class="order-details__details">
+                    <li
+                      v-for="{ image, name, quantity, price } in detailsValue"
+                      class="order-details__detail"
+                    >
+                      <img
+                        :src="`http://localhost:8000${image}`"
+                        class="order-details__image"
+                      />
+                      <span class="order-details__value">
+                        <span>
+                          {{ name }}
+                        </span>
+                        <span
+                          >{{ quantity }} x
+                          {{
+                            price.toLocaleString("en-CA", {
+                              style: "currency",
+                              currency: "CAD",
+                            })
+                          }}</span
+                        >
+                      </span>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <ul v-if="!orderDetails" class="table__headers">
           <li v-for="header in ordersHeaders" class="table__header">
             {{ header }}
           </li>
         </ul>
-        <ul class="table__rows">
+        <ul v-if="!orderDetails" class="table__rows">
           <li v-for="order in orders" class="table__row">
             <ul class="table__columns">
               <li class="table__column">{{ order._id }}</li>
@@ -369,7 +473,10 @@ onMounted(async () => {
                 Not Delivered
               </li>
               <li class="table__column">
-                <button class="orders-button--details" @click="">
+                <button
+                  class="orders-button--details"
+                  @click="orderDetailsHandler(order)"
+                >
                   Details
                 </button>
               </li>
@@ -385,6 +492,101 @@ onMounted(async () => {
 </template>
 
 <style lang="scss" scoped>
+.order-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 1rem;
+    span {
+      font-size: 1.6rem;
+      font-weight: 600;
+    }
+    button {
+      padding: 0 1rem;
+      color: #fff;
+      background-color: #3f3f3f;
+      cursor: pointer;
+      &:hover {
+        background-color: #555;
+      }
+      &:active {
+        background-color: #484848;
+      }
+    }
+  }
+  &__content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "shipping orderSummary"
+      "payment ."
+      "orderItems .";
+    row-gap: 4rem;
+  }
+  &__container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    &:first-child {
+      grid-area: shipping;
+    }
+    &:nth-child(2) {
+      grid-area: orderSummary;
+    }
+    &:nth-child(3) {
+      grid-area: payment;
+    }
+    &:last-child {
+      grid-area: orderItems;
+    }
+  }
+  &__title {
+    position: relative;
+    padding-bottom: 0.8rem;
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 12rem;
+      height: 0.1rem;
+      background-color: #3f3f3f;
+    }
+  }
+  &__details {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    list-style-type: none;
+  }
+  &__detail {
+    display: flex;
+    align-items: center;
+  }
+  &__label {
+    display: inline-block;
+    width: 25%;
+    font-weight: 600;
+  }
+  &__value {
+    flex-grow: 1;
+    span {
+      display: inline-block;
+      width: 50%;
+    }
+  }
+  &__image {
+    width: 4rem;
+    margin-right: 2rem;
+    height: 5rem;
+    object-fit: cover;
+  }
+}
 form {
   display: flex;
   flex-direction: column;

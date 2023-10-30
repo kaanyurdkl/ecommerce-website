@@ -1,7 +1,7 @@
 const Order = require("../models/order.model");
 
 async function httpGetAllOrders(req, res) {
-  const orders = await Order.find({}).populate("user", "id name");
+  const orders = await Order.find({}).populate("user", "id name email");
   res.status(200).json(orders);
 }
 
