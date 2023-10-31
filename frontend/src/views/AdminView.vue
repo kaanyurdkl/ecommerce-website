@@ -1,5 +1,10 @@
 <script setup lang="ts">
-import { ref, reactive, computed, onMounted } from "vue";
+import { ref, computed, onMounted } from "vue";
+
+import AdminTabs from "@/components/AdminTabs.vue";
+import AdminProductsTable from "@/components/AdminProductsTable.vue";
+import AdminUsersTable from "@/components/AdminUsersTable.vue";
+import AdminOrdersTable from "@/components/AdminOrdersTable.vue";
 
 import { useProductsStore } from "@/stores/productsStore";
 import { useUsersStore } from "@/stores/usersStore";
@@ -9,175 +14,11 @@ const productsStore = useProductsStore();
 const usersStore = useUsersStore();
 const ordersStore = useOrdersStore();
 
-const tabs = [
-  { value: "products", label: "Products" },
-  { value: "users", label: "Users" },
-  { value: "orders", label: "Orders" },
-];
-const productsHeaders = [
-  "Image",
-  "Id",
-  "Name",
-  "Category",
-  "Type",
-  "Price",
-  "",
-];
-const usersHeaders = ["Id", "Name", "Email", "User Type"];
-const ordersHeaders = [
-  "Id",
-  "Name",
-  "Created At",
-  "Total",
-  "Payment",
-  "Delivery",
-  "",
-];
-
 const products = computed(() => productsStore.getAllProducts);
 const users = ref(null);
 const orders = ref(null);
 
-const newProduct = reactive({
-  name: "",
-  image: "",
-  category: "",
-  type: "",
-  description: "",
-  price: "",
-});
-
 const activeTab = ref("products");
-const isCreating = ref(false);
-const isUpdating = ref(false);
-const orderDetails = ref(null);
-const updatingProductId = ref(null);
-
-const orderDetailsGrouped = computed(() => {
-  return {
-    id: orderDetails.value._id,
-    content: {
-      Shipping: {
-        Name: orderDetails.value.user.name,
-        Email: orderDetails.value.user.email,
-        Address: `${orderDetails.value.shippingAddress.address}, ${orderDetails.value.shippingAddress.city}, ${orderDetails.value.shippingAddress.country}, ${orderDetails.value.shippingAddress.postalCode}`,
-        Status: orderDetails.value.isDelivered
-          ? `Delivered at ${new Date(
-              orderDetails.value.deliveredAt
-            ).toLocaleDateString()}`
-          : "Not Delivered",
-      },
-      "Order Summary": {
-        Items: orderDetails.value.itemsPrice.toLocaleString("en-CA", {
-          style: "currency",
-          currency: "CAD",
-        }),
-        Shipping: orderDetails.value.shippingPrice.toLocaleString("en-CA", {
-          style: "currency",
-          currency: "CAD",
-        }),
-        Tax: orderDetails.value.taxPrice.toLocaleString("en-CA", {
-          style: "currency",
-          currency: "CAD",
-        }),
-        Total: orderDetails.value.totalPrice.toLocaleString("en-CA", {
-          style: "currency",
-          currency: "CAD",
-        }),
-      },
-      Payment: {
-        Mathod: orderDetails.value.paymentMethod,
-        Status: orderDetails.value.isPaid
-          ? `Paid at ${new Date(
-              orderDetails.value.paidAt
-            ).toLocaleDateString()}`
-          : "Not paid",
-      },
-      "Order Items": orderDetails.value.orderItems,
-    },
-  };
-});
-
-const createProductHandler = async (e) => {
-  e.preventDefault();
-
-  const stringPrice = parseFloat(newProduct.price).toFixed(2);
-  const price = parseFloat(stringPrice);
-
-  await productsStore.createProduct({ ...newProduct, price });
-  await productsStore.getProducts();
-
-  isCreating.value = false;
-  resetNewProduct();
-};
-
-const updateProductHandler = async (e) => {
-  e.preventDefault();
-
-  await productsStore.updateProduct(updatingProductId.value, newProduct);
-  await productsStore.getProducts();
-
-  isUpdating.value = false;
-  resetNewProduct();
-};
-
-const deleteProductHandler = async (id) => {
-  await productsStore.deleteProduct(id);
-  await productsStore.getProducts();
-};
-
-const onFilePicked = async (e) => {
-  const formData = new FormData();
-  formData.append("image", e.target.files[0]);
-  try {
-    const res = await productsStore.uploadProductImage(formData);
-    newProduct.image = res.image;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-const deliverOrderHandler = async (id) => {
-  await ordersStore.deliverOrder(id);
-  orders.value = await ordersStore.getAllOrders();
-};
-
-const openCreateFormHandler = () => {
-  isCreating.value = true;
-};
-
-const openUpdateFormHandler = (product) => {
-  isUpdating.value = true;
-
-  updatingProductId.value = product._id;
-
-  newProduct.name = product.name;
-  newProduct.image = "";
-  newProduct.category = product.category;
-  newProduct.type = product.type;
-  newProduct.description = product.description;
-  newProduct.price = product.price;
-};
-
-const closeFormHandler = () => {
-  isCreating.value = false;
-  isUpdating.value = false;
-  resetNewProduct();
-};
-
-const resetNewProduct = () => {
-  newProduct.name = "";
-  newProduct.image = "";
-  newProduct.category = "";
-  newProduct.type = "";
-  newProduct.description = "";
-  newProduct.price = "";
-};
-
-const orderDetailsHandler = (order) => {
-  orderDetails.value = order;
-  console.log(orderDetails.value);
-};
 
 onMounted(async () => {
   users.value = await usersStore.getAllUsers();
@@ -187,315 +28,28 @@ onMounted(async () => {
 
 <template>
   <section class="admin">
-    <ul class="admin__tabs">
-      <div class="admin__tabs--line"></div>
-      <li v-for="tab in tabs" class="admin__tab">
-        <input
-          type="radio"
-          :id="tab.value"
-          :value="tab.value"
-          v-model="activeTab"
-        />
-        <label :for="tab.value">{{ tab.label }}</label>
-      </li>
-    </ul>
+    <AdminTabs v-model="activeTab" />
     <section class="admin__content">
-      <div v-if="activeTab === 'products'" class="table table--products">
-        <i
-          v-if="!isCreating && !isUpdating"
-          @click="openCreateFormHandler"
-          class="fa-solid fa-plus products-button products-button--create"
-        ></i>
-        <i
-          v-else
-          @click="closeFormHandler"
-          class="fa-solid fa-minus products-button products-button--create"
-        ></i>
-        <ul v-if="!isCreating && !isUpdating" class="table__headers">
-          <li v-for="header in productsHeaders" class="table__header">
-            {{ header }}
-          </li>
-        </ul>
-        <ul v-if="!isCreating && !isUpdating" class="table__rows">
-          <li v-for="product in products" class="table__row">
-            <ul class="table__columns">
-              <li class="table__column">
-                <img :src="`http://localhost:8000${product.image}`" />
-              </li>
-              <li class="table__column">
-                {{ product._id }}
-              </li>
-              <li class="table__column">
-                {{ product.name }}
-              </li>
-              <li class="table__column">
-                {{ product.category }}
-              </li>
-              <li class="table__column">
-                {{ product.type }}
-              </li>
-              <li class="table__column">${{ product.price }}</li>
-              <li class="table__column">
-                <i
-                  class="fa-solid fa-pen products-button products-button--update"
-                  @click="openUpdateFormHandler(product)"
-                ></i>
-                <i
-                  class="fa-solid fa-trash products-button products-button--delete"
-                  @click="deleteProductHandler(product._id)"
-                ></i>
-              </li>
-            </ul>
-          </li>
-        </ul>
-        <form v-if="isCreating" @submit="createProductHandler">
-          <div>
-            <label for="name">Name</label>
-            <input
-              type="text"
-              id="name"
-              placeholder="Product name"
-              v-model="newProduct.name"
-              required
-            />
-          </div>
-          <div>
-            <label for="image">Image</label>
-            <input type="file" id="image" @change="onFilePicked" required />
-          </div>
-          <div>
-            <label for="category">Category</label>
-            <input
-              type="text"
-              id="category"
-              placeholder="Product category"
-              v-model="newProduct.category"
-              required
-            />
-          </div>
-          <div>
-            <label for="type">Type</label>
-            <input
-              type="text"
-              id="type"
-              placeholder="Product type"
-              v-model="newProduct.type"
-              required
-            />
-          </div>
-          <div>
-            <label for="description">Description</label>
-            <textarea
-              id="description"
-              placeholder="Product decription"
-              v-model="newProduct.description"
-              required
-            ></textarea>
-          </div>
-          <div>
-            <label for="price">Price</label>
-            <input
-              type="text"
-              id="price"
-              placeholder="Product price"
-              v-model="newProduct.price"
-              required
-            />
-          </div>
-          <div>
-            <input type="submit" value="Create" />
-          </div>
-        </form>
-        <form v-if="isUpdating" @submit="updateProductHandler">
-          <div>
-            <h4>{{ updatingProductId }}</h4>
-          </div>
-          <div>
-            <label for="name">Name</label>
-            <input
-              type="text"
-              id="name"
-              placeholder="Product name"
-              v-model="newProduct.name"
-              required
-            />
-          </div>
-          <div>
-            <label for="image">Image</label>
-            <input type="file" id="image" @change="onFilePicked" />
-          </div>
-          <div>
-            <label for="category">Category</label>
-            <input
-              type="text"
-              id="category"
-              placeholder="Product category"
-              v-model="newProduct.category"
-              required
-            />
-          </div>
-          <div>
-            <label for="type">Type</label>
-            <input
-              type="text"
-              id="type"
-              placeholder="Product type"
-              v-model="newProduct.type"
-              required
-            />
-          </div>
-          <div>
-            <label for="description">Description</label>
-            <textarea
-              id="description"
-              placeholder="Product decription"
-              v-model="newProduct.description"
-              required
-            ></textarea>
-          </div>
-          <div>
-            <label for="price">Price</label>
-            <input
-              type="text"
-              id="price"
-              placeholder="Product price"
-              v-model="newProduct.price"
-              required
-            />
-          </div>
-          <div>
-            <input type="submit" value="Update" />
-          </div>
-        </form>
-      </div>
-      <div v-if="activeTab === 'users'" class="table table--users">
-        <ul class="table__headers">
-          <li v-for="header in usersHeaders" class="table__header">
-            {{ header }}
-          </li>
-        </ul>
-        <ul class="table__rows">
-          <li v-for="user in users" class="table__row">
-            <ul class="table__columns">
-              <li class="table__column">{{ user._id }}</li>
-              <li class="table__column">{{ user.name }}</li>
-              <li class="table__column">{{ user.email }}</li>
-              <li v-if="user.isAdmin" class="table__column admin-user">
-                <i class="fa-solid fa-crown"></i>
-                <span>Admin</span>
-              </li>
-              <li v-else class="table__column regular-user">
-                <i class="fa-solid fa-user"></i>
-                <span>Regular</span>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-      <div v-if="activeTab === 'orders'" class="table table--orders">
-        <div v-if="orderDetails" class="order-details">
-          <div class="order-details__header">
-            <span>Order #{{ orderDetailsGrouped.id }}</span>
-            <button>Mark As Delivered</button>
-          </div>
-          <div class="order-details__content">
-            <div
-              v-for="(
-                detailsValue, detailsKey, index
-              ) in orderDetailsGrouped.content"
-              class="order-details__container"
-            >
-              <h3 class="order-details__title">{{ detailsKey }}</h3>
-              <ul class="order-details__details">
-                <li
-                  v-if="detailsKey !== 'Order Items'"
-                  v-for="(detailValue, detailKey, index) in detailsValue"
-                  class="order-details__detail"
-                >
-                  <span class="order-details__label">{{ detailKey }}</span>
-                  <span class="order-details__value">{{ detailValue }}</span>
-                </li>
-                <li v-else>
-                  <ul class="order-details__details">
-                    <li
-                      v-for="{ image, name, quantity, price } in detailsValue"
-                      class="order-details__detail"
-                    >
-                      <img
-                        :src="`http://localhost:8000${image}`"
-                        class="order-details__image"
-                      />
-                      <span class="order-details__value">
-                        <span>
-                          {{ name }}
-                        </span>
-                        <span
-                          >{{ quantity }} x
-                          {{
-                            price.toLocaleString("en-CA", {
-                              style: "currency",
-                              currency: "CAD",
-                            })
-                          }}</span
-                        >
-                      </span>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <ul v-if="!orderDetails" class="table__headers">
-          <li v-for="header in ordersHeaders" class="table__header">
-            {{ header }}
-          </li>
-        </ul>
-        <ul v-if="!orderDetails" class="table__rows">
-          <li v-for="order in orders" class="table__row">
-            <ul class="table__columns">
-              <li class="table__column">{{ order._id }}</li>
-              <li class="table__column">
-                {{ order.user.name }}
-              </li>
-              <li class="table__column">
-                {{ new Date(order.createdAt).toLocaleDateString() }}
-              </li>
-              <li class="table__column">${{ order.totalPrice }}</li>
-              <li v-if="order.isPaid" class="table__column">
-                {{ new Date(order.paidAt).toLocaleDateString() }}
-              </li>
-              <li v-else class="table__column status-negative">Not Paid</li>
-              <li v-if="order.isDelivered" class="table__column">
-                {{ new Date(order.deliveredAt).toLocaleDateString() }}
-              </li>
-              <li v-else class="table__column status-negative">
-                Not Delivered
-              </li>
-              <li class="table__column">
-                <button
-                  class="orders-button--details"
-                  @click="orderDetailsHandler(order)"
-                >
-                  Details
-                </button>
-              </li>
-              <!-- <li class="orders__detail">
-                <button @click="deliverOrderHandler(order._id)">Deliver</button>
-              </li> -->
-            </ul>
-          </li>
-        </ul>
-      </div>
+      <AdminProductsTable
+        v-if="activeTab === 'products'"
+        :products="products"
+      />
+      <AdminUsersTable v-if="activeTab === 'users'" :users="users" />
+      <AdminOrdersTable v-if="activeTab === 'orders'" v-model:orders="orders" />
     </section>
   </section>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .order-details {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  &__back {
+    width: fit-content;
+    color: #3f3f3f;
+    cursor: pointer;
+  }
   &__header {
     display: flex;
     justify-content: space-between;
