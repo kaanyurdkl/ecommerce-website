@@ -24,7 +24,7 @@ onMounted(async () => {
     :class="{ grid: true, 'grid--aside': route.params?.category }"
   >
     <Header />
-    <Navigation />
+    <Navigation v-if="route.name !== 'admin'" />
     <Aside />
     <main>
       <RouterView />
