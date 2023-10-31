@@ -1,5 +1,9 @@
 <script setup lang="ts">
+import { useRouter } from "vue-router";
+
 defineProps(["orders"]);
+
+const router = useRouter();
 
 function formatPrice(price) {
   return price.toLocaleString("en-CA", {
@@ -10,6 +14,10 @@ function formatPrice(price) {
 function formatDate(date) {
   return new Date(date).toLocaleDateString();
 }
+
+const showDetailsHandler = (id) => {
+  router.push(`/order/${id}`);
+};
 </script>
 <template>
   <div class="user__orders">
@@ -37,7 +45,7 @@ function formatDate(date) {
             ><span>{{ formatPrice(order.totalPrice) }}</span>
           </li>
         </ul>
-        <button>Details</button>
+        <button @click="showDetailsHandler(order._id)">Details</button>
       </li>
     </ul>
   </div>

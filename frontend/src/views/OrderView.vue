@@ -16,6 +16,9 @@ const paypal = ref(null);
 
 onMounted(async () => {
   orderDetails.value = await ordersStore.getOrderDetails(props.id);
+
+  if (orderDetails.value.isPaid) return;
+
   paypal.value = await loadScript({
     clientId: import.meta.env.VITE_PAYPAL_CLIENT_ID,
   });
