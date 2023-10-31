@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 
+import UserOrders from "@/components/UserOrders.vue";
+import UserInfos from "@/components/UserInfos.vue";
+
 import { useUsersStore } from "@/stores/usersStore";
 import { useOrdersStore } from "@/stores/ordersStore";
 
@@ -19,8 +22,8 @@ onMounted(async () => {
     <h2>Profile</h2>
   </section>
   <section class="user">
-    <p>User is {{ usersStore.authUser }}</p>
-    <p v-if="myOrders">User orders are {{ myOrders }}</p>
+    <UserOrders :orders="myOrders" />
+    <UserInfos :user="usersStore.authUser" />
   </section>
 </template>
 
@@ -38,5 +41,13 @@ onMounted(async () => {
     font-size: 1.2rem;
     text-align: center;
   }
+}
+
+.user {
+  display: flex;
+  justify-content: space-between;
+  max-width: 75rem;
+  padding: 2rem;
+  margin: auto;
 }
 </style>
