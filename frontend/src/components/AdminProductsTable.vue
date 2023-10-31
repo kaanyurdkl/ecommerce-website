@@ -284,3 +284,84 @@ function formatPrice(price) {
     </form>
   </div>
 </template>
+<style lang="scss">
+.table {
+  &--products {
+    .table__header {
+      &:first-child {
+        width: 8%;
+      }
+      &:nth-child(2) {
+        width: 22%;
+      }
+      &:nth-child(3) {
+        width: 10%;
+      }
+      &:nth-child(4) {
+        width: 10%;
+      }
+      &:nth-child(5) {
+        width: 10%;
+      }
+      &:nth-child(6) {
+        width: 8%;
+      }
+      &:last-child {
+        width: 10%;
+      }
+    }
+    .table__column {
+      &:first-child {
+        width: 8%;
+        img {
+          width: 100%;
+          height: 100px;
+          object-fit: cover;
+        }
+      }
+      &:nth-child(2) {
+        width: 22%;
+      }
+      &:nth-child(3) {
+        width: 10%;
+      }
+      &:nth-child(4) {
+        width: 10%;
+      }
+      &:nth-child(5) {
+        width: 10%;
+      }
+      &:nth-child(6) {
+        width: 8%;
+      }
+      &:last-child {
+        display: flex;
+        justify-content: space-between;
+        width: 10%;
+      }
+    }
+    .products-button {
+      padding: 0.6rem;
+      font-size: 14px;
+      cursor: pointer;
+      &--create {
+        position: absolute;
+        top: 6px;
+        right: 0;
+        color: #fff;
+        background-color: #3f3f3f;
+        &:hover {
+          background-color: #555;
+        }
+      }
+      &--update,
+      &--delete {
+        transition: all 0.2s ease-in-out;
+        &:hover {
+          background-color: #eee;
+        }
+      }
+    }
+  }
+}
+</style>

@@ -29,3 +29,51 @@ const usersHeaders = ["Id", "Name", "Email", "User Type"];
     </ul>
   </div>
 </template>
+<style lang="scss">
+.table {
+  &--users {
+    .table__header {
+      &:first-child {
+        width: 30%;
+      }
+      &:nth-child(2) {
+        width: 25%;
+      }
+      &:nth-child(3) {
+        width: 30%;
+      }
+      &:last-child {
+        width: 15%;
+      }
+    }
+    .table__column {
+      &:first-child {
+        width: 30%;
+      }
+      &:nth-child(2) {
+        width: 25%;
+      }
+      &:nth-child(3) {
+        width: 30%;
+      }
+      &:last-child {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        padding: 0.4rem;
+        font-weight: 600;
+        width: 15%;
+      }
+    }
+    .admin-user {
+      color: #c02fd8;
+      background-color: #f9d7ff;
+    }
+    .regular-user {
+      color: #00b3ff;
+      background-color: #d7f3ff;
+    }
+  }
+}
+</style>

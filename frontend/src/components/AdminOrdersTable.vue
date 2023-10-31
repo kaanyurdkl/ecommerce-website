@@ -170,3 +170,182 @@ function formatDate(date) {
     </ul>
   </div>
 </template>
+<style lang="scss">
+.table {
+  &--orders {
+    .table__header {
+      &:first-child {
+        width: 22%;
+      }
+      &:nth-child(2) {
+        width: 16%;
+      }
+      &:nth-child(3) {
+        width: 12%;
+      }
+      &:nth-child(4) {
+        width: 8%;
+      }
+      &:nth-child(5) {
+        width: 10%;
+      }
+      &:nth-child(5) {
+        width: 10%;
+      }
+      &:nth-child(6) {
+        width: 12%;
+      }
+      &:last-child {
+        width: 8%;
+      }
+    }
+    .table__column {
+      &:first-child {
+        width: 22%;
+      }
+      &:nth-child(2) {
+        width: 16%;
+      }
+      &:nth-child(3) {
+        width: 12%;
+      }
+      &:nth-child(4) {
+        width: 8%;
+      }
+      &:nth-child(5) {
+        width: 10%;
+      }
+      &:nth-child(5) {
+        width: 10%;
+      }
+      &:nth-child(6) {
+        width: 12%;
+      }
+      &:last-child {
+        width: 8%;
+        padding: 0;
+      }
+    }
+    .orders-button {
+      &--details {
+        display: block;
+        width: 100%;
+        padding: 0.4rem 0;
+        color: #fff;
+        background-color: #3f3f3f;
+        transition: all 0.1s ease-in-out;
+        &:hover {
+          background-color: #555;
+        }
+      }
+    }
+    .status-negative {
+      padding: 0.4rem 0;
+      color: red;
+      background-color: #ffe4e4;
+      font-weight: 600;
+      text-align: center;
+    }
+  }
+}
+.order-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  &__back {
+    width: fit-content;
+    color: #3f3f3f;
+    cursor: pointer;
+  }
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 1rem;
+    span {
+      font-size: 1.6rem;
+      font-weight: 600;
+    }
+    button {
+      padding: 0 1rem;
+      color: #fff;
+      background-color: #3f3f3f;
+      cursor: pointer;
+      &:hover {
+        background-color: #555;
+      }
+      &:active {
+        background-color: #484848;
+      }
+    }
+  }
+  &__content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "shipping orderSummary"
+      "payment ."
+      "orderItems .";
+    row-gap: 4rem;
+  }
+  &__container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    &:first-child {
+      grid-area: shipping;
+    }
+    &:nth-child(2) {
+      grid-area: orderSummary;
+    }
+    &:nth-child(3) {
+      grid-area: payment;
+    }
+    &:last-child {
+      grid-area: orderItems;
+    }
+  }
+  &__title {
+    position: relative;
+    padding-bottom: 0.8rem;
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 12rem;
+      height: 0.1rem;
+      background-color: #3f3f3f;
+    }
+  }
+  &__details {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    list-style-type: none;
+  }
+  &__detail {
+    display: flex;
+    align-items: center;
+  }
+  &__label {
+    display: inline-block;
+    width: 25%;
+    font-weight: 600;
+  }
+  &__value {
+    flex-grow: 1;
+    span {
+      display: inline-block;
+      width: 50%;
+    }
+  }
+  &__image {
+    width: 4rem;
+    margin-right: 2rem;
+    height: 5rem;
+    object-fit: cover;
+  }
+}
+</style>
