@@ -1,35 +1,30 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { useRouter } from "vue-router";
+// import { useRouter } from "vue-router";
 
-import { useCartStore } from "@/stores/cartStore";
+import PaymentDelivery from "@/components/PaymentDelivery.vue";
+import PaymentMethod from "@/components/PaymentMethod.vue";
+import PaymentOrderSummary from "@/components/PaymentOrderSummary.vue";
 
-const cartStore = useCartStore();
-const router = useRouter();
+// const router = useRouter();
 
-const address = ref(cartStore.shippingAddress?.address || "");
-const city = ref(cartStore.shippingAddress?.city || "");
-const postalCode = ref(cartStore.shippingAddress?.postalCode || "");
-const country = ref(cartStore.shippingAddress?.country || "");
-
-const submitHandler = (e) => {
+/* const submitHandler = (e) => {
   e.preventDefault();
-  cartStore.saveShippingAddress({
-    address: address.value,
-    city: city.value,
-    postalCode: postalCode.value,
-    country: country.value,
-  });
+  cartStore.saveShippingAddress(newShippingAddress.value);
   router.push("/payment");
-};
+}; */
 </script>
 
 <template>
-  <section class="heading">
-    <h2>Shipping</h2>
-  </section>
-  <section class="shipping">
-    <form @submit="submitHandler">
+  <section class="payment">
+    <div class="payment__left">
+      <PaymentDelivery />
+      <PaymentMethod />
+      <button>Confirm Order</button>
+    </div>
+    <div class="payment__right">
+      <PaymentOrderSummary />
+    </div>
+    <!-- <form @submit="submitHandler">
       <div>
         <label for="address">Address :</label>
         <input
@@ -64,23 +59,73 @@ const submitHandler = (e) => {
       <div>
         <input type="submit" value="Submit" />
       </div>
-    </form>
+    </form> -->
   </section>
 </template>
 
 <style lang="scss">
-.heading {
+.payment {
+  display: flex;
+  justify-content: space-between;
   max-width: 75rem;
-  padding: 2rem;
   margin: auto;
-  font-size: 2rem;
-  text-transform: uppercase;
-  @media screen and (max-width: 768px) {
-    text-align: center;
+  padding: 2rem;
+  &__container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem;
+    border: 1px solid #ccc;
+    button {
+      padding: 0.4rem 1.6rem;
+      color: #fff;
+      background-color: #3f3f3f;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      &:hover {
+        background-color: #555;
+      }
+      &:active {
+        background-color: #484848;
+      }
+    }
+    h3 {
+      font-size: 1rem;
+    }
+    p {
+      font-size: 0.875rem;
+    }
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      list-style-type: none;
+    }
   }
-  @media screen and (max-width: 425px) {
-    font-size: 1.2rem;
-    text-align: center;
+  &__left {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    width: 40rem;
+    button {
+      padding: 0.4rem 1.6rem;
+      color: #fff;
+      background-color: #3f3f3f;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      &:hover {
+        background-color: #555;
+      }
+      &:active {
+        background-color: #484848;
+      }
+    }
+  }
+  &__right {
+    width: 24rem;
   }
 }
 </style>

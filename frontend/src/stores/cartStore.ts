@@ -10,7 +10,7 @@ export const useCartStore = defineStore("cart", {
         ? JSON.parse(localStorage.getItem("cart"))
         : {
             cartItems: [],
-            shippingAddress: {},
+            shippingAddress: null,
             paymentMethod: "PayPal",
           }) as Cart),
     };
@@ -18,6 +18,9 @@ export const useCartStore = defineStore("cart", {
   getters: {
     getAllCartItems(state): CartItem[] {
       return state.cartItems;
+    },
+    getShippingAddress(state) {
+      return state.shippingAddress;
     },
   },
   actions: {

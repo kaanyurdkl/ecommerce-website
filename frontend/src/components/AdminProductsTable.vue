@@ -163,7 +163,7 @@ function formatPrice(price) {
         </ul>
       </li>
     </ul>
-    <form v-if="isCreating" @submit="createProductHandler">
+    <form v-if="isCreating" @submit="createProductHandler" class="form">
       <div>
         <label for="name">Name</label>
         <input
@@ -221,7 +221,7 @@ function formatPrice(price) {
         <input type="submit" value="Create" />
       </div>
     </form>
-    <form v-if="isUpdating" @submit="updateProductHandler">
+    <form v-if="isUpdating" @submit="updateProductHandler" class="form">
       <div>
         <h4>{{ updatingProductId }}</h4>
       </div>

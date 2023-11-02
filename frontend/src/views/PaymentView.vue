@@ -24,6 +24,8 @@ onMounted(() => {
 <template>
   <section class="heading">
     <h2>Payment</h2>
+  </section>
+  <section class="payment">
     <form @submit="submitHandler">
       <div>
         <label for="paypal">PayPal</label>
@@ -35,10 +37,11 @@ onMounted(() => {
           id="paypal"
         />
       </div>
-      <input type="submit" value="Continue" />
+      <div>
+        <input type="submit" value="Continue" />
+      </div>
     </form>
   </section>
-  <section class="payment"></section>
 </template>
 
 <style lang="scss">
@@ -55,5 +58,10 @@ onMounted(() => {
     font-size: 1.2rem;
     text-align: center;
   }
+}
+.payment {
+  max-width: 75rem;
+  padding: 2rem;
+  margin: auto;
 }
 </style>

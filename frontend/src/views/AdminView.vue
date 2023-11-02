@@ -92,46 +92,4 @@ onMounted(async () => {
     text-overflow: ellipsis;
   }
 }
-
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  max-width: 30rem;
-  color: #3f3f3f;
-  div {
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-    label {
-      font-size: 0.8rem;
-      font-weight: 600;
-    }
-    input:not([type="file"]),
-    textarea {
-      padding: 0.8rem;
-      background-color: #fff;
-      border: 1px solid #ccc;
-      &::placeholder {
-        font-size: 0.8rem;
-      }
-      &:focus {
-        border-color: #3f3f3f;
-        outline: none;
-      }
-    }
-    input[type="file"] {
-    }
-    input[type="submit"] {
-      color: #fff;
-      background-color: #3f3f3f;
-      font-weight: 600;
-      transition: background-color 0.1s ease-in-out;
-      border: none;
-      &:hover {
-        background-color: #555;
-      }
-    }
-  }
-}
 </style>
