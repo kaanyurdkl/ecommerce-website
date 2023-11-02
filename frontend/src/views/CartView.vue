@@ -9,7 +9,7 @@ const router = useRouter();
 const cartStore = useCartStore();
 
 const submitHandler = () => {
-  router.push("/shipping");
+  router.push("/placeorder");
 };
 </script>
 

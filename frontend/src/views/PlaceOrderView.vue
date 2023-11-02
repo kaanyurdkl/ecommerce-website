@@ -1,6 +1,9 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
 import { useRouter } from "vue-router";
+
+import PaymentDelivery from "@/components/PaymentDelivery.vue";
+import PaymentMethod from "@/components/PaymentMethod.vue";
+import PaymentOrderSummary from "@/components/PaymentOrderSummary.vue";
 
 import { useCartStore } from "@/stores/cartStore";
 import { useOrdersStore } from "@/stores/ordersStore";
@@ -25,36 +28,86 @@ const placeOrderHandler = async () => {
     router.push(`/order/${res._id}`);
   } catch (err) {}
 };
-
-onMounted(() => {
-  if (Object.keys(cartStore.shippingAddress).length === 0) {
-    router.push("/shipping");
-  } else if (!cartStore.paymentMethod) {
-    router.push("/payment");
-  }
-});
 </script>
 
 <template>
-  <section class="heading">Place Order</section>
-  <section class="order">
-    <button @click="placeOrderHandler">Place Order</button>
+  <section class="payment">
+    <div class="payment__left">
+      <PaymentDelivery />
+      <PaymentMethod />
+      <button v-if="cartStore.shippingAddress" @click="placeOrderHandler">
+        Place Order
+      </button>
+    </div>
+    <div class="payment__right">
+      <PaymentOrderSummary />
+    </div>
   </section>
 </template>
 
 <style lang="scss">
-.heading {
+.payment {
+  display: flex;
+  justify-content: space-between;
   max-width: 75rem;
-  padding: 2rem;
   margin: auto;
-  font-size: 2rem;
-  text-transform: uppercase;
-  @media screen and (max-width: 768px) {
-    text-align: center;
+  padding: 2rem;
+  &__container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem;
+    border: 1px solid #ccc;
+    button {
+      padding: 0.4rem 1.6rem;
+      color: #fff;
+      background-color: #3f3f3f;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      &:hover {
+        background-color: #555;
+      }
+      &:active {
+        background-color: #484848;
+      }
+    }
+    h3 {
+      font-size: 1rem;
+    }
+    p {
+      font-size: 0.875rem;
+    }
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      list-style-type: none;
+    }
   }
-  @media screen and (max-width: 425px) {
-    font-size: 1.2rem;
-    text-align: center;
+  &__left {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    width: 40rem;
+    button {
+      padding: 0.4rem 1.6rem;
+      color: #fff;
+      background-color: #3f3f3f;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      &:hover {
+        background-color: #555;
+      }
+      &:active {
+        background-color: #484848;
+      }
+    }
+  }
+  &__right {
+    width: 24rem;
   }
 }
 </style>

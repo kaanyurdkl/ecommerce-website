@@ -85,7 +85,9 @@ function formatPrice(price) {
     }
   }
   &__prices {
+    padding-bottom: 1rem;
     font-size: 0.8rem;
+    border-bottom: 1px solid #ccc;
     li {
       display: flex;
       justify-content: space-between;

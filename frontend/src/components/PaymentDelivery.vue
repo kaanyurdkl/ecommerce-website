@@ -27,6 +27,7 @@ const saveAddressHandler = (e) => {
 <template>
   <div class="payment__container shipping-address">
     <button
+      v-if="shippingAddress && !isEditingDeliveryAddress"
       class="shipping-address__edit"
       @click="isEditingDeliveryAddress = !isEditingDeliveryAddress"
     >
@@ -78,7 +79,7 @@ const saveAddressHandler = (e) => {
     </form>
   </div>
 </template>
-<style lang="scss">
+<style lang="scss" scoped>
 .shipping-address {
   color: #3f3f3f;
   &__edit {
