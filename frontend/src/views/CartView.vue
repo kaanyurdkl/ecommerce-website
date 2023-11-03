@@ -20,7 +20,7 @@ const submitHandler = () => {
   <section class="cart">
     <div class="cart__container cart-products">
       <ul class="cart__items">
-        <li v-for="product in cartStore.getAllCartItems" class="cart__item">
+        <li v-for="product in cartStore.cartItems" class="cart__item">
           <CartCard :product="product" />
         </li>
       </ul>

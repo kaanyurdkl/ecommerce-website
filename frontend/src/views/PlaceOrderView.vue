@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { computed } from "vue";
 import { useRouter } from "vue-router";
 
 import PaymentDelivery from "@/components/PaymentDelivery.vue";
@@ -13,8 +12,6 @@ const router = useRouter();
 
 const cartStore = useCartStore();
 const ordersStore = useOrdersStore();
-
-const shippingAddress = computed(() => cartStore.getShippingAddress);
 
 const placeOrderHandler = async () => {
   try {
@@ -36,7 +33,7 @@ const placeOrderHandler = async () => {
 <template>
   <section class="payment">
     <div class="payment__left">
-      <PaymentDelivery :shipping-address="shippingAddress" />
+      <PaymentDelivery :shipping-address="cartStore.shippingAddress" />
       <PaymentMethod />
       <button v-if="cartStore.shippingAddress" @click="placeOrderHandler">
         Place Order

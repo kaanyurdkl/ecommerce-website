@@ -16,11 +16,8 @@ export const useCartStore = defineStore("cart", {
     };
   },
   getters: {
-    getAllCartItems(state): CartItem[] {
-      return state.cartItems;
-    },
-    getShippingAddress(state) {
-      return state.shippingAddress;
+    numberOfCartItems(state) {
+      return state.cartItems.reduce((acc, item) => acc + item.quantity, 0);
     },
   },
   actions: {

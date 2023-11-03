@@ -14,9 +14,7 @@ const countFavorites = computed<number>(
   () => productsStore.getAllFavoriteProducts.length
 );
 
-const countCartItems = computed<number>(() =>
-  cartStore.getAllCartItems.reduce((acc, item) => acc + item.quantity, 0)
-);
+const numberOfCartItems = computed<number>(() => cartStore.numberOfCartItems);
 </script>
 <template>
   <header class="header">
@@ -38,7 +36,7 @@ const countCartItems = computed<number>(() =>
           <i class="header__link-icon fa-solid fa-cart-shopping"></i>
           <span class="header__link-text">
             <span> Cart </span>
-            <span v-if="countCartItems">({{ countCartItems }})</span>
+            <span v-if="numberOfCartItems">({{ numberOfCartItems }})</span>
           </span>
         </router-link>
       </li>
