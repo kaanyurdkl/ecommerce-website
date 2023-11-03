@@ -6,7 +6,6 @@ import ProductView from "@/views/ProductView.vue";
 import FavoritesView from "@/views/FavoritesView.vue";
 import CartView from "@/views/CartView.vue";
 import UserView from "@/views/UserView.vue";
-import PaymentView from "@/views/PaymentView.vue";
 import PlaceOrderView from "@/views/PlaceOrderView.vue";
 import OrderView from "@/views/OrderView.vue";
 import AdminView from "@/views/AdminView.vue";
@@ -45,12 +44,6 @@ const router = createRouter({
           path: "cart",
           name: "cart",
           component: CartView,
-        },
-        {
-          path: "payment",
-          name: "payment",
-          component: PaymentView,
-          meta: { requiresAuth: true },
         },
         {
           path: "placeorder",
