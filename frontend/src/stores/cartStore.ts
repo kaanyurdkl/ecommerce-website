@@ -25,14 +25,11 @@ export const useCartStore = defineStore("cart", {
       const existProduct = this.cartItems.find((p) => p._id === newProduct._id);
 
       if (existProduct) {
-        this.cartItems = this.cartItems.map((p) =>
-          p._id === existProduct._id
-            ? {
-                ...newProduct,
-                quantity: p.quantity < 10 ? p.quantity + 1 : p.quantity,
-              }
-            : p
+        const cartItem = this.cartItems.find(
+          (item) => item._id === existProduct._id
         );
+        const quantity = cartItem.quantity;
+        cartItem.quantity = quantity < 10 ? quantity + 1 : quantity;
       } else {
         this.cartItems.push(newProduct);
       }
