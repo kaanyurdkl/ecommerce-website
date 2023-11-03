@@ -38,19 +38,12 @@ const favoritesHandler = () => {
   }
 };
 
-const getFormattedPrice = (number: number): string => {
-  const isNumber = !isNaN(number);
-
-  if (!isNumber) {
-    return "Price not available";
-  } else {
-    const formattedPrice = new Intl.NumberFormat("en-CA", {
-      style: "currency",
-      currency: "CAD",
-    }).format(Math.abs(number));
-    return formattedPrice;
-  }
-};
+function formatPrice(price) {
+  return price.toLocaleString("en-CA", {
+    style: "currency",
+    currency: "CAD",
+  });
+}
 </script>
 
 <template>
@@ -69,15 +62,14 @@ const getFormattedPrice = (number: number): string => {
       </button>
       <h4 class="cart-cart__header">{{ product.name }}</h4>
       <p class="cart-cart__price">
-        {{ getFormattedPrice(product.price) }}
+        {{ formatPrice(product.price) }}
       </p>
       <ul class="cart-card__details">
         <li class="cart-card__detail">
           <span>Product no:</span><span>{{ product._id }}</span>
         </li>
         <li class="cart-card__detail">
-          <span>Total:</span
-          ><span>{{ getFormattedPrice(itemTotalPrice) }}</span>
+          <span>Total:</span><span>{{ formatPrice(itemTotalPrice) }}</span>
         </li>
       </ul>
     </div>

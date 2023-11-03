@@ -21,14 +21,6 @@ export const useCartStore = defineStore("cart", {
     },
   },
   actions: {
-    savePayment(paymentMethod) {
-      this.paymentMethod = paymentMethod;
-      updateCart(this);
-    },
-    saveShippingAddress(address) {
-      this.shippingAddress = address;
-      updateCart(this);
-    },
     addNewProductToCart(newProduct: CartItem) {
       const existProduct = this.cartItems.find((p) => p._id === newProduct._id);
 
@@ -62,6 +54,14 @@ export const useCartStore = defineStore("cart", {
     },
     clearCartItems() {
       this.cartItems = [];
+      updateCart(this);
+    },
+    savePayment(paymentMethod) {
+      this.paymentMethod = paymentMethod;
+      updateCart(this);
+    },
+    saveShippingAddress(address) {
+      this.shippingAddress = address;
       updateCart(this);
     },
   },

@@ -32,19 +32,12 @@ const favoriteHandler = () => {
   }
 };
 
-const getFormattedPrice = (number: number): string => {
-  const isNumber = !isNaN(number);
-
-  if (!isNumber) {
-    return "Price not available";
-  } else {
-    const formattedPrice = new Intl.NumberFormat("en-CA", {
-      style: "currency",
-      currency: "CAD",
-    }).format(Math.abs(number));
-    return formattedPrice;
-  }
-};
+function formatPrice(price) {
+  return price.toLocaleString("en-CA", {
+    style: "currency",
+    currency: "CAD",
+  });
+}
 
 const addToCart = () => {
   if (product) cartStore.addNewProductToCart({ ...product, quantity: 1 });
@@ -80,7 +73,7 @@ const addToCart = () => {
           />
         </div>
         <div class="product__price">
-          {{ getFormattedPrice(product.price) }}
+          {{ formatPrice(product.price) }}
         </div>
         <button @click="addToCart" class="product__button">Add to bag</button>
       </div>
