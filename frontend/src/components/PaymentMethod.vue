@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
 
 const selectedPaymentMethod = ref("paypal");
 </script>
@@ -7,18 +10,25 @@ const selectedPaymentMethod = ref("paypal");
   <div class="payment__container payment-method">
     <h3>Payment Method</h3>
     <div>
-      <label for="paypal">
+      <label for="paypalButton">
         <i
-          v-if="selectedPaymentMethod === 'paypal'"
+          v-if="
+            route.name === 'placeorder' && selectedPaymentMethod === 'paypal'
+          "
           class="fa-solid fa-circle"
         ></i>
-        <i v-else class="fa-regular fa-circle"></i>
+        <i
+          v-if="
+            route.name === 'placeorder' && selectedPaymentMethod !== 'paypal'
+          "
+          class="fa-regular fa-circle"
+        ></i>
         <i class="fa-brands fa-paypal"></i>
         <span>Paypal</span>
       </label>
       <input
         type="radio"
-        id="paypal"
+        id="paypalButton"
         value="paypal"
         v-model="selectedPaymentMethod"
       />

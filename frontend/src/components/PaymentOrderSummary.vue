@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import { computed } from "vue";
-
 import { useCartStore } from "@/stores/cartStore";
 
-const cartStore = useCartStore();
+defineProps(["items", "itemsPrice", "shippingPrice", "taxPrice", "totalPrice"]);
 
-const cartItems = computed(() => cartStore.getAllCartItems);
+const cartStore = useCartStore();
 
 function formatPrice(price) {
   return price.toLocaleString("en-CA", {
@@ -18,7 +16,7 @@ function formatPrice(price) {
   <div class="payment__container order-summary">
     <h3>Order Summary</h3>
     <ul class="order-summary__items">
-      <li v-for="item in cartItems" class="order-summary__item">
+      <li v-for="item in items" class="order-summary__item">
         <img :src="`http://localhost:8000${item.image}`" />
         <div class="order-summary__item-details">
           <div>{{ item.name }}</div>
@@ -30,19 +28,17 @@ function formatPrice(price) {
     </ul>
     <ul class="order-summary__prices">
       <li>
-        <span>Subtotal</span
-        ><span>{{ formatPrice(cartStore.itemsPrice) }}</span>
+        <span>Subtotal</span><span>{{ formatPrice(itemsPrice) }}</span>
       </li>
       <li>
-        <span>Shipping</span
-        ><span>{{ formatPrice(cartStore.shippingPrice) }}</span>
+        <span>Shipping</span><span>{{ formatPrice(shippingPrice) }}</span>
       </li>
       <li>
-        <span>Tax</span><span>{{ formatPrice(cartStore.taxPrice) }}</span>
+        <span>Tax</span><span>{{ formatPrice(taxPrice) }}</span>
       </li>
     </ul>
     <div class="order-summary__total-price">
-      <span>Total</span><span>{{ formatPrice(cartStore.totalPrice) }}</span>
+      <span>Total</span><span>{{ formatPrice(totalPrice) }}</span>
     </div>
   </div>
 </template>

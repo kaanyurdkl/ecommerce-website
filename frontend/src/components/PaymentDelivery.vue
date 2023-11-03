@@ -1,15 +1,19 @@
 <script setup lang="ts">
-import { ref, reactive, computed } from "vue";
+import { ref, reactive } from "vue";
+import { useRoute } from "vue-router";
 
 import { useCartStore } from "@/stores/cartStore";
 
+const props = defineProps(["shippingAddress"]);
+
+const route = useRoute();
+
 const cartStore = useCartStore();
 
-const isEditingDeliveryAddress = ref(false);
-const shippingAddress = computed(() => cartStore.getShippingAddress);
+const isEditingDeliveryAddress = ref(!props.shippingAddress);
 const newShippingAddress = reactive(
-  shippingAddress.value
-    ? shippingAddress.value
+  props.shippingAddress
+    ? props.shippingAddress
     : {
         address: null,
         city: null,
@@ -27,18 +31,18 @@ const saveAddressHandler = (e) => {
 <template>
   <div class="payment__container shipping-address">
     <button
-      v-if="shippingAddress && !isEditingDeliveryAddress"
+      v-if="route.name === 'placeorder' && !isEditingDeliveryAddress"
       class="shipping-address__edit"
       @click="isEditingDeliveryAddress = !isEditingDeliveryAddress"
     >
       Edit
     </button>
     <h3>Delivery Address</h3>
-    <p v-if="shippingAddress && !isEditingDeliveryAddress">
+    <p v-if="!isEditingDeliveryAddress">
       {{ shippingAddress.address }}, {{ shippingAddress.city }},
       {{ shippingAddress.postalCode }}, {{ shippingAddress.country }}
     </p>
-    <form v-else @submit="saveAddressHandler">
+    <form v-if="isEditingDeliveryAddress" @submit="saveAddressHandler">
       <div>
         <label for="address">Address</label>
         <input
