@@ -11,9 +11,6 @@ export const useProductsStore = defineStore("products", {
     };
   },
   getters: {
-    getAllProducts(state): Product[] {
-      return state.products;
-    },
     getAllProductsByCategory: (state) => {
       return (category: string): Product[] =>
         state.products.filter((p) => p.category === category);

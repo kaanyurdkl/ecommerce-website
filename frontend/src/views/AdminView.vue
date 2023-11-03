@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from "vue";
+import { ref, onMounted } from "vue";
 
 import AdminTabs from "@/components/AdminTabs.vue";
 import AdminProductsTable from "@/components/AdminProductsTable.vue";
@@ -14,7 +14,6 @@ const productsStore = useProductsStore();
 const usersStore = useUsersStore();
 const ordersStore = useOrdersStore();
 
-const products = computed(() => productsStore.getAllProducts);
 const users = ref(null);
 const orders = ref(null);
 
@@ -32,7 +31,7 @@ onMounted(async () => {
     <section class="admin__content">
       <AdminProductsTable
         v-if="activeTab === 'products'"
-        :products="products"
+        :products="productsStore.products"
       />
       <AdminUsersTable v-if="activeTab === 'users'" :users="users" />
       <AdminOrdersTable v-if="activeTab === 'orders'" v-model:orders="orders" />

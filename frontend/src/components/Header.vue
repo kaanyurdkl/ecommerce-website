@@ -14,7 +14,7 @@ const countFavorites = computed<number>(
   () => productsStore.getAllFavoriteProducts.length
 );
 
-const numberOfCartItems = computed<number>(() => cartStore.numberOfCartItems);
+const numberOfCartItems = computed<number>(() => cartStore.numberOfItems);
 </script>
 <template>
   <header class="header">

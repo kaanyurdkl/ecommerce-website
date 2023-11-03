@@ -16,7 +16,7 @@ export const useCartStore = defineStore("cart", {
     };
   },
   getters: {
-    numberOfCartItems(state) {
+    numberOfItems(state) {
       return state.cartItems.reduce((acc, item) => acc + item.quantity, 0);
     },
   },
