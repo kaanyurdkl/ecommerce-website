@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, computed } from "vue";
+import { onMounted } from "vue";
 import { useRoute } from "vue-router";
 
 import { useAppStore } from "@/stores/appStore";
@@ -8,10 +8,8 @@ import Header from "@/components/Header.vue";
 import Navigation from "@/components/Navigation.vue";
 import Aside from "@/components/Aside.vue";
 
-const appStore = useAppStore();
 const route = useRoute();
-
-const isAppReady = computed(() => appStore.getAppState);
+const appStore = useAppStore();
 
 onMounted(async () => {
   await appStore.setApp();
@@ -20,7 +18,7 @@ onMounted(async () => {
 
 <template>
   <div
-    v-if="isAppReady"
+    v-if="appStore.isAppReady"
     :class="{ grid: true, 'grid--aside': route.params?.category }"
   >
     <Header />

@@ -11,12 +11,8 @@ const props = defineProps<{
 const productStore = useProductsStore();
 const cartStore = useCartStore();
 
-const favoriteProducts = computed<FavoriteProduct[]>(
-  () => productStore.getAllFavoriteProducts
-);
-
 const isFavorite = computed<FavoriteProduct | undefined>(() =>
-  favoriteProducts.value.find((p) => p._id === props.product._id)
+  productStore.favoriteProducts.find((p) => p._id === props.product._id)
 );
 
 const itemNumber = ref(props.product.quantity);

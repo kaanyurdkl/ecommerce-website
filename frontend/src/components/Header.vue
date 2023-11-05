@@ -10,10 +10,6 @@ const cartStore = useCartStore();
 
 const authUser = computed(() => usersStore.getAuthUser);
 
-const countFavorites = computed<number>(
-  () => productsStore.getAllFavoriteProducts.length
-);
-
 const numberOfCartItems = computed<number>(() => cartStore.numberOfItems);
 </script>
 <template>
@@ -27,7 +23,9 @@ const numberOfCartItems = computed<number>(() => cartStore.numberOfItems);
           <i class="header__link-icon fa-solid fa-heart"></i>
           <span class="header__link-text">
             <span> Favourites </span>
-            <span v-if="countFavorites">({{ countFavorites }})</span>
+            <span v-if="productsStore.favoriteProducts.length"
+              >({{ productsStore.favoriteProducts.length }})</span
+            >
           </span>
         </router-link>
       </li>

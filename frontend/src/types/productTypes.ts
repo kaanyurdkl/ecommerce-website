@@ -1,11 +1,14 @@
 interface Product {
   _id: string;
+  user: string;
   name: string;
   image: string;
-  description: string;
-  type: string;
-  price: number;
   category: string;
+  type: string;
+  description: string;
+  price: number;
+  createdAt: string;
+  updatedAt: string;
 }
 
 interface FavoriteProduct {

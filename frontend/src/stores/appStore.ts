@@ -6,13 +6,8 @@ import { useProductsStore } from "./productsStore";
 export const useAppStore = defineStore("app", {
   state: () => {
     return {
-      appState: false,
+      isAppReady: false,
     };
-  },
-  getters: {
-    getAppState(state) {
-      return state.appState;
-    },
   },
   actions: {
     async setApp() {
@@ -29,7 +24,7 @@ export const useAppStore = defineStore("app", {
       }
     },
     setAppState(newState: boolean) {
-      this.appState = newState;
+      this.isAppReady = newState;
     },
   },
 });

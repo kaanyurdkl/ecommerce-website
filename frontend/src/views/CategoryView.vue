@@ -9,8 +9,8 @@ const store = useProductsStore();
 
 <template>
   <ProductsList
-    v-if="store.getAllProductsByCategory(category)"
+    v-if="store.getProductsByCategory(category)"
     :heading="category"
-    :products="store.getAllProductsByCategory(category)"
+    :products="store.getProductsByCategory(category)"
   />
 </template>

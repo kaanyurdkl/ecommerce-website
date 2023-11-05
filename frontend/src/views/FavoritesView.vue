@@ -7,8 +7,8 @@ const store = useProductsStore();
 
 <template>
   <ProductsList
-    v-if="store.getAllFavoriteProducts"
+    v-if="store.favoriteProducts"
     heading="Favorites"
-    :products="store.getAllFavoriteProductsReversed"
+    :products="store.getFavoriteProductsReversed"
   />
 </template>

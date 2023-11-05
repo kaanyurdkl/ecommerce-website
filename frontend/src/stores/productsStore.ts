@@ -11,7 +11,7 @@ export const useProductsStore = defineStore("products", {
     };
   },
   getters: {
-    getAllProductsByCategory: (state) => {
+    getProductsByCategory: (state) => {
       return (category: string): Product[] =>
         state.products.filter((p) => p.category === category);
     },
@@ -31,10 +31,7 @@ export const useProductsStore = defineStore("products", {
         return productsByType;
       };
     },
-    getAllFavoriteProducts(state): FavoriteProduct[] {
-      return state.favoriteProducts;
-    },
-    getAllFavoriteProductsReversed(state): Product[] {
+    getFavoriteProductsReversed(state): Product[] {
       return state.favoriteProducts.toReversed();
     },
     getProductTypes: (state) => {

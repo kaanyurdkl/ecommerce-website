@@ -11,15 +11,11 @@ const props = defineProps<{
 const productStore = useProductsStore();
 const cartStore = useCartStore();
 
-const favoriteProducts = computed<FavoriteProduct[]>(
-  () => productStore.getAllFavoriteProducts
-);
-
 const isFavorite = computed<FavoriteProduct | undefined>(() =>
-  favoriteProducts.value.find((p) => p._id === props.product._id)
+  productStore.favoriteProducts.find((p) => p._id === props.product._id)
 );
 
-const favoritesHandler = () => {
+const favoritesHandler = (): void => {
   if (!isFavorite.value) {
     productStore.addNewFavoriteProduct(props.product);
   } else {
@@ -27,14 +23,14 @@ const favoritesHandler = () => {
   }
 };
 
-function formatPrice(price) {
+function formatPrice(price: number): string {
   return price.toLocaleString("en-CA", {
     style: "currency",
     currency: "CAD",
   });
 }
 
-const addToCart = () => {
+const addToCart = (): void => {
   cartStore.addNewProductToCart({ ...props.product, quantity: 1 });
 };
 </script>

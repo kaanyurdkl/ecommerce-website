@@ -14,15 +14,11 @@ const { getProductById } = storeToRefs(productsStore);
 
 const product: Product | undefined = getProductById.value(props.id);
 
-const favoriteProducts = computed<FavoriteProduct[]>(
-  () => productsStore.getAllFavoriteProducts
-);
-
 const isFavorite = computed<FavoriteProduct | undefined>(() =>
-  favoriteProducts.value.find((p) => p._id === product?._id)
+  productsStore.favoriteProducts.find((p) => p._id === product?._id)
 );
 
-const favoriteHandler = () => {
+const favoriteHandler = (): void => {
   if (!product) return;
 
   if (!isFavorite.value) {
@@ -32,14 +28,14 @@ const favoriteHandler = () => {
   }
 };
 
-function formatPrice(price) {
+function formatPrice(price: number): string {
   return price.toLocaleString("en-CA", {
     style: "currency",
     currency: "CAD",
   });
 }
 
-const addToCart = () => {
+const addToCart = (): void => {
   if (product) cartStore.addNewProductToCart({ ...product, quantity: 1 });
 };
 </script>

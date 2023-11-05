@@ -53,13 +53,9 @@ export const useCartStore = defineStore("cart", {
       this.cartItems = [];
       updateCart(this);
     },
-    savePayment(paymentMethod) {
-      this.paymentMethod = paymentMethod;
-      updateCart(this);
-    },
     saveShippingAddress(address) {
       this.shippingAddress = address;
-      updateCart(this);
+      localStorage.setItem("cart", JSON.stringify(this));
     },
   },
 });
