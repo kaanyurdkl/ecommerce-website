@@ -18,14 +18,22 @@ const submitHandler = () => {
     <h2>Cart</h2>
   </section>
   <section class="cart">
-    <div class="cart__container cart-products">
+    <div v-if="!cartStore.cartItems.length" class="cart__container cart__empty">
+      <h2>Your Cart is Empty!</h2>
+      <p>Looks like you haven't added anything to your cart yet</p>
+      <router-link :to="{ name: 'home' }"> Start Shopping </router-link>
+    </div>
+    <div
+      v-if="cartStore.cartItems.length"
+      class="cart__container cart-products"
+    >
       <ul class="cart__items">
         <li v-for="product in cartStore.cartItems" class="cart__item">
           <CartCard :product="product" />
         </li>
       </ul>
     </div>
-    <div class="cart__container cart-summary">
+    <div v-if="cartStore.cartItems.length" class="cart__container cart-summary">
       <h2 class="cart-summary__title">Order Summary</h2>
       <ul class="cart-summary__fees">
         <li class="cart-summary__fee cart-summary__subtotal">
@@ -78,6 +86,35 @@ const submitHandler = () => {
   &__container {
     height: fit-content;
     background-color: #eee;
+  }
+  &__empty {
+    width: 100%;
+    padding: 8rem 1rem;
+    text-align: center;
+    h2 {
+      margin-bottom: 1rem;
+      font-size: 2rem;
+    }
+    p {
+      margin-bottom: 3rem;
+      font-size: 1.2rem;
+    }
+    a {
+      display: inline-block;
+      padding: 1rem 1.8rem;
+      color: #fff;
+      background-color: #3f3f3f;
+      font-size: 1rem;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 0.4rem;
+      &:hover {
+        background-color: #555;
+      }
+      &:active {
+        background-color: #484848;
+      }
+    }
   }
   &-products {
     padding: 1rem;
