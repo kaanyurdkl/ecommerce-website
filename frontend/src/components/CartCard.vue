@@ -50,6 +50,15 @@ function formatPrice(price) {
       alt=""
     />
     <div class="cart-card__info">
+      <button class="cart-card__favorite" @click="favoritesHandler">
+        <i
+          :class="{
+            'fa-solid': true,
+            'fa-heart': true,
+            'cart-card__favorite--red': isFavorite,
+          }"
+        ></i>
+      </button>
       <button class="cart-card__remove" @click="cartStore.removeItem(product)">
         <i class="fa-solid fa-trash"></i>
       </button>
@@ -67,12 +76,6 @@ function formatPrice(price) {
       </ul>
     </div>
     <div class="cart-card__actions">
-      <span v-if="isFavorite" class="cart-card__icon cart-card__icon--red">
-        <i @click="favoritesHandler" class="fa-solid fa-heart"></i>
-      </span>
-      <span v-else class="cart-card__icon">
-        <i @click="favoritesHandler" class="fa-regular fa-heart"></i>
-      </span>
       <div class="cart-card__quantity">
         <select v-model="itemNumber">
           <option value="1">1</option>
@@ -102,6 +105,31 @@ function formatPrice(price) {
     "image actions actions actions ";
   gap: 1rem;
   width: 100%;
+
+  &__favorite {
+    position: absolute;
+    top: 0;
+    right: 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.75rem;
+    color: #fff;
+    background-color: #ffc6c6;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: 0.2rem;
+    &:hover {
+      background-color: #ffd2d2;
+    }
+    &:active {
+      background-color: #fdcdcd;
+    }
+    &--red {
+      color: #ff3535;
+    }
+  }
   &__remove {
     position: absolute;
     top: 0;
@@ -113,7 +141,7 @@ function formatPrice(price) {
     padding: 0.75rem;
     color: #fff;
     background-color: #3f3f3f;
-    font-size: 0.75rem;
+    font-size: 0.875rem;
     font-weight: 600;
     border-radius: 0.2rem;
     &:hover {
@@ -166,29 +194,6 @@ function formatPrice(price) {
   }
   &__actions {
     grid-area: actions;
-    display: grid;
-    grid-template-columns: 5rem 1fr;
-    gap: 1rem;
-    @media screen and (max-width: 425px) {
-      grid-template-columns: 7rem 1fr;
-    }
-  }
-  &__icon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 5rem;
-    font-size: 1.8rem;
-    border: 0.01px solid #000;
-    i {
-      cursor: pointer;
-    }
-    @media screen and (max-width: 425px) {
-      width: unset;
-    }
-    &--red {
-      color: #ff3535;
-    }
   }
   &__quantity {
     position: relative;
