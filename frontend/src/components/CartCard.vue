@@ -51,7 +51,7 @@ function formatPrice(price) {
     />
     <div class="cart-card__info">
       <button class="cart-card__remove" @click="cartStore.removeItem(product)">
-        Remove
+        <i class="fa-solid fa-trash"></i>
       </button>
       <h4 class="cart-cart__header">{{ product.name }}</h4>
       <p class="cart-cart__price">
@@ -106,6 +106,22 @@ function formatPrice(price) {
     position: absolute;
     top: 0;
     right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.75rem;
+    color: #fff;
+    background-color: #3f3f3f;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 0.2rem;
+    &:hover {
+      background-color: #555;
+    }
+    &:active {
+      background-color: #484848;
+    }
   }
   @media screen and (max-width: 425px) {
     grid-template-columns: 1fr 1fr 1fr 1fr;
