@@ -1,4 +1,4 @@
-import type { Cart } from "@/types/productTypes";
+import type { Cart } from "@/types/cartTypes";
 
 const addDecimals = (num: number): number => {
   return Number((Math.round(num * 100) / 100).toFixed(2));

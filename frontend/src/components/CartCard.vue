@@ -18,7 +18,7 @@ const isFavorite = computed<FavoriteProduct | undefined>(() =>
 const itemNumber = ref(props.product.quantity);
 
 watch(itemNumber, (newVal) => {
-  cartStore.updateProductInCart({
+  cartStore.updateItem({
     ...props.product,
     quantity: Number(newVal),
   });
@@ -50,10 +50,7 @@ function formatPrice(price) {
       alt=""
     />
     <div class="cart-card__info">
-      <button
-        class="cart-card__remove"
-        @click="cartStore.removeProductFromCart(product)"
-      >
+      <button class="cart-card__remove" @click="cartStore.removeItem(product)">
         Remove
       </button>
       <h4 class="cart-cart__header">{{ product.name }}</h4>

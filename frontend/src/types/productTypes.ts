@@ -15,18 +15,4 @@ interface FavoriteProduct {
   _id: string;
 }
 
-interface CartItem extends Product {
-  quantity: number;
-}
-
-interface Cart {
-  cartItems: CartItem[];
-  shippingAddress: object;
-  paymentMethod: string;
-  itemsPrice: number;
-  shippingPrice: number;
-  taxPrice: number;
-  totalPrice: number;
-}
-
-export type { Product, FavoriteProduct, Cart, CartItem };
+export type { Product, FavoriteProduct };

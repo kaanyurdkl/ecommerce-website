@@ -24,7 +24,7 @@ const placeOrderHandler = async () => {
       taxPrice: cartStore.taxPrice,
       totalPrice: cartStore.totalPrice,
     });
-    cartStore.clearCartItems();
+    cartStore.clearItems();
     router.push(`/order/${res._id}`);
   } catch (err) {}
 };

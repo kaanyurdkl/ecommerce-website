@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-import type { Cart, CartItem } from "@/types/productTypes";
+import type { Cart, CartItem, ShippingAddress } from "@/types/cartTypes";
 import { updateCart } from "../utils/cartUtils";
 
 export const useCartStore = defineStore("cart", {
@@ -9,51 +9,52 @@ export const useCartStore = defineStore("cart", {
       ...((localStorage.getItem("cart")
         ? JSON.parse(localStorage.getItem("cart"))
         : {
-            cartItems: [],
-            shippingAddress: null,
+            cartItems: [] as CartItem[],
+            shippingAddress: null as ShippingAddress | null,
             paymentMethod: "PayPal",
           }) as Cart),
     };
   },
   getters: {
-    numberOfItems(state) {
+    numberOfItems(state): number {
       return state.cartItems.reduce((acc, item) => acc + item.quantity, 0);
     },
   },
   actions: {
-    addNewProductToCart(newProduct: CartItem) {
-      const existProduct = this.cartItems.find((p) => p._id === newProduct._id);
+    addItem(newItem: CartItem): void {
+      const existItem = this.cartItems.find((item) => item._id === newItem._id);
 
-      if (existProduct) {
-        const cartItem = this.cartItems.find(
-          (item) => item._id === existProduct._id
-        );
-        const quantity = cartItem.quantity;
-        cartItem.quantity = quantity < 10 ? quantity + 1 : quantity;
+      if (existItem) {
+        const quantity = existItem.quantity;
+        existItem.quantity = quantity < 10 ? quantity + 1 : quantity;
       } else {
-        this.cartItems.push(newProduct);
+        this.cartItems.push(newItem);
       }
 
       updateCart(this);
     },
-    updateProductInCart(product: CartItem) {
-      const item = this.cartItems.find((item) => item._id === product._id);
-
-      if (item) item.quantity = product.quantity;
-
-      updateCart(this);
-    },
-    removeProductFromCart(product: CartItem) {
-      this.cartItems = this.cartItems.filter(
-        (item) => item._id !== product._id
+    updateItem(updateItem: CartItem): void {
+      const existItem = this.cartItems.find(
+        (item) => item._id === updateItem._id
       );
+
+      if (existItem) existItem.quantity = updateItem.quantity;
+
       updateCart(this);
     },
-    clearCartItems() {
+    removeItem(removeItem: CartItem): void {
+      this.cartItems = this.cartItems.filter(
+        (item) => item._id !== removeItem._id
+      );
+
+      updateCart(this);
+    },
+    clearItems(): void {
       this.cartItems = [];
+
       updateCart(this);
     },
-    saveShippingAddress(address) {
+    saveShippingAddress(address: ShippingAddress): void {
       this.shippingAddress = address;
       localStorage.setItem("cart", JSON.stringify(this));
     },

@@ -36,7 +36,7 @@ function formatPrice(price: number): string {
 }
 
 const addToCart = (): void => {
-  if (product) cartStore.addNewProductToCart({ ...product, quantity: 1 });
+  if (product) cartStore.addItem({ ...product, quantity: 1 });
 };
 </script>
 

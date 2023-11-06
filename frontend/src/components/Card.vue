@@ -31,7 +31,7 @@ function formatPrice(price: number): string {
 }
 
 const addToCart = (): void => {
-  cartStore.addNewProductToCart({ ...props.product, quantity: 1 });
+  cartStore.addItem({ ...props.product, quantity: 1 });
 };
 </script>
 
