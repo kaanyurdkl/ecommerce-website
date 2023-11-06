@@ -4,6 +4,7 @@ import { useRouter } from "vue-router";
 import { useCartStore } from "@/stores/cartStore";
 
 import CartCard from "@/components/CartCard.vue";
+import Empty from "@/components/Empty.vue";
 
 const router = useRouter();
 const cartStore = useCartStore();
@@ -18,11 +19,13 @@ const submitHandler = () => {
     <h2>Cart</h2>
   </section>
   <section class="cart">
-    <div v-if="!cartStore.cartItems.length" class="cart__container cart__empty">
-      <h2>Your Cart is Empty!</h2>
-      <p>Looks like you haven't added anything to your cart yet</p>
-      <router-link :to="{ name: 'home' }"> Start Shopping </router-link>
-    </div>
+    <Empty
+      v-if="!cartStore.cartItems.length"
+      :heading="'Your Cart is Empty!'"
+      :message="'Looks like you haven\'t added anything to your cart yet'"
+      :route-to="'home'"
+      :route-label="'Start Shopping'"
+    />
     <div
       v-if="cartStore.cartItems.length"
       class="cart__container cart-products"
