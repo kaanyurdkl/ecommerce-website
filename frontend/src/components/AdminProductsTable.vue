@@ -317,6 +317,7 @@ function formatPrice(price) {
           width: 100%;
           height: 100px;
           object-fit: cover;
+          border-radius: 0.4rem;
         }
       }
       &:nth-child(2) {
@@ -343,6 +344,7 @@ function formatPrice(price) {
     .products-button {
       padding: 0.6rem;
       font-size: 14px;
+      border-radius: 0.4rem;
       cursor: pointer;
       &--create {
         position: absolute;

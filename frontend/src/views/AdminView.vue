@@ -51,6 +51,7 @@ onMounted(async () => {
     flex-grow: 1;
     background-color: #eee;
     padding: 2rem;
+    border-radius: 0.4rem;
   }
 }
 
@@ -77,6 +78,7 @@ onMounted(async () => {
   &__row {
     background-color: #fff;
     padding: 2rem;
+    border-radius: 0.4rem;
   }
   &__columns {
     display: flex;

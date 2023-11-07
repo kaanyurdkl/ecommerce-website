@@ -69,10 +69,12 @@ const usersHeaders = ["Id", "Name", "Email", "User Type"];
     .admin-user {
       color: #c02fd8;
       background-color: #f9d7ff;
+      border-radius: 0.4rem;
     }
     .regular-user {
       color: #00b3ff;
       background-color: #d7f3ff;
+      border-radius: 0.4rem;
     }
   }
 }

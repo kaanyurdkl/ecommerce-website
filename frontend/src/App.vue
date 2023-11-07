@@ -122,6 +122,7 @@ main {
       padding: 0.8rem;
       background-color: #fff;
       border: 1px solid #ccc;
+      border-radius: 0.4rem;
       &::placeholder {
         font-size: 0.8rem;
       }

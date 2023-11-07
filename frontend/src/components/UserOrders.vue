@@ -68,6 +68,7 @@ const showDetailsHandler = (id) => {
     padding: 4rem;
     background-color: #eee;
     list-style-type: none;
+    border-radius: 0.4rem;
   }
   &__order {
     display: flex;
@@ -76,6 +77,7 @@ const showDetailsHandler = (id) => {
     min-width: 34rem;
     padding: 2rem;
     background-color: #fff;
+    border-radius: 0.4rem;
     h4 {
       display: flex;
       justify-content: space-between;
@@ -96,12 +98,12 @@ const showDetailsHandler = (id) => {
       }
     }
     button {
-      align-self: flex-end;
       padding: 0.6rem 1.4rem;
       color: #fff;
       background-color: #3f3f3f;
       font-size: 0.8rem;
       font-weight: 600;
+      border-radius: 0.4rem;
       &:hover {
         background-color: #555;
       }

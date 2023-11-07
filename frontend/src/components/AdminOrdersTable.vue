@@ -234,6 +234,7 @@ function formatDate(date) {
         color: #fff;
         background-color: #3f3f3f;
         transition: all 0.1s ease-in-out;
+        border-radius: 0.4rem;
         &:hover {
           background-color: #555;
         }
@@ -245,6 +246,7 @@ function formatDate(date) {
       background-color: #ffe4e4;
       font-weight: 600;
       text-align: center;
+      border-radius: 0.4rem;
     }
   }
 }
@@ -270,6 +272,7 @@ function formatDate(date) {
       padding: 0 1rem;
       color: #fff;
       background-color: #3f3f3f;
+      border-radius: 0.4rem;
       cursor: pointer;
       &:hover {
         background-color: #555;
@@ -346,6 +349,7 @@ function formatDate(date) {
     margin-right: 2rem;
     height: 5rem;
     object-fit: cover;
+    border-radius: 0.4rem;
   }
 }
 </style>
