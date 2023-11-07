@@ -69,6 +69,7 @@ const addToCart = (): void => {
 
 <style lang="scss">
 .card {
+  color: #3f3f3f;
   background-color: #fff;
   width: 100%;
   max-width: 24rem;
@@ -122,7 +123,6 @@ const addToCart = (): void => {
     gap: 0.8rem;
     height: 20%;
     padding: 0 1rem;
-    color: #342e28;
     overflow: hidden;
   }
   &__price-title {
@@ -130,11 +130,11 @@ const addToCart = (): void => {
     flex-direction: row;
     justify-content: space-between;
     a {
+      color: #3f3f3f;
       text-decoration: none;
     }
   }
   &__title {
-    color: #222;
     font-size: 1rem;
     font-weight: 600;
     &:hover {
@@ -150,16 +150,16 @@ const addToCart = (): void => {
     padding: 0.6rem 1rem;
     font-size: 0.8rem;
     font-weight: 600;
-    color: #222;
     background-color: #fff;
-    border: 1px solid #222;
+    border: 1px solid #3f3f3f;
     border-radius: 2rem;
     &:hover {
-      background-color: #222;
       color: #fff;
+      background-color: #3f3f3f;
     }
     &:active {
-      background-color: #444;
+      color: #fff;
+      background-color: #484848;
     }
   }
 }

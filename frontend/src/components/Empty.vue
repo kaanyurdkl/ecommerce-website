@@ -19,6 +19,7 @@ defineProps<{
   padding: 8rem 0;
   background-color: #eee;
   text-align: center;
+  border-radius: 0.4rem;
   h2 {
     margin-bottom: 1rem;
     font-size: 2rem;

@@ -61,6 +61,7 @@ const submitHandler = () => {
 
 <style lang="scss">
 .cart {
+  color: #3f3f3f;
   padding: 2rem 0;
   @media screen and (min-width: 1024px) {
     display: flex;
@@ -72,6 +73,7 @@ const submitHandler = () => {
   &__container {
     height: fit-content;
     background-color: #eee;
+    border-radius: 0.4rem;
   }
   &-products {
     padding: 1rem;
@@ -124,9 +126,14 @@ const submitHandler = () => {
       width: 100%;
       padding: 1rem 0;
       color: #fff;
-      background-color: #222;
+      background-color: #3f3f3f;
+      font-weight: 600;
+      border-radius: 0.4rem;
+      &:hover {
+        background-color: #555;
+      }
       &:active {
-        background-color: #333;
+        background-color: #484848;
       }
     }
   }

@@ -168,6 +168,7 @@ function formatPrice(price: number): string {
     width: 7rem;
     height: 10.5rem;
     object-fit: cover;
+    border-radius: 0.4rem;
   }
   &__info {
     position: relative;
@@ -200,11 +201,12 @@ function formatPrice(price: number): string {
   &__quantity {
     position: relative;
     select {
+      color: #3f3f3f;
       width: 100%;
       height: 100%;
       padding: 1rem;
-      color: #222;
-      border: 1px solid #222;
+      border: 1px solid #3f3f3f;
+      border-radius: 0.4rem;
       outline: none;
       cursor: pointer;
     }
