@@ -96,11 +96,13 @@ const addToCart = (): void => {
     width: 100%;
     height: 50rem;
     object-fit: cover;
+    border-radius: 0.4rem;
   }
   &__info {
     position: sticky;
     top: 5rem;
     padding: 1rem 2rem 0 2rem;
+    color: #3f3f3f;
   }
   &__header {
     display: flex;
@@ -125,11 +127,15 @@ const addToCart = (): void => {
     width: 100%;
     padding: 0.8rem 0;
     color: #fff;
-    background-color: #222;
+    background-color: #3f3f3f;
     font-weight: 600;
+    border-radius: 0.4rem;
     transition: background-color 0.1s ease-in-out;
+    &:hover {
+      background-color: #555;
+    }
     &:active {
-      background-color: #888;
+      background-color: #484848;
     }
   }
 }
