@@ -16,8 +16,6 @@ defineProps<{
 <style lang="scss" scoped>
 .container {
   width: 100%;
-  height: fit-content;
-  margin: auto;
   padding: 8rem 0;
   background-color: #eee;
   text-align: center;

@@ -31,8 +31,8 @@ const submitHandler = () => {
       class="cart__container cart-products"
     >
       <ul class="cart__items">
-        <li v-for="product in cartStore.cartItems" class="cart__item">
-          <CartCard :product="product" />
+        <li v-for="cartItem in cartStore.cartItems" class="cart__item">
+          <CartCard :cart-item="cartItem" />
         </li>
       </ul>
     </div>
@@ -72,35 +72,6 @@ const submitHandler = () => {
   &__container {
     height: fit-content;
     background-color: #eee;
-  }
-  &__empty {
-    width: 100%;
-    padding: 8rem 1rem;
-    text-align: center;
-    h2 {
-      margin-bottom: 1rem;
-      font-size: 2rem;
-    }
-    p {
-      margin-bottom: 3rem;
-      font-size: 1.2rem;
-    }
-    a {
-      display: inline-block;
-      padding: 1rem 1.8rem;
-      color: #fff;
-      background-color: #3f3f3f;
-      font-size: 1rem;
-      font-weight: bold;
-      text-decoration: none;
-      border-radius: 0.4rem;
-      &:hover {
-        background-color: #555;
-      }
-      &:active {
-        background-color: #484848;
-      }
-    }
   }
   &-products {
     padding: 1rem;

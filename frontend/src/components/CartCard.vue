@@ -2,39 +2,42 @@
 import { ref, computed, watch } from "vue";
 import { useProductsStore } from "@/stores/productsStore";
 import { useCartStore } from "@/stores/cartStore";
-import type { CartItem, FavoriteProduct } from "@/types/productTypes";
+import type { FavoriteProduct } from "@/types/productTypes";
+import type { CartItem } from "@/types/cartTypes";
 
 const props = defineProps<{
-  product: CartItem;
+  cartItem: CartItem;
 }>();
 
 const productStore = useProductsStore();
 const cartStore = useCartStore();
 
 const isFavorite = computed<FavoriteProduct | undefined>(() =>
-  productStore.favoriteProducts.find((p) => p._id === props.product._id)
+  productStore.favoriteProducts.find((p) => p._id === props.cartItem._id)
 );
 
-const itemNumber = ref(props.product.quantity);
+const itemQuantity = ref(props.cartItem.quantity);
 
-watch(itemNumber, (newVal) => {
+watch(itemQuantity, (newVal) => {
   cartStore.updateItem({
-    ...props.product,
+    ...props.cartItem,
     quantity: Number(newVal),
   });
 });
 
-const itemTotalPrice = computed(() => props.product.price * itemNumber.value);
+const itemTotalPrice = computed<number>(
+  () => props.cartItem.price * itemQuantity.value
+);
 
-const favoritesHandler = () => {
+const favoritesHandler = (): void => {
   if (!isFavorite.value) {
-    productStore.addNewFavoriteProduct(props.product);
+    productStore.addNewFavoriteProduct(props.cartItem);
   } else {
-    productStore.deleteFavoriteProduct(props.product);
+    productStore.deleteFavoriteProduct(props.cartItem);
   }
 };
 
-function formatPrice(price) {
+function formatPrice(price: number): string {
   return price.toLocaleString("en-CA", {
     style: "currency",
     currency: "CAD",
@@ -46,8 +49,7 @@ function formatPrice(price) {
   <div class="cart-card">
     <img
       class="cart-card__image"
-      :src="`http://localhost:8000${product.image}`"
-      alt=""
+      :src="`http://localhost:8000${cartItem.image}`"
     />
     <div class="cart-card__info">
       <button class="cart-card__favorite" @click="favoritesHandler">
@@ -59,16 +61,16 @@ function formatPrice(price) {
           }"
         ></i>
       </button>
-      <button class="cart-card__remove" @click="cartStore.removeItem(product)">
+      <button class="cart-card__remove" @click="cartStore.removeItem(cartItem)">
         <i class="fa-solid fa-trash"></i>
       </button>
-      <h4 class="cart-cart__header">{{ product.name }}</h4>
+      <h4 class="cart-cart__header">{{ cartItem.name }}</h4>
       <p class="cart-cart__price">
-        {{ formatPrice(product.price) }}
+        {{ formatPrice(cartItem.price) }}
       </p>
       <ul class="cart-card__details">
         <li class="cart-card__detail">
-          <span>Product no:</span><span>{{ product._id }}</span>
+          <span>Product no:</span><span>{{ cartItem._id }}</span>
         </li>
         <li class="cart-card__detail">
           <span>Total:</span><span>{{ formatPrice(itemTotalPrice) }}</span>
@@ -77,7 +79,7 @@ function formatPrice(price) {
     </div>
     <div class="cart-card__actions">
       <div class="cart-card__quantity">
-        <select v-model="itemNumber">
+        <select v-model="itemQuantity">
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
