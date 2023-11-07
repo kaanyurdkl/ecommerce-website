@@ -37,6 +37,7 @@ const selectedPaymentMethod = ref("paypal");
 </template>
 <style lang="scss">
 .payment-method {
+  color: #3f3f3f;
   label {
     display: flex;
     gap: 1.4rem;

@@ -65,20 +65,7 @@ const placeOrderHandler = async () => {
     gap: 2rem;
     padding: 2rem;
     border: 1px solid #ccc;
-    button {
-      padding: 0.4rem 1.6rem;
-      color: #fff;
-      background-color: #3f3f3f;
-      font-size: 0.8rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      &:hover {
-        background-color: #555;
-      }
-      &:active {
-        background-color: #484848;
-      }
-    }
+    border-radius: 0.4rem;
     h3 {
       font-size: 1rem;
     }
@@ -98,12 +85,13 @@ const placeOrderHandler = async () => {
     gap: 3rem;
     width: 40rem;
     button {
-      padding: 0.4rem 1.6rem;
+      padding: 0.6rem 1.6rem;
       color: #fff;
       background-color: #3f3f3f;
       font-size: 0.8rem;
       font-weight: 600;
       text-transform: uppercase;
+      border-radius: 0.4rem;
       &:hover {
         background-color: #555;
       }

@@ -1,9 +1,5 @@
 <script setup lang="ts">
-import { useCartStore } from "@/stores/cartStore";
-
 defineProps(["items", "itemsPrice", "shippingPrice", "taxPrice", "totalPrice"]);
-
-const cartStore = useCartStore();
 
 function formatPrice(price) {
   return price.toLocaleString("en-CA", {
@@ -44,6 +40,7 @@ function formatPrice(price) {
 </template>
 <style lang="scss">
 .order-summary {
+  color: #3f3f3f;
   h3 {
     padding-bottom: 1rem;
     border-bottom: 1px solid #ccc;
@@ -51,12 +48,14 @@ function formatPrice(price) {
   &__item {
     display: flex;
     justify-content: space-between;
-    background-color: #eee;
     padding: 0.6rem;
+    background-color: #eee;
+    border-radius: 0.4rem;
     img {
       width: 6rem;
       height: 8rem;
       object-fit: cover;
+      border-radius: 0.4rem;
     }
   }
   &__item-details {

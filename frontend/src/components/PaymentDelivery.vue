@@ -107,6 +107,7 @@ const saveAddressHandler = (e) => {
         padding: 1rem;
         font-size: 0.875rem;
         border: 1px solid #ccc;
+        border-radius: 0.4rem;
         outline: none;
       }
     }
