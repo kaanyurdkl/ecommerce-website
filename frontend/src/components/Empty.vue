@@ -17,7 +17,8 @@ defineProps<{
 .container {
   width: 100%;
   height: fit-content;
-  padding: 8rem 1rem;
+  margin: auto;
+  padding: 8rem 0;
   background-color: #eee;
   text-align: center;
   h2 {

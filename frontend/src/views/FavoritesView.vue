@@ -23,3 +23,8 @@ const store = useProductsStore();
     :route-label="'Start Shopping'"
   />
 </template>
+<style lang="scss" scoped>
+.heading {
+  margin-bottom: 2rem;
+}
+</style>

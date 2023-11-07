@@ -31,8 +31,6 @@ onMounted(async () => {
 .user {
   display: flex;
   justify-content: space-between;
-  max-width: 75rem;
   padding: 2rem 0;
-  margin: auto;
 }
 </style>

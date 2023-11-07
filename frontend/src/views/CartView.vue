@@ -61,9 +61,7 @@ const submitHandler = () => {
 
 <style lang="scss">
 .cart {
-  margin: auto;
   padding: 2rem 0;
-  max-width: 75rem;
   @media screen and (min-width: 1024px) {
     display: flex;
     gap: 2rem;

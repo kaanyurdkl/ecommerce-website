@@ -90,7 +90,6 @@ main {
 }
 
 .heading {
-  max-width: 75rem;
   padding: 2rem 0;
   margin: auto;
   font-size: 2rem;
