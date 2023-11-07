@@ -15,22 +15,10 @@ defineProps<{
   </section>
 </template>
 <style lang="scss" scoped>
-.heading {
-  padding: 2rem;
-  font-size: 2rem;
-  text-transform: uppercase;
-  @media screen and (max-width: 768px) {
-    text-align: center;
-  }
-  @media screen and (max-width: 425px) {
-    font-size: 1.2rem;
-    text-align: center;
-  }
-}
 .products {
   width: 100%;
   height: 100%;
-  padding: 2rem;
+  padding: 2rem 0;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
   justify-items: center;

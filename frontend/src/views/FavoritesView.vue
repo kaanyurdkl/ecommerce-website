@@ -18,22 +18,8 @@ const store = useProductsStore();
   <Empty
     v-if="!store.favoriteProducts.length"
     :heading="'No Favorites Yet!'"
-    :message="'Add favorite items'"
+    :message="'Click the heart icon on any product to add your favorite items here'"
     :route-to="'home'"
     :route-label="'Start Shopping'"
   />
 </template>
-<style lang="scss" scoped>
-.heading {
-  padding: 2rem;
-  font-size: 2rem;
-  text-transform: uppercase;
-  @media screen and (max-width: 768px) {
-    text-align: center;
-  }
-  @media screen and (max-width: 425px) {
-    font-size: 1.2rem;
-    text-align: center;
-  }
-}
-</style>

@@ -44,7 +44,6 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 0 2rem;
   gap: 2rem;
   max-width: 75rem;
   margin: auto;

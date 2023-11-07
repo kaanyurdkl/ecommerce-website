@@ -28,26 +28,11 @@ onMounted(async () => {
 </template>
 
 <style lang="scss">
-.heading {
-  max-width: 75rem;
-  padding: 2rem;
-  margin: auto;
-  font-size: 2rem;
-  text-transform: uppercase;
-  @media screen and (max-width: 768px) {
-    text-align: center;
-  }
-  @media screen and (max-width: 425px) {
-    font-size: 1.2rem;
-    text-align: center;
-  }
-}
-
 .user {
   display: flex;
   justify-content: space-between;
   max-width: 75rem;
-  padding: 2rem;
+  padding: 2rem 0;
   margin: auto;
 }
 </style>

@@ -77,6 +77,7 @@ body {
 }
 
 main {
+  padding: 0 2rem;
   margin-top: 2rem;
   grid-area: main;
 }
@@ -86,6 +87,21 @@ main {
   top: 0;
   left: 0;
   z-index: 1;
+}
+
+.heading {
+  max-width: 75rem;
+  padding: 2rem 0;
+  margin: auto;
+  font-size: 2rem;
+  text-transform: uppercase;
+  @media screen and (max-width: 768px) {
+    text-align: center;
+  }
+  @media screen and (max-width: 425px) {
+    font-size: 1.2rem;
+    text-align: center;
+  }
 }
 
 .form {

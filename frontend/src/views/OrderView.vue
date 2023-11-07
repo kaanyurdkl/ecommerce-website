@@ -109,23 +109,3 @@ onMounted(async () => {
     </div>
   </section>
 </template>
-
-<style lang="scss">
-.heading {
-  max-width: 75rem;
-  padding: 2rem;
-  margin: auto;
-  font-size: 2rem;
-  text-transform: uppercase;
-  span {
-    color: #555;
-  }
-  @media screen and (max-width: 768px) {
-    text-align: center;
-  }
-  @media screen and (max-width: 425px) {
-    font-size: 1.2rem;
-    text-align: center;
-  }
-}
-</style>
