@@ -2,25 +2,57 @@
 defineProps(["user"]);
 </script>
 <template>
-  <div class="user__infos">
-    <h3 class="user__header">My Info</h3>
-    <ul class="user__orders-list">
-      <li>{{ user.emails[0].value }}</li>
-      <li>{{ user.name.givenName }}</li>
-      <li>{{ user.name.familyName }}</li>
+  <div class="my-info">
+    <h3 class="my-info__header">My Info</h3>
+    <ul class="my-info__infos">
+      <li>
+        <span>email</span>
+        <span>{{ user.emails[0].value }}</span>
+      </li>
+      <li>
+        <span>first name</span>
+        <span>{{ user.name.givenName }}</span>
+      </li>
+      <li>
+        <span>last name</span>
+        <span>{{ user.name.familyName }}</span>
+      </li>
     </ul>
   </div>
 </template>
 <style lang="scss">
-.user {
+.my-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  width: 20rem;
+  color: #3f3f3f;
+  &__header {
+    padding-bottom: 2rem;
+    font-size: 2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-bottom: 0.5rem solid #ccc;
+  }
   &__infos {
     display: flex;
     flex-direction: column;
-    gap: 3rem;
-  }
-  &__header {
-    padding-bottom: 2rem;
-    border-bottom: 1px solid #ccc;
+    list-style-type: none;
+    gap: 2rem;
+    li {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem;
+      border: 1px solid #ccc;
+      border-bottom-width: 0.5rem;
+      border-radius: 0.5rem;
+      span {
+        &:first-child {
+          font-weight: 600;
+          text-transform: uppercase;
+        }
+      }
+    }
   }
 }
 </style>
