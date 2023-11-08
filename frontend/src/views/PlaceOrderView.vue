@@ -64,9 +64,12 @@ const placeOrderHandler = async () => {
     gap: 2rem;
     padding: 2rem;
     border: 1px solid #ccc;
+    border-bottom-width: 0.5rem;
     border-radius: 0.4rem;
     h3 {
-      font-size: 1rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+      text-transform: uppercase;
     }
     p {
       font-size: 0.875rem;

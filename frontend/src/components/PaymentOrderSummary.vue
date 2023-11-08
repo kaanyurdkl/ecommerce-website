@@ -43,13 +43,14 @@ function formatPrice(price) {
   color: #3f3f3f;
   h3 {
     padding-bottom: 1rem;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 0.25rem solid #ccc;
   }
   &__item {
     display: flex;
     justify-content: space-between;
     padding: 0.6rem;
-    background-color: #eee;
+    border: 1px solid #ccc;
+    border-bottom-width: 0.25rem;
     border-radius: 0.4rem;
     img {
       width: 6rem;
@@ -82,7 +83,7 @@ function formatPrice(price) {
   &__prices {
     padding-bottom: 1rem;
     font-size: 0.8rem;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 0.25rem solid #ccc;
     li {
       display: flex;
       justify-content: space-between;
