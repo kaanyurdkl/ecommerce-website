@@ -19,7 +19,9 @@ defineProps<{
   padding: 8rem 0;
   background-color: #eee;
   text-align: center;
-  border-radius: 0.4rem;
+  border: 1px solid #3f3f3f;
+  border-bottom-width: 1rem;
+  border-radius: 0.8rem;
   h2 {
     margin-bottom: 1rem;
     font-size: 2rem;
@@ -31,16 +33,22 @@ defineProps<{
   a {
     display: inline-block;
     padding: 1rem 1.8rem;
-    color: #fff;
-    background-color: #3f3f3f;
+    color: #3f3f3f;
+    background-color: #fff;
     font-size: 1rem;
-    font-weight: bold;
+    font-weight: 600;
     text-decoration: none;
+    text-transform: uppercase;
+    border: 1px solid #3f3f3f;
+    border-bottom-width: 0.25rem;
     border-radius: 0.4rem;
+    transition: all 0.1s ease-in-out;
     &:hover {
-      background-color: #555;
+      color: #fff;
+      background-color: #3f3f3f;
     }
     &:active {
+      border-color: #484848;
       background-color: #484848;
     }
   }
