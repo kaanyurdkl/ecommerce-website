@@ -57,7 +57,6 @@ const placeOrderHandler = async () => {
   justify-content: space-between;
   max-width: 75rem;
   margin: auto;
-  padding: 2rem 0;
   &__container {
     position: relative;
     display: flex;

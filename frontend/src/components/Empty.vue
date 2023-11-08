@@ -7,14 +7,14 @@ defineProps<{
 }>();
 </script>
 <template>
-  <div class="container">
+  <section class="empty">
     <h2>{{ heading }}</h2>
     <p>{{ message }}</p>
     <router-link :to="{ name: routeTo }">{{ routeLabel }}</router-link>
-  </div>
+  </section>
 </template>
 <style lang="scss" scoped>
-.container {
+.empty {
   width: 100%;
   padding: 8rem 0;
   background-color: #eee;

@@ -18,25 +18,22 @@ const submitHandler = () => {
   <section class="heading">
     <h2>Cart</h2>
   </section>
-  <section class="cart">
-    <Empty
-      v-if="!cartStore.cartItems.length"
-      :heading="'Your Cart is Empty!'"
-      :message="'Looks like you haven\'t added anything to your cart yet'"
-      :route-to="'home'"
-      :route-label="'Start Shopping'"
-    />
-    <div
-      v-if="cartStore.cartItems.length"
-      class="cart__container cart-products"
-    >
+  <Empty
+    v-if="!cartStore.cartItems.length"
+    :heading="'Your Cart is Empty!'"
+    :message="'Looks like you haven\'t added anything to your cart yet'"
+    :route-to="'home'"
+    :route-label="'Start Shopping'"
+  />
+  <section v-if="cartStore.cartItems.length" class="cart">
+    <div class="cart__container cart-products">
       <ul class="cart__items">
         <li v-for="cartItem in cartStore.cartItems" class="cart__item">
           <CartCard :cart-item="cartItem" />
         </li>
       </ul>
     </div>
-    <div v-if="cartStore.cartItems.length" class="cart__container cart-summary">
+    <div class="cart__container cart-summary">
       <h2 class="cart-summary__title">Order Summary</h2>
       <ul class="cart-summary__fees">
         <li class="cart-summary__fee cart-summary__subtotal">
@@ -62,7 +59,6 @@ const submitHandler = () => {
 <style lang="scss">
 .cart {
   color: #3f3f3f;
-  padding: 2rem 0;
   @media screen and (min-width: 1024px) {
     display: flex;
     gap: 2rem;

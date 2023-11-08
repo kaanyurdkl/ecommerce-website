@@ -7,14 +7,14 @@ const store = useProductsStore();
 </script>
 
 <template>
+  <section class="heading">
+    <h2>Favorites</h2>
+  </section>
   <ProductsList
     v-if="store.favoriteProducts.length"
     heading="Favorites"
     :products="store.getFavoriteProductsReversed"
   />
-  <section v-if="!store.favoriteProducts.length" class="heading">
-    <h2>Favorites</h2>
-  </section>
   <Empty
     v-if="!store.favoriteProducts.length"
     :heading="'No Favorites Yet!'"
@@ -23,8 +23,3 @@ const store = useProductsStore();
     :route-label="'Start Shopping'"
   />
 </template>
-<style lang="scss" scoped>
-.heading {
-  margin-bottom: 2rem;
-}
-</style>

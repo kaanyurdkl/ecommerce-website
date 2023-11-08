@@ -7,6 +7,9 @@ defineProps<{ category: string; type: string }>();
 const store = useProductsStore();
 </script>
 <template>
+  <section class="heading">
+    <h2>{{ category }}</h2>
+  </section>
   <ProductsList
     v-if="store.getProductsListProducts(category, type)"
     :heading="`${category}'s ${type}`"

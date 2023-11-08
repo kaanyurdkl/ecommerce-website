@@ -7,9 +7,6 @@ defineProps<{
 }>();
 </script>
 <template>
-  <section class="heading">
-    <h2>{{ heading }}</h2>
-  </section>
   <section class="products">
     <Card v-for="product in products" :product="product" />
   </section>
@@ -17,8 +14,7 @@ defineProps<{
 <style lang="scss" scoped>
 .products {
   width: 100%;
-  height: 100%;
-  padding: 2rem 0;
+  height: fit-content;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
   justify-items: center;

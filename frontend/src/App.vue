@@ -77,9 +77,11 @@ body {
 }
 
 main {
-  padding: 0 2rem;
-  margin-top: 2rem;
   grid-area: main;
+  width: 100%;
+  max-width: 75rem;
+  margin: 2rem auto 0 auto;
+  padding: 2rem;
 }
 
 .v-toolbar {
@@ -90,8 +92,7 @@ main {
 }
 
 .heading {
-  padding: 2rem 0;
-  margin: auto;
+  margin-bottom: 4rem;
   font-size: 2rem;
   text-transform: uppercase;
   @media screen and (max-width: 768px) {
