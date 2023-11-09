@@ -40,7 +40,7 @@ const selectedPaymentMethod = ref("paypal");
   color: #3f3f3f;
   label {
     display: flex;
-    gap: 1.4rem;
+    gap: 0.875rem;
     font-size: 0.875rem;
     align-items: center;
     i {
