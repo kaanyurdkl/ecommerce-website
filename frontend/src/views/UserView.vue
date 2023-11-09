@@ -19,7 +19,7 @@ onMounted(async () => {
 
 <template>
   <section class="heading">
-    <h2>Profile</h2>
+    <h2>My Account</h2>
   </section>
   <section class="user">
     <UserOrders :orders="myOrders" />
@@ -27,7 +27,7 @@ onMounted(async () => {
   </section>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .user {
   display: flex;
   justify-content: space-between;

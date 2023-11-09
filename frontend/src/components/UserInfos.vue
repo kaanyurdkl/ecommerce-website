@@ -24,13 +24,13 @@ defineProps(["user"]);
 .my-info {
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 4rem;
   width: 20rem;
   color: #3f3f3f;
   &__header {
     padding-bottom: 2rem;
-    font-size: 2rem;
-    font-weight: 600;
+    font-size: 1.5rem;
+    font-weight: 400;
     text-transform: uppercase;
     border-bottom: 0.5rem solid #ccc;
   }
@@ -42,14 +42,17 @@ defineProps(["user"]);
     li {
       display: flex;
       justify-content: space-between;
-      padding: 1rem;
+      padding: 1.5rem 1rem;
       border: 1px solid #ccc;
       border-bottom-width: 0.5rem;
       border-radius: 0.5rem;
       span {
         &:first-child {
-          font-weight: 600;
+          font-size: 1.25rem;
           text-transform: uppercase;
+        }
+        &:last-child {
+          font-size: 0.875rem;
         }
       }
     }

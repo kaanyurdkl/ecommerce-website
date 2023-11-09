@@ -37,6 +37,12 @@ onMounted(async () => {
 </template>
 
 <style lang="scss">
+@font-face {
+  font-family: "Anton";
+  src: local("Anton"),
+    url("./assets/fonts/Anton-Regular.ttf") format("truetype");
+}
+
 *,
 *::after,
 *::before {
@@ -46,8 +52,9 @@ onMounted(async () => {
 }
 
 body {
-  font-family: sans-serif;
+  font-family: "Anton";
   box-sizing: border-box;
+  color: #3f3f3f;
   background-color: #fff;
 }
 
@@ -93,8 +100,10 @@ main {
 
 .heading {
   margin-bottom: 4rem;
-  font-size: 2rem;
   text-transform: uppercase;
+  h2 {
+    font-size: 3rem;
+  }
   @media screen and (max-width: 768px) {
     text-align: center;
   }
