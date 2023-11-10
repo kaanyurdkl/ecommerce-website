@@ -53,29 +53,32 @@ function formatPrice(price: number): string {
     />
     <div class="cart-card__info">
       <button class="cart-card__favorite" @click="favoritesHandler">
+        <i class="fa-regular fa-heart"></i>
         <i
           :class="{
             'fa-solid': true,
             'fa-heart': true,
-            'cart-card__favorite--red': isFavorite,
+            'fa-solid--red': isFavorite,
           }"
         ></i>
       </button>
       <button class="cart-card__remove" @click="cartStore.removeItem(cartItem)">
         <i class="fa-solid fa-trash"></i>
       </button>
-      <h4 class="cart-cart__header">{{ cartItem.name }}</h4>
-      <p class="cart-cart__price">
-        {{ formatPrice(cartItem.price) }}
-      </p>
-      <ul class="cart-card__details">
-        <li class="cart-card__detail">
-          <span>Product no:</span><span>{{ cartItem._id }}</span>
-        </li>
-        <li class="cart-card__detail">
-          <span>Total:</span><span>{{ formatPrice(itemTotalPrice) }}</span>
-        </li>
-      </ul>
+      <h4 class="cart-card__header">{{ cartItem.name }}</h4>
+      <div>
+        <p class="cart-card__price">
+          {{ formatPrice(cartItem.price) }}
+        </p>
+        <ul class="cart-card__details">
+          <li class="cart-card__detail">
+            <span>Product no:</span><span>{{ cartItem._id }}</span>
+          </li>
+          <li class="cart-card__detail">
+            <span>Total:</span><span>{{ formatPrice(itemTotalPrice) }}</span>
+          </li>
+        </ul>
+      </div>
     </div>
     <div class="cart-card__actions">
       <div class="cart-card__quantity">
@@ -91,7 +94,7 @@ function formatPrice(price: number): string {
           <option value="9">9</option>
           <option value="10">10</option>
         </select>
-        <i class="fa-solid fa-chevron-down"></i>
+        <i class="fa-solid fa-caret-down"></i>
       </div>
     </div>
   </div>
@@ -99,14 +102,34 @@ function formatPrice(price: number): string {
 
 <style lang="scss">
 .cart-card {
+  position: relative;
   display: grid;
   grid-template-columns: 7rem 5rem 1fr 1fr;
   grid-template-rows: auto;
   grid-template-areas:
     "image details details details"
     "image actions actions actions ";
-  gap: 1rem;
+  row-gap: 2rem;
+  column-gap: 2.5rem;
   width: 100%;
+  padding: 1.5rem;
+  border: 1px solid #ccc;
+  border-bottom-width: 0.5rem;
+  border-radius: 0.5rem;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 1.5rem;
+    width: 7rem;
+    height: 10.5rem;
+    background-color: #3f3f3f;
+    border-radius: 0.4rem;
+    transform-origin: center;
+    rotate: 10deg;
+    translate: 0 -50%;
+    z-index: -1;
+  }
 
   &__favorite {
     position: absolute;
@@ -116,20 +139,34 @@ function formatPrice(price: number): string {
     justify-content: space-between;
     align-items: center;
     gap: 0.6rem;
-    padding: 0.75rem;
-    color: #fff;
-    background-color: #ffc6c6;
-    font-size: 0.875rem;
+    padding: 0.5rem;
+    color: #3f3f3f;
+    background-color: #ffb2e0;
+    font-size: 1.75rem;
     font-weight: 600;
-    border-radius: 0.2rem;
+    border: 1px solid #3f3f3f;
+    border-bottom-width: 0.25rem;
+    border-radius: 0.5rem;
+    .fa-regular {
+      z-index: 2;
+    }
+    .fa-solid {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform-origin: center;
+      translate: -50% -50%;
+      color: #fff;
+      z-index: 1;
+      &--red {
+        color: #ff6e6e;
+      }
+    }
     &:hover {
-      background-color: #ffd2d2;
+      background-color: #ffc5e8;
     }
     &:active {
-      background-color: #fdcdcd;
-    }
-    &--red {
-      color: #ff3535;
+      background-color: #fdd7ee;
     }
   }
   &__remove {
@@ -140,17 +177,19 @@ function formatPrice(price: number): string {
     justify-content: space-between;
     align-items: center;
     gap: 0.6rem;
-    padding: 0.75rem;
-    color: #fff;
-    background-color: #3f3f3f;
-    font-size: 0.875rem;
+    padding: 0.5rem;
+    color: #3f3f3f;
+    background-color: #ff6c5a;
+    font-size: 1.75rem;
     font-weight: 600;
-    border-radius: 0.2rem;
+    border: 1px solid #3f3f3f;
+    border-bottom-width: 0.25rem;
+    border-radius: 0.5rem;
     &:hover {
-      background-color: #555;
+      background-color: #fb7e6d;
     }
     &:active {
-      background-color: #484848;
+      background-color: #ff9688;
     }
   }
   @media screen and (max-width: 425px) {
@@ -169,16 +208,26 @@ function formatPrice(price: number): string {
     height: 10.5rem;
     object-fit: cover;
     border-radius: 0.4rem;
+    align-self: center;
   }
   &__info {
     position: relative;
     grid-area: details;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    & > div {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
   }
   &__header {
-    font-size: 1rem;
+    font-size: 1.25rem;
+    font-weight: 400;
   }
   &__price {
-    font-size: 1rem;
+    font-size: 1.25rem;
   }
   &__details {
     display: flex;
@@ -190,7 +239,7 @@ function formatPrice(price: number): string {
     display: flex;
     flex: 1 1 50%;
     max-width: 300px;
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     span {
       flex: 1;
     }
@@ -205,15 +254,25 @@ function formatPrice(price: number): string {
       width: 100%;
       height: 100%;
       padding: 1rem;
+      font-size: 1.25rem;
       border: 1px solid #3f3f3f;
+      border-bottom-width: 0.25rem;
       border-radius: 0.4rem;
       outline: none;
       cursor: pointer;
+      &:hover {
+        color: #fff;
+        background-color: #3f3f3f;
+        & + i {
+          color: #fff;
+        }
+      }
     }
     i {
       position: absolute;
-      right: 10px;
       top: 50%;
+      right: 1rem;
+      font-size: 2rem;
       transform: translateY(-50%);
     }
   }

@@ -68,8 +68,6 @@ const submitHandler = () => {
   }
   &__container {
     height: fit-content;
-    background-color: #eee;
-    border-radius: 0.4rem;
   }
   &-products {
     padding: 1rem;
@@ -82,8 +80,11 @@ const submitHandler = () => {
     list-style: none;
   }
   &-summary {
-    padding: 1rem;
+    padding: 2rem;
     flex: 2;
+    border: 1px solid #ccc;
+    border-bottom-width: 0.5rem;
+    border-radius: 0.5rem;
     @media screen and (max-width: 1024px) {
       width: 100%;
     }
@@ -94,16 +95,15 @@ const submitHandler = () => {
       display: flex;
       flex-direction: column;
       gap: 1rem;
-      padding: 1rem 0;
-      border-top: 1px solid #ccc;
-      border-bottom: 1px solid #ccc;
+      padding: 2rem 0;
+      border-top: 0.25rem solid #ccc;
       list-style: none;
     }
     &__fee {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.9rem;
+      font-size: 0.875rem;
       font-weight: 300;
       text-transform: uppercase;
     }
@@ -113,22 +113,25 @@ const submitHandler = () => {
       align-items: center;
       margin-bottom: 2rem;
       padding: 1rem 0;
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       font-weight: 600;
       text-transform: uppercase;
-      border-bottom: 1px solid #ccc;
     }
     &__checkout {
       width: 100%;
-      padding: 1rem 0;
-      color: #fff;
-      background-color: #3f3f3f;
-      font-weight: 600;
+      padding: 0.75rem 1.4rem;
+      font-size: 1.25rem;
+      text-transform: uppercase;
+      border: 1px solid #3f3f3f;
+      border-bottom-width: 0.25rem;
       border-radius: 0.4rem;
+      transition: all 0.1s ease-in-out;
       &:hover {
-        background-color: #555;
+        color: #fff;
+        background-color: #3f3f3f;
       }
       &:active {
+        border-color: #484848;
         background-color: #484848;
       }
     }
