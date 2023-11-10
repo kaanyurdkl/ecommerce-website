@@ -41,16 +41,8 @@ const selectedPaymentMethod = ref("paypal");
   label {
     display: flex;
     gap: 0.875rem;
-    font-size: 0.875rem;
+    font-size: 1.25rem;
     align-items: center;
-    i {
-      font-size: 1.2rem;
-      &:nth-child(2) {
-        padding: 0.4rem;
-        font-size: 1.6rem;
-        border: 1px solid #3f3f3f;
-      }
-    }
   }
   input {
     display: none;

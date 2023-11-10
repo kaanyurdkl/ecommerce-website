@@ -43,7 +43,7 @@ function formatPrice(price) {
   color: #3f3f3f;
   gap: 4rem;
   h3 {
-    padding-bottom: 1rem;
+    padding-bottom: 2rem;
     border-bottom: 0.25rem solid #ccc;
   }
   &__items {

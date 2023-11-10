@@ -70,7 +70,6 @@ const submitHandler = () => {
     height: fit-content;
   }
   &-products {
-    padding: 1rem;
     flex: 3;
   }
   &__items {
@@ -90,6 +89,8 @@ const submitHandler = () => {
     }
     &__title {
       margin-bottom: 2rem;
+      text-transform: uppercase;
+      font-weight: 400;
     }
     &__fees {
       display: flex;

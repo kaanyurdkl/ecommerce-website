@@ -90,24 +90,28 @@ const saveAddressHandler = (e) => {
     position: absolute;
     top: 2rem;
     right: 2rem;
+    padding: 0.25rem 1.4rem;
+    font-size: 0.875rem;
   }
   form {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 2rem;
     div {
       display: flex;
       flex-direction: column;
       gap: 0.4rem;
       label {
-        font-size: 0.8rem;
-        font-weight: 600;
+        font-size: 0.875rem;
+        text-transform: uppercase;
       }
       input {
         padding: 1rem;
-        font-size: 0.875rem;
+        font-size: 1rem;
+        font-weight: 400;
         border: 1px solid #ccc;
-        border-radius: 0.4rem;
+        border-bottom-width: 0.25rem;
+        border-radius: 0.5rem;
         outline: none;
       }
     }
