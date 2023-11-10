@@ -74,12 +74,6 @@ const placeOrderHandler = async () => {
     p {
       font-size: 0.875rem;
     }
-    ul {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-      list-style-type: none;
-    }
   }
   &__left {
     display: flex;

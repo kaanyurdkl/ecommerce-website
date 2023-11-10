@@ -41,15 +41,21 @@ function formatPrice(price) {
 <style lang="scss">
 .order-summary {
   color: #3f3f3f;
+  gap: 4rem;
   h3 {
     padding-bottom: 1rem;
     border-bottom: 0.25rem solid #ccc;
+  }
+  &__items {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
   }
   &__item {
     position: relative;
     display: flex;
     justify-content: space-between;
-    padding-bottom: 1.75rem;
+    padding-bottom: 2.5rem;
     border-bottom: 0.125rem solid #ccc;
     &::before {
       content: "";
@@ -97,11 +103,14 @@ function formatPrice(price) {
     }
   }
   &__prices {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
     padding-bottom: 1rem;
-    border-bottom: 0.25rem solid #ccc;
     li {
       display: flex;
       justify-content: space-between;
+      text-transform: uppercase;
       span {
         &:first-child {
           font-size: 0.875rem;
@@ -115,8 +124,9 @@ function formatPrice(price) {
   &__total-price {
     display: flex;
     justify-content: space-between;
-    font-size: 1.8rem;
-    font-weight: bold;
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-transform: uppercase;
   }
 }
 </style>
