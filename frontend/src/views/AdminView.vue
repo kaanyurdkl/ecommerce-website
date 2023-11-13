@@ -28,14 +28,12 @@ onMounted(async () => {
 <template>
   <section class="admin">
     <AdminTabs v-model="activeTab" />
-    <section class="admin__content">
-      <AdminProductsTable
-        v-if="activeTab === 'products'"
-        :products="productsStore.products"
-      />
-      <AdminUsersTable v-if="activeTab === 'users'" :users="users" />
-      <AdminOrdersTable v-if="activeTab === 'orders'" v-model:orders="orders" />
-    </section>
+    <AdminProductsTable
+      v-if="activeTab === 'products'"
+      :products="productsStore.products"
+    />
+    <AdminUsersTable v-if="activeTab === 'users'" :users="users" />
+    <AdminOrdersTable v-if="activeTab === 'orders'" v-model:orders="orders" />
   </section>
 </template>
 
@@ -45,42 +43,36 @@ onMounted(async () => {
   flex-direction: column;
   justify-content: space-between;
   gap: 2rem;
-  &__content {
-    flex-grow: 1;
-    background-color: #eee;
-    padding: 2rem;
-    border-radius: 0.4rem;
-  }
 }
 
 .table {
   position: relative;
   &__headers {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    padding: 10px 32px;
-    margin-bottom: 20px;
-    font-weight: 600;
+    display: grid;
+    align-items: center;
+    padding: 1rem;
     list-style-type: none;
-    border-bottom: 1px solid #ccc;
+  }
+  &__header {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    text-align: center;
   }
   &__rows {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    padding: 0;
-    font-size: 14px;
+    gap: 1.5rem;
     list-style-type: none;
   }
   &__row {
+    padding: 1rem;
     background-color: #fff;
-    padding: 2rem;
-    border-radius: 0.4rem;
+    border: 1px solid #ccc;
+    border-bottom-width: 0.25rem;
+    border-radius: 0.5rem;
   }
   &__columns {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
     align-items: center;
     list-style-type: none;
   }

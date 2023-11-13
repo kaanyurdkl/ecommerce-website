@@ -55,7 +55,7 @@ body {
   font-family: "Anton";
   box-sizing: border-box;
   color: #3f3f3f;
-  background-color: #fff;
+  background-color: #f8f5f1;
 }
 
 .grid {

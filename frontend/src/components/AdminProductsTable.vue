@@ -287,64 +287,36 @@ function formatPrice(price) {
 <style lang="scss">
 .table {
   &--products {
-    .table__header {
-      &:first-child {
-        width: 8%;
-      }
-      &:nth-child(2) {
-        width: 22%;
-      }
-      &:nth-child(3) {
-        width: 10%;
-      }
-      &:nth-child(4) {
-        width: 10%;
-      }
-      &:nth-child(5) {
-        width: 10%;
-      }
-      &:nth-child(6) {
-        width: 8%;
-      }
-      &:last-child {
-        width: 10%;
-      }
+    .table__headers {
+      grid-template-columns: 8% 22% 20% 13% 15% 13% 9%;
+    }
+    .table__columns {
+      grid-template-columns: 8% 22% 20% 13% 15% 13% 9%;
     }
     .table__column {
       &:first-child {
-        width: 8%;
         img {
           width: 100%;
-          height: 100px;
+          height: 7rem;
           object-fit: cover;
-          border-radius: 0.4rem;
+          border-radius: 0.5rem;
         }
-      }
-      &:nth-child(2) {
-        width: 22%;
-      }
-      &:nth-child(3) {
-        width: 10%;
-      }
-      &:nth-child(4) {
-        width: 10%;
-      }
-      &:nth-child(5) {
-        width: 10%;
-      }
-      &:nth-child(6) {
-        width: 8%;
       }
       &:last-child {
         display: flex;
         justify-content: space-between;
-        width: 10%;
+      }
+      &:not(:first-child),
+      &:not(:last-child) {
+        text-align: center;
       }
     }
     .products-button {
-      padding: 0.6rem;
-      font-size: 14px;
-      border-radius: 0.4rem;
+      padding: 0.5rem;
+      font-size: 1.5rem;
+      border: 1px solid #3f3f3f;
+      border-bottom-width: 0.25rem;
+      border-radius: 0.5rem;
       cursor: pointer;
       &--create {
         position: absolute;
@@ -356,12 +328,11 @@ function formatPrice(price) {
           background-color: #555;
         }
       }
-      &--update,
+      &--update {
+        background-color: #fffcb2;
+      }
       &--delete {
-        transition: all 0.2s ease-in-out;
-        &:hover {
-          background-color: #eee;
-        }
+        background-color: #ff6c5a;
       }
     }
   }
