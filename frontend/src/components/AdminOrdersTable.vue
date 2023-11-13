@@ -173,80 +173,37 @@ function formatDate(date) {
 <style lang="scss">
 .table {
   &--orders {
-    .table__header {
-      &:first-child {
-        width: 22%;
-      }
-      &:nth-child(2) {
-        width: 16%;
-      }
-      &:nth-child(3) {
-        width: 12%;
-      }
-      &:nth-child(4) {
-        width: 8%;
-      }
-      &:nth-child(5) {
-        width: 10%;
-      }
-      &:nth-child(5) {
-        width: 10%;
-      }
-      &:nth-child(6) {
-        width: 12%;
-      }
-      &:last-child {
-        width: 8%;
-      }
+    .table__headers {
+      grid-template-columns: 22% 22% 12% 10% 12% 12% 10%;
+    }
+    .table__columns {
+      grid-template-columns: 22% 22% 12% 10% 12% 12% 10%;
     }
     .table__column {
-      &:first-child {
-        width: 22%;
-      }
-      &:nth-child(2) {
-        width: 16%;
-      }
-      &:nth-child(3) {
-        width: 12%;
-      }
-      &:nth-child(4) {
-        width: 8%;
-      }
-      &:nth-child(5) {
-        width: 10%;
-      }
-      &:nth-child(5) {
-        width: 10%;
-      }
-      &:nth-child(6) {
-        width: 12%;
-      }
-      &:last-child {
-        width: 8%;
-        padding: 0;
-      }
+      text-align: center;
     }
     .orders-button {
       &--details {
-        display: block;
-        width: 100%;
-        padding: 0.4rem 0;
-        color: #fff;
-        background-color: #3f3f3f;
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        color: #3f3f3f;
+        background-color: #fff;
+        border: 1px solid #3f3f3f;
+        border-bottom-width: 0.25rem;
+        border-radius: 0.5rem;
         transition: all 0.1s ease-in-out;
-        border-radius: 0.4rem;
         &:hover {
-          background-color: #555;
+          color: #fff;
+          background-color: #3f3f3f;
         }
       }
     }
     .status-negative {
-      padding: 0.4rem 0;
-      color: red;
-      background-color: #ffe4e4;
-      font-weight: 600;
-      text-align: center;
-      border-radius: 0.4rem;
+      justify-self: center;
+      padding: 0.5rem 1rem;
+      color: #ff624c;
+      background-color: #ffe4e1;
+      border-radius: 0.5rem;
     }
   }
 }
