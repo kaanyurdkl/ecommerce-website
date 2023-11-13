@@ -18,7 +18,6 @@ watch(activeTab, (newVal) => {
 </script>
 <template>
   <ul class="admin__tabs">
-    <div class="admin__tabs--line"></div>
     <li v-for="tab in tabs" class="admin__tab">
       <input
         type="radio"
@@ -37,37 +36,37 @@ watch(activeTab, (newVal) => {
     display: flex;
     gap: 2rem;
     list-style-type: none;
-    &--line {
+    &::before {
+      content: "";
       position: absolute;
       bottom: 0;
       width: 100%;
-      height: 2px;
-      background-color: #ccc;
+      height: 0.25rem;
+      background-color: #3f3f3f;
       z-index: -1;
     }
   }
   &__tab {
-    width: 6rem;
     input {
       display: none;
       &:checked + label {
-        color: #3f3f3f;
-        border-bottom: 2px solid #3f3f3f;
+        color: #fff;
+        background-color: #3f3f3f;
       }
     }
     label {
       display: inline-block;
       width: 100%;
       height: 100%;
-      padding: 0.4rem 0;
+      padding: 0.5rem 1.5rem;
       color: #ccc;
       font-size: 1rem;
-      font-weight: 600;
-      border-bottom: 2px solid transparent;
+      border-top-right-radius: 0.5rem;
+      border-top-left-radius: 0.5rem;
       cursor: pointer;
       text-overflow: ellipsis;
       overflow: hidden;
-      transition: all 0.2s ease-in-out;
+      transition: all 0.1s ease-in-out;
     }
   }
 }

@@ -45,8 +45,6 @@ onMounted(async () => {
   flex-direction: column;
   justify-content: space-between;
   gap: 2rem;
-  max-width: 75rem;
-  margin: auto;
   &__content {
     flex-grow: 1;
     background-color: #eee;
