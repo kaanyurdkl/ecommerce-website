@@ -18,11 +18,9 @@ const usersHeaders = ["Id", "Name", "Email", "User Type"];
           <li class="table__column">{{ user.email }}</li>
           <li v-if="user.isAdmin" class="table__column admin-user">
             <i class="fa-solid fa-crown"></i>
-            <span>Admin</span>
           </li>
           <li v-else class="table__column regular-user">
             <i class="fa-solid fa-user"></i>
-            <span>Regular</span>
           </li>
         </ul>
       </li>
@@ -32,49 +30,28 @@ const usersHeaders = ["Id", "Name", "Email", "User Type"];
 <style lang="scss">
 .table {
   &--users {
-    .table__header {
-      &:first-child {
-        width: 30%;
-      }
-      &:nth-child(2) {
-        width: 25%;
-      }
-      &:nth-child(3) {
-        width: 30%;
-      }
-      &:last-child {
-        width: 15%;
-      }
+    .table__headers {
+      grid-template-columns: 30% 25% 30% 15%;
+    }
+    .table__columns {
+      grid-template-columns: 30% 25% 30% 15%;
     }
     .table__column {
-      &:first-child {
-        width: 30%;
-      }
-      &:nth-child(2) {
-        width: 25%;
-      }
-      &:nth-child(3) {
-        width: 30%;
-      }
+      text-align: center;
       &:last-child {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 8px;
-        padding: 0.4rem;
-        font-weight: 600;
-        width: 15%;
+        font-size: 1.5rem;
+        padding: 0.125rem 0;
       }
     }
     .admin-user {
-      color: #c02fd8;
-      background-color: #f9d7ff;
-      border-radius: 0.4rem;
+      color: #ff6fe8;
+      background-color: #ffe2fa;
+      border-radius: 0.5rem;
     }
     .regular-user {
-      color: #00b3ff;
-      background-color: #d7f3ff;
-      border-radius: 0.4rem;
+      color: #3badff;
+      background-color: #d9efff;
+      border-radius: 0.5rem;
     }
   }
 }

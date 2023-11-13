@@ -320,13 +320,10 @@ function formatPrice(price) {
       cursor: pointer;
       &--create {
         position: absolute;
-        top: 6px;
+        top: 1.25rem;
         right: 0;
-        color: #fff;
-        background-color: #3f3f3f;
-        &:hover {
-          background-color: #555;
-        }
+        color: #3f3f3f;
+        background-color: #fff;
       }
       &--update {
         background-color: #fffcb2;

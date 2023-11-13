@@ -42,15 +42,19 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 2rem;
+  gap: 4rem;
 }
 
 .table {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
   &__headers {
     display: grid;
     align-items: center;
-    padding: 1rem;
+    padding: 2rem 1rem;
+    border-bottom: 0.25rem solid #ccc;
     list-style-type: none;
   }
   &__header {
