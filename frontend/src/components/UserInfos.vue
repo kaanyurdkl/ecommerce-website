@@ -42,6 +42,7 @@ defineProps(["user"]);
     li {
       display: flex;
       justify-content: space-between;
+      align-items: flex-end;
       padding: 1.5rem 1rem;
       border: 1px solid #ccc;
       border-bottom-width: 0.5rem;
