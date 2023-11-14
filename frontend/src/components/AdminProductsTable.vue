@@ -277,18 +277,40 @@ function formatPrice(price) {
       border-bottom-width: 0.25rem;
       border-radius: 0.5rem;
       cursor: pointer;
+      transition: all 0.1s ease-in-out;
       &--create {
         position: absolute;
         top: 1.25rem;
         right: 0;
         color: #3f3f3f;
         background-color: #fff;
+        &:hover {
+          color: #fff;
+          background-color: #3f3f3f;
+        }
+        &:active {
+          color: #fff;
+          background-color: #555;
+          border-color: #555;
+        }
       }
       &--update {
         background-color: #fffcb2;
+        &:hover {
+          background-color: #fffed4;
+        }
+        &:active {
+          background-color: #ffffe1;
+        }
       }
       &--delete {
         background-color: #ff6c5a;
+        &:hover {
+          background-color: #ff9587;
+        }
+        &:active {
+          background-color: #ffb3a9;
+        }
       }
     }
   }
