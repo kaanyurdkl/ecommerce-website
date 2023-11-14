@@ -37,32 +37,36 @@ const addToCart = (): void => {
 
 <template>
   <div class="card">
-    <div class="card__top">
-      <router-link :to="{ name: 'productDetail', params: { id: product._id } }">
-        <img
-          class="card__image"
-          :src="`http://localhost:8000${product.image}`"
-          alt="Clothe image"
-          title="Tshirt"
-        />
-      </router-link>
-      <span v-if="isFavorite" class="card__icon card__icon--red">
-        <i @click="favoritesHandler" class="fa-solid fa-heart"></i>
-      </span>
-      <span v-else class="card__icon">
-        <i @click="favoritesHandler" class="fa-regular fa-heart"></i>
-      </span>
-    </div>
-    <div class="card__bottom">
-      <div class="card__price-title">
+    <div class="card__container">
+      <div class="card__top">
         <router-link
           :to="{ name: 'productDetail', params: { id: product._id } }"
         >
-          <h3 class="card__title">{{ product.name }}</h3></router-link
-        >
-        <span class="card__price">{{ formatPrice(product.price) }}</span>
+          <img
+            class="card__image"
+            :src="`http://localhost:8000${product.image}`"
+            alt="Clothe image"
+            title="Tshirt"
+          />
+        </router-link>
+        <span v-if="isFavorite" class="card__icon card__icon--red">
+          <i @click="favoritesHandler" class="fa-solid fa-heart"></i>
+        </span>
+        <span v-else class="card__icon">
+          <i @click="favoritesHandler" class="fa-regular fa-heart"></i>
+        </span>
       </div>
-      <button @click="addToCart" class="card__button">Add To Cart</button>
+      <div class="card__bottom">
+        <div class="card__price-title">
+          <router-link
+            :to="{ name: 'productDetail', params: { id: product._id } }"
+          >
+            <h3 class="card__title">{{ product.name }}</h3></router-link
+          >
+          <span class="card__price">{{ formatPrice(product.price) }}</span>
+        </div>
+        <button @click="addToCart" class="card__button">Add To Cart</button>
+      </div>
     </div>
   </div>
 </template>
@@ -78,8 +82,34 @@ const addToCart = (): void => {
   border: 1px solid #ccc;
   border-bottom-width: 0.5rem;
   border-radius: 0.5rem;
-  overflow: hidden;
   transition: all 0.2s ease-in-out;
+
+  &::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    content: "";
+    width: 100%;
+    height: 100%;
+    background-color: #ccc;
+    border-radius: 0.5rem;
+    transform-origin: center;
+    translate: -50% -50%;
+    transition: all 0.2s ease-in-out;
+    z-index: -1;
+  }
+  &:hover::before {
+    width: 105%;
+    height: 105%;
+    rotate: -3deg;
+  }
+
+  &__container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
 
   &:hover {
     border-color: #3f3f3f;
