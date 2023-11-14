@@ -49,11 +49,15 @@ const addToCart = (): void => {
             title="Tshirt"
           />
         </router-link>
-        <span v-if="isFavorite" class="card__icon card__icon--red">
-          <i @click="favoritesHandler" class="fa-solid fa-heart"></i>
-        </span>
-        <span v-else class="card__icon">
-          <i @click="favoritesHandler" class="fa-regular fa-heart"></i>
+        <span @click="favoritesHandler" class="card__icon">
+          <i class="fa-regular fa-heart"></i>
+          <i
+            :class="{
+              'fa-solid': true,
+              'fa-heart': true,
+              'fa-solid--red': isFavorite,
+            }"
+          ></i>
         </span>
       </div>
       <div class="card__bottom">
@@ -78,7 +82,7 @@ const addToCart = (): void => {
   background-color: #fff;
   width: 100%;
   max-width: 24rem;
-  height: 30rem;
+  height: 32rem;
   border: 1px solid #ccc;
   border-bottom-width: 0.5rem;
   border-radius: 0.5rem;
@@ -145,11 +149,23 @@ const addToCart = (): void => {
     width: 2.2rem;
     height: 2.2rem;
     background-color: #ffffff66;
-    font-size: 1.4rem;
-    border-radius: 100%;
+    font-size: 1.5rem;
+    border-radius: 0.5rem;
     cursor: pointer;
-    &--red {
-      color: #ff3535;
+    .fa-regular {
+      z-index: 2;
+    }
+    .fa-solid {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform-origin: center;
+      translate: -50% -50%;
+      color: #fff;
+      z-index: 1;
+      &--red {
+        color: #ff6e6e;
+      }
     }
   }
 
@@ -157,47 +173,48 @@ const addToCart = (): void => {
   &__bottom {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    gap: 0.8rem;
+    justify-content: space-between;
     height: 20%;
-    padding: 0 1rem;
+    padding: 0.5rem 1rem;
     overflow: hidden;
   }
   &__price-title {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     a {
       color: #3f3f3f;
       text-decoration: none;
     }
   }
   &__title {
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: 1.25rem;
+    font-weight: 400;
     &:hover {
       text-decoration: underline;
     }
   }
   &__price {
     font-size: 1rem;
-    font-weight: 600;
   }
   &__button {
     width: max-content;
-    padding: 0.6rem 1rem;
-    font-size: 0.8rem;
-    font-weight: 600;
+    padding: 0.5rem 1.25rem;
+    font-size: 1rem;
     background-color: #fff;
+    text-transform: uppercase;
     border: 1px solid #3f3f3f;
-    border-radius: 2rem;
+    border-bottom-width: 0.25rem;
+    border-radius: 0.5rem;
     &:hover {
       color: #fff;
       background-color: #3f3f3f;
     }
     &:active {
       color: #fff;
-      background-color: #484848;
+      background-color: #555;
+      border-color: #555;
     }
   }
 }
