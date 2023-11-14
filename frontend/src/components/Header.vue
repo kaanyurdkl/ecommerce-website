@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { computed } from "vue";
+import { useRoute } from "vue-router";
 import { useUsersStore } from "@/stores/usersStore";
 import { useProductsStore } from "@/stores/productsStore";
 import { useCartStore } from "@/stores/cartStore";
+
+const route = useRoute();
 
 const usersStore = useUsersStore();
 const productsStore = useProductsStore();
@@ -18,8 +21,13 @@ const numberOfCartItems = computed<number>(() => cartStore.numberOfItems);
       <img src="@/assets/logo.svg" alt="Logo" />
     </router-link>
     <ul class="header__links">
-      <li>
-        <router-link class="header__link" :to="{ name: 'favorites' }">
+      <li
+        :class="{
+          header__link: true,
+          'header__link--active': route.name === 'favorites',
+        }"
+      >
+        <router-link :to="{ name: 'favorites' }">
           <i class="header__link-icon fa-solid fa-heart"></i>
           <span class="header__link-text">
             <span> Favourites </span>
@@ -29,8 +37,13 @@ const numberOfCartItems = computed<number>(() => cartStore.numberOfItems);
           </span>
         </router-link>
       </li>
-      <li>
-        <router-link class="header__link" :to="{ name: 'cart' }">
+      <li
+        :class="{
+          header__link: true,
+          'header__link--active': route.name === 'cart',
+        }"
+      >
+        <router-link :to="{ name: 'cart' }">
           <i class="header__link-icon fa-solid fa-cart-shopping"></i>
           <span class="header__link-text">
             <span> Cart </span>
@@ -38,16 +51,21 @@ const numberOfCartItems = computed<number>(() => cartStore.numberOfItems);
           </span>
         </router-link>
       </li>
-      <li>
-        <router-link class="header__link" :to="{ name: 'user' }">
+      <li
+        :class="{
+          header__link: true,
+          'header__link--active': route.name === 'user',
+        }"
+      >
+        <router-link :to="{ name: 'user' }">
           <i class="header__link-icon fa-solid fa-user"></i>
           <span class="header__link-text">
             <span> {{ authUser ? "My Account" : "Sign In" }} </span>
           </span>
         </router-link>
       </li>
-      <li v-if="authUser">
-        <router-link class="header__link" :to="{ name: 'logout' }">
+      <li v-if="authUser" class="header__link">
+        <router-link :to="{ name: 'logout' }">
           <i class="header__link-icon fa-solid fa-user"></i>
           <span class="header__link-text">
             <span> Sign Out </span>
@@ -64,7 +82,6 @@ const numberOfCartItems = computed<number>(() => cartStore.numberOfItems);
   justify-content: space-between;
   align-items: center;
   height: 5rem;
-  background-color: #eee;
   padding: 0 2rem;
   grid-area: header;
   &__logo {
@@ -74,32 +91,55 @@ const numberOfCartItems = computed<number>(() => cartStore.numberOfItems);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 1.5rem;
+    gap: 0.5rem;
     list-style-type: none;
   }
   &__link {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.4rem;
-    color: #222;
-    text-decoration: none;
+    position: relative;
+    padding: 0.5rem 0.875rem;
+    border: 1px solid transparent;
+    border-bottom-width: 0.25rem;
+    border-radius: 0.5rem;
+    &::after {
+      display: none;
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 70%;
+      background-color: #ccc;
+      border-radius: 0.5rem;
+      transform-origin: center;
+      translate: 0 -50%;
+    }
+    &--active {
+      background-color: #fff;
+      border-color: #3f3f3f;
+      &::after {
+        display: inline-block;
+      }
+    }
+    a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+      color: #3f3f3f;
+      font-size: 0.875rem;
+      text-decoration: none;
+    }
     &-icon {
       display: flex;
       align-items: center;
+      z-index: 1;
     }
     &-text {
-      font-size: 0.8rem;
-      font-weight: 600;
+      z-index: 1;
       & > span:first-child {
         @media screen and (max-width: 768px) {
           display: none;
         }
-      }
-    }
-    &:hover {
-      .header__link-text {
-        text-decoration: underline;
       }
     }
   }
