@@ -20,7 +20,7 @@ const submitHandler = () => {
   </section>
   <Empty
     v-if="!cartStore.cartItems.length"
-    :heading="'Your Cart is Empty!'"
+    :heading="'Your Cart is Empty'"
     :message="'Looks like you haven\'t added anything to your cart yet'"
     :route-to="'home'"
     :route-label="'Start Shopping'"
@@ -68,7 +68,6 @@ const submitHandler = () => {
   }
   &__container {
     height: fit-content;
-    background-color: #fff;
   }
   &-products {
     flex: 3;
@@ -82,6 +81,7 @@ const submitHandler = () => {
   &-summary {
     padding: 2rem;
     flex: 2;
+    background-color: #fff;
     border: 1px solid #ccc;
     border-bottom-width: 0.5rem;
     border-radius: 0.5rem;

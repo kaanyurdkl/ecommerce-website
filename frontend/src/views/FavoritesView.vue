@@ -17,7 +17,7 @@ const store = useProductsStore();
   />
   <Empty
     v-if="!store.favoriteProducts.length"
-    :heading="'No Favorites Yet!'"
+    :heading="'No Favorites Yet'"
     :message="'Click the heart icon on any product to add your favorite items here'"
     :route-to="'home'"
     :route-label="'Start Shopping'"

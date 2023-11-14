@@ -107,6 +107,7 @@ const saveAddressHandler = (e) => {
       }
       input {
         padding: 1rem;
+        color: #3f3f3f;
         font-size: 1rem;
         font-weight: 400;
         border: 1px solid #ccc;

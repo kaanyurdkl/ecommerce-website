@@ -38,8 +38,7 @@ const getTypeLabel = (type: string): string => {
 <style lang="scss">
 .aside {
   grid-area: aside;
-  margin-top: 2rem;
-  padding: 0 2rem;
+  padding: 2rem;
   ul {
     list-style: none;
     li {
