@@ -13,6 +13,7 @@ const route = useRoute();
           >Men</router-link
         >
       </li>
+      /
       <li class="nav__item">
         <router-link
           :class="{ active: route.params.category === 'women' }"
@@ -28,7 +29,6 @@ const route = useRoute();
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 2rem;
   grid-area: nav;
   &__items {
     display: flex;
@@ -39,14 +39,11 @@ const route = useRoute();
   }
   &__item {
     a {
-      color: #222;
+      color: #ccc;
       text-decoration: none;
-      &:hover {
-        text-decoration: underline;
-      }
     }
     .active {
-      text-decoration: underline;
+      color: #3f3f3f;
     }
   }
 }

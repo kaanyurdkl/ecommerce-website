@@ -69,17 +69,21 @@ const addToCart = (): void => {
 
 <style lang="scss">
 .card {
+  position: relative;
   color: #3f3f3f;
   background-color: #fff;
   width: 100%;
   max-width: 24rem;
   height: 30rem;
-  border-radius: 1rem;
-  box-shadow: 10px 10px 16px -9px rgba(0, 0, 0, 0.51);
-  -webkit-box-shadow: 10px 10px 16px -9px rgba(0, 0, 0, 0.51);
-  -moz-box-shadow: 10px 10px 16px -9px rgba(0, 0, 0, 0.51);
+  border: 1px solid #ccc;
+  border-bottom-width: 0.5rem;
+  border-radius: 0.5rem;
   overflow: hidden;
   transition: all 0.2s ease-in-out;
+
+  &:hover {
+    border-color: #3f3f3f;
+  }
 
   // Top part of the card
   &__top {
@@ -95,7 +99,11 @@ const addToCart = (): void => {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 1rem;
+    border-radius: 0.5rem;
+    &:hover {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
   }
   &__icon {
     position: absolute;

@@ -87,7 +87,7 @@ main {
   grid-area: main;
   width: 100%;
   max-width: 75rem;
-  margin: 2rem auto 0 auto;
+  margin: 0 auto;
   padding: 2rem;
 }
 
