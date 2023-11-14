@@ -114,43 +114,134 @@ main {
 }
 
 .form {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  max-width: 30rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 2rem;
+  row-gap: 4rem;
   color: #3f3f3f;
   div {
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-    label {
-      font-size: 0.8rem;
-      font-weight: 600;
+    position: relative;
+    align-self: start;
+    &:has(input[type="submit"]) {
+      display: flex;
+      justify-content: space-between;
     }
-    input:not([type="file"]),
+
+    &:has(input[type="text"])::before,
+    &:has(textarea)::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #ccc;
+      border-radius: 0.5rem;
+      transform-origin: center;
+      transition: all 0.2s ease-in-out;
+      z-index: -1;
+    }
+    &:has(> textarea)::before {
+      height: 94%;
+    }
+    &:has(> input:focus)::before,
+    &:has(> textarea:focus)::before {
+      rotate: -8deg;
+    }
+
+    input:not([type="file"], [type="submit"], [type="button"]),
     textarea {
-      padding: 0.8rem;
+      width: 100%;
+      padding: 0.5rem;
+      padding-top: 2rem;
       background-color: #fff;
       border: 1px solid #ccc;
-      border-radius: 0.4rem;
-      &::placeholder {
-        font-size: 0.8rem;
-      }
+      border-bottom-width: 0.25rem;
+      border-radius: 0.5rem;
+    }
+    input:not([type="file"]) {
       &:focus {
         border-color: #3f3f3f;
         outline: none;
+        & + label {
+          translate: 0 -120%;
+        }
       }
     }
-    input[type="file"] {
+    textarea {
+      height: 10rem;
+      &:focus {
+        border-color: #3f3f3f;
+        outline: none;
+        & + label {
+          translate: 0 -180%;
+        }
+      }
     }
-    input[type="submit"] {
-      color: #fff;
-      background-color: #3f3f3f;
-      font-weight: 600;
-      transition: background-color 0.1s ease-in-out;
-      border: none;
+    input[type="file"]::file-selector-button {
+      padding: 1rem;
+      color: #3f3f3f;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-bottom-width: 0.25rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: all 0.1s ease-in-out;
       &:hover {
-        background-color: #555;
+        color: #fff;
+        background-color: #3f3f3f;
+        border-color: #3f3f3f;
+      }
+    }
+    input[type="submit"],
+    input[type="button"] {
+      width: 40%;
+      padding: 0.5rem 0;
+      color: #3f3f3f;
+      background-color: #fff;
+      border: 1px solid #3f3f3f;
+      border-bottom-width: 0.25rem;
+      border-radius: 0.5rem;
+      transition: background-color 0.1s ease-in-out;
+      &:hover {
+        color: #fff;
+        background-color: #3f3f3f;
+      }
+    }
+
+    input[type="text"] + label,
+    textarea + label {
+      position: absolute;
+      left: 0.5rem;
+      translate: 0 -50%;
+      color: #ccc;
+      text-transform: uppercase;
+      transition: translate 0.2s ease-in-out;
+      pointer-events: none;
+    }
+    input[type="text"] {
+      & + label {
+        top: 50%;
+      }
+      &:valid + label {
+        translate: 0 -120%;
+      }
+    }
+    textarea {
+      & + label {
+        top: 30%;
+      }
+      &:valid + label {
+        translate: 0 -180%;
+      }
+    }
+
+    &:has(> input[type="file"]) {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      label {
+        text-transform: uppercase;
       }
     }
   }

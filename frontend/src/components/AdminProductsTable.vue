@@ -121,11 +121,6 @@ function formatPrice(price) {
       @click="openCreateFormHandler"
       class="fa-solid fa-plus products-button products-button--create"
     ></i>
-    <i
-      v-else
-      @click="closeFormHandler"
-      class="fa-solid fa-minus products-button products-button--create"
-    ></i>
     <ul v-if="!isCreating && !isUpdating" class="table__headers">
       <li v-for="header in productsHeaders" class="table__header">
         {{ header }}
@@ -165,121 +160,85 @@ function formatPrice(price) {
     </ul>
     <form v-if="isCreating" @submit="createProductHandler" class="form">
       <div>
-        <label for="name">Name</label>
-        <input
-          type="text"
-          id="name"
-          placeholder="Product name"
-          v-model="newProduct.name"
-          required
-        />
+        <input type="text" id="name" v-model="newProduct.name" required />
+        <label for="name">product name</label>
       </div>
       <div>
-        <label for="image">Image</label>
-        <input type="file" id="image" @change="onFilePicked" required />
-      </div>
-      <div>
-        <label for="category">Category</label>
         <input
           type="text"
           id="category"
-          placeholder="Product category"
           v-model="newProduct.category"
           required
         />
+        <label for="category">product category</label>
       </div>
       <div>
-        <label for="type">Type</label>
-        <input
-          type="text"
-          id="type"
-          placeholder="Product type"
-          v-model="newProduct.type"
-          required
-        />
+        <input type="text" id="type" v-model="newProduct.type" required />
+        <label for="type">product type</label>
       </div>
       <div>
-        <label for="description">Description</label>
         <textarea
           id="description"
-          placeholder="Product decription"
           v-model="newProduct.description"
           required
         ></textarea>
+        <label for="description">product description</label>
       </div>
       <div>
-        <label for="price">Price</label>
-        <input
-          type="text"
-          id="price"
-          placeholder="Product price"
-          v-model="newProduct.price"
-          required
-        />
+        <input type="text" id="price" v-model="newProduct.price" required />
+        <label for="price">product price</label>
       </div>
+      <div>
+        <label for="image">Product Image</label>
+        <input type="file" id="image" @change="onFilePicked" required />
+      </div>
+      <div></div>
       <div>
         <input type="submit" value="Create" />
+        <input type="button" value="Cancel" @click="closeFormHandler" />
       </div>
     </form>
     <form v-if="isUpdating" @submit="updateProductHandler" class="form">
-      <div>
+      <!-- <div>
         <h4>{{ updatingProductId }}</h4>
+      </div> -->
+      <div>
+        <input type="text" id="name" v-model="newProduct.name" required />
+        <label for="name">product name</label>
       </div>
       <div>
-        <label for="name">Name</label>
-        <input
-          type="text"
-          id="name"
-          placeholder="Product name"
-          v-model="newProduct.name"
-          required
-        />
-      </div>
-      <div>
-        <label for="image">Image</label>
-        <input type="file" id="image" @change="onFilePicked" />
-      </div>
-      <div>
-        <label for="category">Category</label>
         <input
           type="text"
           id="category"
-          placeholder="Product category"
           v-model="newProduct.category"
           required
         />
+        <label for="category">product category</label>
       </div>
       <div>
-        <label for="type">Type</label>
-        <input
-          type="text"
-          id="type"
-          placeholder="Product type"
-          v-model="newProduct.type"
-          required
-        />
+        <input type="text" id="type" v-model="newProduct.type" required />
+        <label for="type">product type</label>
       </div>
       <div>
-        <label for="description">Description</label>
+        <label for="image">product image</label>
+        <input type="file" id="image" @change="onFilePicked" />
+      </div>
+      <div>
         <textarea
           id="description"
-          placeholder="Product decription"
           v-model="newProduct.description"
           required
         ></textarea>
+        <label for="description">product description</label>
       </div>
       <div>
-        <label for="price">Price</label>
-        <input
-          type="text"
-          id="price"
-          placeholder="Product price"
-          v-model="newProduct.price"
-          required
-        />
+        <input type="text" id="price" v-model="newProduct.price" required />
+        <label for="price">product price</label>
       </div>
+      <div></div>
       <div>
         <input type="submit" value="Update" />
+        <input type="button" value="Cancel" @click="closeFormHandler" />
       </div>
     </form>
   </div>

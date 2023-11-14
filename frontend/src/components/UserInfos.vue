@@ -44,6 +44,7 @@ defineProps(["user"]);
       justify-content: space-between;
       align-items: flex-end;
       padding: 1.5rem 1rem;
+      background-color: #fff;
       border: 1px solid #ccc;
       border-bottom-width: 0.5rem;
       border-radius: 0.5rem;

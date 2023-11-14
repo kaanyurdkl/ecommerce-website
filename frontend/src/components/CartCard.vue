@@ -113,6 +113,7 @@ function formatPrice(price: number): string {
   column-gap: 2.5rem;
   width: 100%;
   padding: 1.5rem;
+  background-color: #fff;
   border: 1px solid #ccc;
   border-bottom-width: 0.5rem;
   border-radius: 0.5rem;

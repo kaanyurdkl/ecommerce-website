@@ -68,6 +68,7 @@ const submitHandler = () => {
   }
   &__container {
     height: fit-content;
+    background-color: #fff;
   }
   &-products {
     flex: 3;

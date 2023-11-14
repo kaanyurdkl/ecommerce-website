@@ -63,6 +63,7 @@ const placeOrderHandler = async () => {
     flex-direction: column;
     gap: 2rem;
     padding: 2rem;
+    background-color: #fff;
     border: 1px solid #ccc;
     border-bottom-width: 0.5rem;
     border-radius: 0.5rem;
@@ -82,6 +83,7 @@ const placeOrderHandler = async () => {
     width: 40rem;
     button {
       padding: 0.75rem 1.4rem;
+      background-color: #fff;
       font-size: 1.25rem;
       text-transform: uppercase;
       border: 1px solid #3f3f3f;
