@@ -33,6 +33,7 @@ onMounted(async () => {
     <main>
       <RouterView />
     </main>
+    <footer><p>Footer goes here.</p></footer>
   </div>
 </template>
 
@@ -65,13 +66,15 @@ body {
   grid-template-areas:
     "header"
     "nav"
-    "main";
+    "main"
+    "footer";
   &--aside {
     grid-template-columns: repeat(7, 1fr);
     grid-template-areas:
       "header header header header header header header"
       "nav nav nav nav nav nav nav"
-      "aside main main main main main main";
+      "aside main main main main main main"
+      "footer footer footer footer footer footer footer";
   }
 
   @media screen and (max-width: 768px) {
@@ -79,7 +82,8 @@ body {
     grid-template-areas:
       "header"
       "nav"
-      "main";
+      "main"
+      "footer";
   }
 }
 
@@ -87,8 +91,16 @@ main {
   grid-area: main;
   width: 100%;
   max-width: 75rem;
+  min-height: 100vh;
   margin: 0 auto;
   padding: 2rem;
+}
+
+footer {
+  grid-area: footer;
+  padding: 2rem;
+  color: #fff;
+  background-color: #3f3f3f;
 }
 
 .v-toolbar {
