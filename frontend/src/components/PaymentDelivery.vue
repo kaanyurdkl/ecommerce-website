@@ -13,7 +13,7 @@ const cartStore = useCartStore();
 const isEditingDeliveryAddress = ref(!props.shippingAddress);
 const newShippingAddress = reactive(
   props.shippingAddress
-    ? props.shippingAddress
+    ? { ...props.shippingAddress }
     : {
         address: null,
         city: null,
@@ -22,10 +22,28 @@ const newShippingAddress = reactive(
       }
 );
 
-const saveAddressHandler = (e) => {
+const saveHandler = (e) => {
   e.preventDefault();
   isEditingDeliveryAddress.value = false;
   cartStore.saveShippingAddress(newShippingAddress);
+};
+
+const closeHandler = (e) => {
+  e.preventDefault();
+  isEditingDeliveryAddress.value = false;
+
+  newShippingAddress.address = props.shippingAddress
+    ? props.shippingAddress.address
+    : null;
+  newShippingAddress.city = props.shippingAddress
+    ? props.shippingAddress.city
+    : null;
+  newShippingAddress.postalCode = props.shippingAddress
+    ? props.shippingAddress.postalCode
+    : null;
+  newShippingAddress.country = props.shippingAddress
+    ? props.shippingAddress.country
+    : null;
 };
 </script>
 <template>
@@ -42,7 +60,7 @@ const saveAddressHandler = (e) => {
       {{ shippingAddress.address }}, {{ shippingAddress.city }},
       {{ shippingAddress.postalCode }}, {{ shippingAddress.country }}
     </p>
-    <form v-if="isEditingDeliveryAddress" @submit="saveAddressHandler">
+    <form v-if="isEditingDeliveryAddress" @submit="saveHandler">
       <div>
         <label for="address">Address</label>
         <input
@@ -50,6 +68,7 @@ const saveAddressHandler = (e) => {
           type="text"
           placeholder="Enter your address"
           id="address"
+          required
         />
       </div>
       <div>
@@ -59,6 +78,7 @@ const saveAddressHandler = (e) => {
           type="text"
           placeholder="Enter your address"
           id="city"
+          required
         />
       </div>
       <div>
@@ -68,6 +88,7 @@ const saveAddressHandler = (e) => {
           type="text"
           placeholder="Enter your address"
           id="postalCode"
+          required
         />
       </div>
       <div>
@@ -77,9 +98,15 @@ const saveAddressHandler = (e) => {
           type="text"
           placeholder="Enter your address"
           id="country"
+          required
         />
       </div>
-      <button class="shipping-address__save">Save Address</button>
+      <div>
+        <button class="shipping-address__save">Save</button>
+        <button class="shipping-address__save" @click="closeHandler">
+          Cancel
+        </button>
+      </div>
     </form>
   </div>
 </template>
@@ -114,6 +141,12 @@ const saveAddressHandler = (e) => {
         border-bottom-width: 0.25rem;
         border-radius: 0.5rem;
         outline: none;
+      }
+      &:last-child {
+        flex-direction: row;
+        button {
+          flex: 1;
+        }
       }
     }
   }
