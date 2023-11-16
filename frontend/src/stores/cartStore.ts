@@ -19,6 +19,14 @@ export const useCartStore = defineStore("cart", {
     numberOfItems(state): number {
       return state.cartItems.reduce((acc, item) => acc + item.quantity, 0);
     },
+    isAddressValid(state) {
+      return (
+        state.shippingAddress?.address &&
+        state.shippingAddress?.city &&
+        state.shippingAddress?.postalCode &&
+        state.shippingAddress?.country
+      );
+    },
   },
   actions: {
     addItem(newItem: CartItem): void {

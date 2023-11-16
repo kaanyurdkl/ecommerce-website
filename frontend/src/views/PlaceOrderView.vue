@@ -35,7 +35,7 @@ const placeOrderHandler = async () => {
     <div class="payment__left">
       <PaymentDelivery :shipping-address="cartStore.shippingAddress" />
       <PaymentMethod />
-      <button v-if="cartStore.shippingAddress" @click="placeOrderHandler">
+      <button v-if="cartStore.isAddressValid" @click="placeOrderHandler">
         Place Order
       </button>
     </div>

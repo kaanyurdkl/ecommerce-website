@@ -141,6 +141,9 @@ const closeHandler = (e) => {
         border-bottom-width: 0.25rem;
         border-radius: 0.5rem;
         outline: none;
+        &:focus {
+          border-color: #3f3f3f;
+        }
       }
       &:last-child {
         flex-direction: row;
