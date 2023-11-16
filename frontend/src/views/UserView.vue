@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { onMounted } from "vue";
 
 import UserOrders from "@/components/UserOrders.vue";
 import UserInfos from "@/components/UserInfos.vue";
@@ -10,10 +10,8 @@ import { useOrdersStore } from "@/stores/ordersStore";
 const usersStore = useUsersStore();
 const ordersStore = useOrdersStore();
 
-const myOrders = ref(null);
-
 onMounted(async () => {
-  myOrders.value = await ordersStore.getMyOrders();
+  await ordersStore.getMyOrders();
 });
 </script>
 
@@ -22,7 +20,7 @@ onMounted(async () => {
     <h2>My Account</h2>
   </section>
   <section class="user">
-    <UserOrders :orders="myOrders" />
+    <UserOrders :orders="ordersStore.myOrdersReversed" />
     <UserInfos :user="usersStore.authUser" />
   </section>
 </template>

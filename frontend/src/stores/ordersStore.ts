@@ -3,9 +3,16 @@ import axios from "axios";
 
 export const useOrdersStore = defineStore("orders", {
   state: () => {
-    return {};
+    return {
+      myOrders: [],
+    };
   },
-  getters: {},
+  getters: {
+    myOrdersReversed(state) {
+      const orders = [...state.myOrders];
+      return orders.reverse();
+    },
+  },
   actions: {
     async getAllOrders() {
       try {
@@ -18,7 +25,7 @@ export const useOrdersStore = defineStore("orders", {
     async getMyOrders() {
       try {
         const { data } = await axios.get("/api/orders/myorders");
-        return data;
+        this.myOrders = data;
       } catch (error) {
         console.log(error);
       }
