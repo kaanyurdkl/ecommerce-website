@@ -11,8 +11,8 @@ const store = useProductsStore();
     <h2>{{ category }}</h2>
   </section>
   <ProductsList
-    v-if="store.getProductsListProducts(category, type)"
+    v-if="store.getProductsByCategoryAndType(category, type)"
     :heading="`${category}'s ${type}`"
-    :products="store.getProductsListProducts(category, type)"
+    :products="store.getProductsByCategoryAndType(category, type)"
   />
 </template>

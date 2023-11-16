@@ -53,6 +53,7 @@ const orderDetailsGrouped = computed(() => {
 });
 
 const deliverOrderHandler = async (id) => {
+  if (!orderDetails.value.isPaid) return;
   await ordersStore.deliverOrder(id);
   emit("update:orders", await ordersStore.getAllOrders());
 };
@@ -258,6 +259,11 @@ function formatDate(date) {
     &:hover {
       color: #fff;
       background-color: #3f3f3f;
+    }
+    &:active {
+      color: #fff;
+      background-color: #555;
+      border-color: #555;
     }
   }
   &__content {

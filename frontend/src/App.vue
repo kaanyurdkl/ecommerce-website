@@ -223,6 +223,9 @@ main {
       & + label {
         top: 50%;
       }
+      &.has-value + label {
+        translate: 0 -120%;
+      }
       &:valid + label {
         translate: 0 -120%;
       }

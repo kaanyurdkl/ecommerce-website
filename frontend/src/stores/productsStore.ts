@@ -4,28 +4,28 @@ import axios from "axios";
 import type { Product, FavoriteProduct } from "@/types/productTypes";
 
 export const useProductsStore = defineStore("products", {
-  state: () => {
-    return {
-      products: [] as Product[],
-      favoriteProducts: [] as FavoriteProduct[],
-    };
-  },
+  state: () => ({
+    products: [] as Product[],
+    favoriteProducts: [] as FavoriteProduct[],
+  }),
   getters: {
-    getProductsByCategory: (state) => {
-      return (category: string): Product[] =>
-        state.products.filter((p) => p.category === category);
-    },
     getProductById(state) {
       return (id: string): Product | undefined => {
         return state.products.find((p) => p._id === id);
       };
     },
-    getProductsListProducts: (state) => {
+    getProductsByCategory(state) {
+      return (category: string): Product[] =>
+        state.products.filter((p) => p.category === category);
+    },
+    getProductsByType(state) {
+      return (type: string): Product[] =>
+        state.products.filter((p) => p.type === type);
+    },
+    getProductsByCategoryAndType(state) {
       return (category: string, type: string): Product[] => {
-        const productsByCategory: Product[] = state.products.filter(
-          (p) => p.category === category
-        );
-        const productsByType: Product[] = productsByCategory.filter(
+        const productsByCategory = this.getProductsByCategory(category);
+        const productsByType = productsByCategory.filter(
           (p) => p.type === type
         );
         return productsByType;
@@ -34,11 +34,9 @@ export const useProductsStore = defineStore("products", {
     getFavoriteProductsReversed(state): Product[] {
       return state.favoriteProducts.toReversed();
     },
-    getProductTypes: (state) => {
+    getProductTypesByCategory(state) {
       return (category: string) => {
-        const productsByCategory: Product[] = state.products.filter(
-          (p) => p.category === category
-        );
+        const productsByCategory = this.getProductsByCategory(category);
         const productsTypes = [
           "all",
           ...new Set(productsByCategory.map((p) => p.type)),

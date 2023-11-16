@@ -185,7 +185,15 @@ function formatPrice(price) {
         <label for="description">product description</label>
       </div>
       <div>
-        <input type="text" id="price" v-model="newProduct.price" required />
+        <input
+          type="text"
+          id="price"
+          :class="{ 'has-value': newProduct.price }"
+          v-model="newProduct.price"
+          pattern="^\d+\.{0,1}\d{0,2}$"
+          title="Please enter a number. F.e. 123456.12"
+          required
+        />
         <label for="price">product price</label>
       </div>
       <div>
@@ -220,10 +228,6 @@ function formatPrice(price) {
         <label for="type">product type</label>
       </div>
       <div>
-        <label for="image">product image</label>
-        <input type="file" id="image" @change="onFilePicked" />
-      </div>
-      <div>
         <textarea
           id="description"
           v-model="newProduct.description"
@@ -232,8 +236,20 @@ function formatPrice(price) {
         <label for="description">product description</label>
       </div>
       <div>
-        <input type="text" id="price" v-model="newProduct.price" required />
+        <input
+          type="text"
+          id="price"
+          :class="{ 'has-value': newProduct.price }"
+          v-model="newProduct.price"
+          pattern="^\d+\.{0,1}\d{0,2}$"
+          title="Please enter a number. F.e. 123456.12"
+          required
+        />
         <label for="price">product price</label>
+      </div>
+      <div>
+        <label for="image">product image</label>
+        <input type="file" id="image" @change="onFilePicked" />
       </div>
       <div></div>
       <div>
