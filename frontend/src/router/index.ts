@@ -41,6 +41,17 @@ const router = createRouter({
           ],
         },
         {
+          path: "product-detail/:id",
+          name: "productDetail",
+          component: ProductView,
+          props: true,
+        },
+        {
+          path: "favorites",
+          name: "favorites",
+          component: FavoritesView,
+        },
+        {
           path: "cart",
           name: "cart",
           component: CartView,
@@ -80,18 +91,7 @@ const router = createRouter({
           name: "logout",
           component: UserView,
         },
-        {
-          path: "product-detail/:id",
-          name: "productDetail",
-          component: ProductView,
-          props: true,
-        },
       ],
-    },
-    {
-      path: "/favorites",
-      name: "favorites",
-      component: FavoritesView,
     },
   ],
   scrollBehavior(to, from, savedPosition) {

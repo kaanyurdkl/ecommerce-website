@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { onMounted } from "vue";
 import { useRouter } from "vue-router";
 
 import PaymentDelivery from "@/components/PaymentDelivery.vue";
@@ -28,6 +29,12 @@ const placeOrderHandler = async () => {
     router.push(`/order/${res._id}`);
   } catch (err) {}
 };
+
+onMounted(() => {
+  if (!cartStore.cartItems.length) {
+    router.push("/cart");
+  }
+});
 </script>
 
 <template>
